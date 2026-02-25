@@ -5,7 +5,7 @@ subtitle: "Un estudio con 50.000 pacientes demuestra que los modelos de visión 
 date: 2026-02-24 08:00:00 +0000
 categories: [tecnologia]
 tags: [inteligencia artificial, medicina, salud, investigación, diagnóstico]
-author: ana-garcia
+author: rene-moya
 image: "/assets/images/posts/ia-medicina.jpg"
 image_caption: "Un radiólogo revisa imágenes asistido por software de inteligencia artificial en un hospital universitario. Foto: El Diario / María Ruiz"
 excerpt: "Un estudio multicéntrico publicado en The Lancet demuestra que los algoritmos de IA detectan el cáncer de pulmón en estadios iniciales con mayor precisión que los radiólogos más experimentados, lo que podría salvar decenas de miles de vidas al año."
