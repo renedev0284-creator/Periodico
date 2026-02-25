@@ -15,9 +15,9 @@ layout: default
 </section>
 
 <!-- ===== DESTACADOS SECUNDARIOS ===== -->
-{% assign secondary_posts = featured_posts | where_exp: "p", "p.url != hero_post.url" | limit: 3 %}
+{% assign secondary_posts = featured_posts | where_exp: "p", "p.url != hero_post.url" | slice: 0, 3 %}
 {% if secondary_posts.size == 0 %}
-  {% assign secondary_posts = site.posts | where_exp: "p", "p.url != hero_post.url" | limit: 3 %}
+  {% assign secondary_posts = site.posts | where_exp: "p", "p.url != hero_post.url" | slice: 0, 3 %}
 {% endif %}
 
 <section class="homepage-secondary" aria-label="Noticias destacadas">
@@ -45,17 +45,22 @@ layout: default
           {% assign shown_urls = shown_urls | push: p.url %}
         {% endfor %}
 
-        {% assign latest_posts = site.posts | where_exp: "p", "shown_urls contains p.url == false" | limit: site.data.settings.homepage.latest_count %}
+        {% assign latest_posts = "" | split: "" %}
+        {% for p in site.posts %}
+          {% unless shown_urls contains p.url %}
+            {% assign latest_posts = latest_posts | push: p %}
+          {% endunless %}
+        {% endfor %}
 
         <div class="latest-grid">
-          {% for post in latest_posts %}
+          {% for post in latest_posts limit: site.data.settings.homepage.latest_count %}
             {% include article-card.html post=post size="small" %}
           {% endfor %}
         </div>
 
         <!-- Sección por categoría -->
         {% for section in site.data.navigation.sections limit: 4 %}
-          {% assign section_posts = site.posts | where: "categories", section.slug | limit: 3 %}
+          {% assign section_posts = site.posts | where: "categories", section.slug %}
           {% if section_posts.size > 0 %}
           <div class="section-block">
             <div class="section-block__header">
@@ -65,7 +70,7 @@ layout: default
               <a href="{{ section.url | relative_url }}" class="section-block__more">Ver todo →</a>
             </div>
             <div class="section-block__grid">
-              {% for post in section_posts %}
+              {% for post in section_posts limit: 3 %}
                 {% include article-card.html post=post size="list" %}
               {% endfor %}
             </div>

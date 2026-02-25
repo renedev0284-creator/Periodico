@@ -9,8 +9,7 @@
       Lo más leído
     </h3>
     <ol class="trending-list">
-      {% assign trending = site.posts | limit: site.data.settings.sidebar.trending_count %}
-      {% for post in trending %}
+      {% for post in site.posts limit: site.data.settings.sidebar.trending_count %}
       {% assign cat = post.categories | first %}
       <li class="trending-list__item">
         <span class="trending-list__num">{{ forloop.index }}</span>

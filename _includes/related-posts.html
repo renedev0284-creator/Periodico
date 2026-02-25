@@ -13,14 +13,12 @@
   {% endunless %}
 {% endfor %}
 
-{% assign related = related | limit: max_related %}
-
 {% if related.size > 0 %}
 <section class="related-articles" aria-label="Artículos relacionados">
   <div class="container">
     <h2 class="related-articles__title">También te puede interesar</h2>
     <div class="related-articles__grid">
-      {% for post in related %}
+      {% for post in related limit: max_related %}
         {% include article-card.html post=post size="medium" %}
       {% endfor %}
     </div>
