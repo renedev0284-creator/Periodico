@@ -7,7 +7,7 @@ categories: [tecnologia]
 tags: [inteligencia artificial, medicina, salud, investigación, diagnóstico]
 author: rene-moya
 image: "/assets/images/posts/ia-medicina.jpg"
-image_caption: "Un radiólogo revisa imágenes asistido por software de inteligencia artificial en un hospital universitario. Foto: El Diario / María Ruiz"
+image_caption: "Un radiólogo revisa imágenes asistido por software de inteligencia artificial en un hospital universitario. Foto: El Diario / René Moya"
 excerpt: "Un estudio multicéntrico publicado en The Lancet demuestra que los algoritmos de IA detectan el cáncer de pulmón en estadios iniciales con mayor precisión que los radiólogos más experimentados, lo que podría salvar decenas de miles de vidas al año."
 featured: true
 breaking: false
