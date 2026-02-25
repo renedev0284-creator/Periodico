@@ -15,9 +15,9 @@ baseurl: ""
 
 # --- Contacto y redes ---
 email: "redaccion@eldiario.com"
-twitter_username: "eldiario"
-facebook_username: "eldiario"
-instagram_username: "eldiario"
+twitter_username: ""
+facebook_username: ""
+instagram_username: ""
 youtube_channel: ""
 
 # --- Opciones editoriales ---
@@ -94,18 +94,11 @@ defaults:
 # SEO
 # ============================================================
 twitter:
-  username: eldiario
   card: summary_large_image
-
-facebook:
-  publisher: "https://www.facebook.com/eldiario"
 
 social:
   name: "El Diario"
-  links:
-    - "https://twitter.com/eldiario"
-    - "https://facebook.com/eldiario"
-    - "https://instagram.com/eldiario"
+  links: []
 
 # ============================================================
 # Feed RSS
