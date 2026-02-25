@@ -13,6 +13,12 @@
   hyphens: auto;
   -webkit-hyphens: auto;
 
+  h2, h3, h4, h5, h6 {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+
   // Párrafos
   p {
     margin-bottom: 1.35em;
