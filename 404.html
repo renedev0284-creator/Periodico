@@ -1,0 +1,233 @@
+---
+layout: default
+title: "Página no encontrada — El Diario"
+description: "Esta página aún no existe, pero El Diario está creciendo. Mientras tanto, lee nuestras últimas notas."
+permalink: /404.html
+sitemap: false
+---
+
+<div class="notfound">
+
+  <div class="container container--narrow">
+
+    <!-- Encabezado -->
+    <div class="notfound__header">
+      <span class="notfound__label">404</span>
+      <h1 class="notfound__title">Esta página todavía no existe</h1>
+      <p class="notfound__lead">
+        <em>El Diario</em> es un proyecto joven de periodistas independientes comprometidos con
+        la verdad, el rigor y la calidad informativa. Estamos construyendo algo importante —
+        poco a poco, nota a nota — y es posible que la página que buscas aún no esté publicada,
+        o que el enlace haya cambiado.
+      </p>
+      <p class="notfound__thanks">
+        Gracias por estar aquí. Tu interés es lo que nos da razón de seguir.
+      </p>
+      <a href="{{ '/' | relative_url }}" class="notfound__btn">← Volver a la portada</a>
+    </div>
+
+    <!-- Separador editorial -->
+    <div class="notfound__divider">
+      <span>Mientras tanto, lee esto</span>
+    </div>
+
+  </div>
+
+  <!-- Últimas notas -->
+  <div class="container">
+    <div class="notfound__grid">
+      {% for post in site.posts limit: 6 %}
+      {% assign cat = post.categories | first %}
+      {% assign nav_section = site.data.navigation.sections | where: "slug", cat | first %}
+      <article class="notfound__card">
+        {% if post.image %}
+        <a href="{{ post.url | relative_url }}" class="notfound__card-img-link">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="notfound__card-img" loading="lazy">
+        </a>
+        {% endif %}
+        <div class="notfound__card-body">
+          {% if cat %}
+          <a href="/seccion/{{ cat }}/" class="notfound__card-cat"
+             {% if nav_section.color %}style="color: {{ nav_section.color }}"{% endif %}>
+            {{ cat | upcase }}
+          </a>
+          {% endif %}
+          <h2 class="notfound__card-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+          {% if post.subtitle %}
+          <p class="notfound__card-sub">{{ post.subtitle }}</p>
+          {% endif %}
+          <time class="notfound__card-date" datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%-d de %B de %Y" }}
+          </time>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+<style>
+.notfound {
+  padding: 4rem 0 5rem;
+}
+
+.notfound__header {
+  text-align: center;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #d0daea;
+  margin-bottom: 3rem;
+}
+
+.notfound__label {
+  display: inline-block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(5rem, 15vw, 9rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #d0daea;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.notfound__title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #0d1b2e;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.notfound__lead {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: #5a7a9e;
+  line-height: 1.75;
+  max-width: 560px;
+  margin: 0 auto 1.25rem;
+}
+
+.notfound__thanks {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: #8fa8c4;
+  margin-bottom: 2rem;
+}
+
+.notfound__btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: #00356E;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 150ms ease;
+}
+.notfound__btn:hover { background: #001F4E; color: #fff; }
+
+.notfound__divider {
+  text-align: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8fa8c4;
+  margin-bottom: 2.5rem;
+
+  span {
+    position: relative;
+    padding: 0 1.5rem;
+    background: #fff;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: #d0daea;
+    position: relative;
+    top: 0.65em;
+  }
+}
+
+.notfound__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem 2.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.notfound__card {
+  border-bottom: 1px solid #d0daea;
+  padding-bottom: 1.5rem;
+}
+
+.notfound__card-img-link { display: block; margin-bottom: 0.875rem; }
+.notfound__card-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.notfound__card-body {}
+
+.notfound__card-cat {
+  display: inline-block;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  color: #C8A951;
+}
+
+.notfound__card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+
+  a {
+    color: #0d1b2e;
+    text-decoration: none;
+    &:hover { color: #1560C0; }
+  }
+}
+
+.notfound__card-sub {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.9rem;
+  color: #5a7a9e;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notfound__card-date {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: #8fa8c4;
+}
+</style>
