@@ -64,12 +64,43 @@
   <hr class="sidebar-divider">
   {% endif %}
 
-  <!-- Banner compact: Anúnciate -->
-  {% include ad-advertise.html variant="compact" %}
+  <!-- Banner compact: Anúnciate con nosotros -->
+  <div class="ad-banner ad-advertise ad-advertise--compact sidebar-widget" role="complementary" aria-label="Espacio publicitario disponible">
+    <div class="ad-advertise__glow" aria-hidden="true"></div>
+    <p class="ad-advertise__widget-label">Publicidad</p>
+    <div class="ad-advertise__compact-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M14 20v8h4l8 5V15l-8 5H14z" fill="none" stroke="#C8A951" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M32 18c2.5 1.5 4 3.5 4 6s-1.5 4.5-4 6" stroke="#C8A951" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h3 class="ad-advertise__compact-title">Anúnciate con nosotros</h3>
+    <p class="ad-advertise__compact-desc">Llega a miles de lectores. Espacios para empresas y emprendedores.</p>
+    <a href="mailto:{{ site.email }}?subject=Solicitud%20de%20publicidad%20en%20El%20Diario"
+       class="ad-advertise__compact-cta"
+       aria-label="Solicitar espacio publicitario">
+      Solicitar información →
+    </a>
+  </div>
 
   <hr class="sidebar-divider">
 
   <!-- Banner compact: Únete como redactor -->
-  {% include ad-recruit.html variant="compact" %}
+  <div class="ad-banner ad-recruit ad-recruit--compact sidebar-widget" role="complementary" aria-label="Convocatoria de redactores">
+    <div class="ad-recruit__badge ad-recruit__badge--sm" aria-label="Plaza disponible">
+      <span class="ad-recruit__badge-dot" aria-hidden="true"></span>
+      Plaza disponible
+    </div>
+    <h3 class="ad-recruit__compact-title">¿Eres periodista o quieres serlo?</h3>
+    <p class="ad-recruit__compact-desc">Cualquier nivel, cualquier tema. Únete a nuestra redacción.</p>
+    <div class="ad-recruit__compact-topics" aria-hidden="true">
+      <span>Deportes</span><span>Política</span><span>Tech</span><span>Cultura</span><span>+más</span>
+    </div>
+    <a href="mailto:{{ site.email }}?subject=Quiero%20ser%20redactor%20de%20El%20Diario"
+       class="ad-recruit__compact-cta"
+       aria-label="Solicitar puesto de redactor">
+      Únete al equipo →
+    </a>
+  </div>
 
 </aside>
