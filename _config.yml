@@ -10,12 +10,12 @@ description: "Noticias verificadas, análisis profundo y periodismo de calidad p
 long_description: "El Diario es un medio digital comprometido con la verdad, la independencia editorial y el rigor informativo. Cobertura nacional e internacional de actualidad, economía, cultura, tecnología y más."
 
 # --- URL del sitio (actualiza con tu usuario de GitHub) ---
-url: "https://tuusuario.github.io"
+url: "https://diario.rmdigital.net"
 baseurl: ""
 
 # --- Contacto y redes ---
 email: "redaccion@eldiario.com"
-twitter_username: ""
+twitter_username: "rmoyasv"
 facebook_username: ""
 instagram_username: ""
 youtube_channel: ""
