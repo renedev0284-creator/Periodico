@@ -1,17 +1,15 @@
 // ============================================================
-// FACEBOOK PLUGINS — Like button + Comments
+// FACEBOOK PLUGINS — Like button
 // ============================================================
 
-// --- Like bar (pie del artículo) ---
 .fb-like-bar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: $space-3;
-  padding: $space-4 0;
+  padding: $space-5 0 $space-4;
   border-top: 1px solid $color-border;
-  border-bottom: 1px solid $color-border;
-  margin: $space-6 0;
+  margin-top: $space-8;
 
   &__icon {
     flex-shrink: 0;
@@ -27,54 +25,5 @@
   // El iframe del botón Like necesita un mínimo para no colapsar
   .fb-like {
     min-height: 20px;
-  }
-}
-
-// --- Sección de comentarios ---
-.fb-comments-section {
-  background: $color-bg-alt;
-  border-top: 3px solid #1877F2;
-  padding: $space-10 0 $space-12;
-  margin-top: $space-10;
-
-  &__header {
-    display: flex;
-    align-items: center;
-    gap: $space-4;
-    margin-bottom: $space-6;
-  }
-
-  &__icon {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    background: #1877F2;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__title {
-    font-family: $font-serif-display;
-    font-size: $text-xl;
-    font-weight: 700;
-    color: $color-near-black;
-    margin: 0 0 2px;
-    line-height: 1.2;
-  }
-
-  &__desc {
-    font-family: $font-sans;
-    font-size: $text-sm;
-    color: $color-gray-400;
-    margin: 0;
-  }
-
-  // El iframe de comentarios expande al 100% del contenedor
-  .fb-comments,
-  .fb-comments > span,
-  .fb-comments > span > iframe {
-    width: 100% !important;
   }
 }
