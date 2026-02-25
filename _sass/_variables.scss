@@ -20,34 +20,44 @@ $text-4xl:   2.8rem;     // ~45px
 $text-5xl:   3.5rem;     // 56px
 $text-6xl:   4.5rem;     // 72px
 
-// --- Paleta de colores ---
-// Principales
-$color-black:       #0a0a0a;
-$color-near-black:  #1a1a1a;
-$color-dark:        #2d2d2d;
-$color-gray-800:    #404040;
-$color-gray-600:    #666666;
-$color-gray-400:    #999999;
-$color-gray-200:    #d4d4d4;
-$color-gray-100:    #f0f0ec;
-$color-gray-50:     #f8f8f5;
+// --- Paleta de colores — El Diario (Azul marino El Salvador) ---
+
+// Neutros base
+$color-black:       #050d1a;   // Azul-negro muy oscuro (en lugar de negro puro)
+$color-near-black:  #0d1b2e;   // Texto principal oscuro, tono navy
+$color-dark:        #1e3050;   // Texto secundario
+$color-gray-800:    #334a6a;
+$color-gray-600:    #5a7a9e;
+$color-gray-400:    #8fa8c4;
+$color-gray-200:    #ccd8e8;
+$color-gray-100:    #edf1f7;   // Fondo alternativo con tono azul frío
+$color-gray-50:     #f4f7fb;
 $color-white:       #ffffff;
 
-// Acento editorial
-$color-accent:      #c41e3a;   // Rojo periódico
-$color-accent-dark: #9e1730;
-$color-link:        #1a53a0;
-$color-link-hover:  #0f3570;
+// --- Paleta naval El Salvador ---
+$color-navy:        #00356E;   // Azul bandera El Salvador (navy principal)
+$color-navy-dark:   #001F4E;   // Topbar, footer superior
+$color-navy-deeper: #00122E;   // Footer inferior, muy oscuro
+$color-navy-light:  #0A4A8C;   // Hover states, variación
+$color-gold:        #C8A951;   // Dorado del escudo (acento)
+$color-gold-dark:   #A68B30;   // Dorado oscuro (hover de acento)
+$color-gold-pale:   #F0DFA0;   // Dorado suave para detalles
+
+// Acento editorial (oro, no rojo)
+$color-accent:      $color-gold;
+$color-accent-dark: $color-gold-dark;
+$color-link:        #1560C0;   // Azul claro para links en fondo blanco
+$color-link-hover:  #0A3A8A;
 
 // Fondo
 $color-bg:          #ffffff;
-$color-bg-alt:      #f5f5f0;  // Cálido para bloques alternos
-$color-bg-dark:     #1a1a1a;  // Footer, header oscuro
+$color-bg-alt:      #f2f5fa;   // Fondo alternativo azul-frío muy suave
+$color-bg-dark:     $color-navy-dark;   // Footer y elementos oscuros
 
 // Semánticos
-$color-breaking:    #c41e3a;
-$color-border:      #e0e0d8;
-$color-border-dark: #2d2d2d;
+$color-breaking:    #9B1C2E;   // Rojo oscuro serio para "Última Hora" (urgencia)
+$color-border:      #d0daea;   // Bordes con tinte azul frío
+$color-border-dark: $color-navy;
 
 // --- Sombras ---
 $shadow-sm:   0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);

@@ -7,6 +7,11 @@
 
         <!-- Columna: identidad -->
         <div class="footer-brand">
+          <img src="{{ '/assets/images/logo.svg' | relative_url }}"
+               alt="Escudo de El Diario"
+               class="footer-brand__shield"
+               width="40" height="45"
+               loading="lazy">
           <a href="{{ '/' | relative_url }}" class="footer-brand__logo">{{ site.title }}</a>
           <p class="footer-brand__desc">{{ site.description }}</p>
           <p class="footer-brand__founded">Fundado en {{ site.founded_year | default: 2026 }}</p>

@@ -5,12 +5,12 @@ sections:
   - name: "Nacional"
     url: "/seccion/nacional/"
     slug: "nacional"
-    color: "#c41e3a"
+    color: "#00356E"
 
   - name: "Internacional"
     url: "/seccion/internacional/"
     slug: "internacional"
-    color: "#1a53a0"
+    color: "#0A4A8C"
 
   - name: "Economía"
     url: "/seccion/economia/"

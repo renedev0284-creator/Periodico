@@ -1,10 +1,10 @@
 // ============================================================
-// NAV — Barra de secciones
+// NAV — Barra de secciones (Azul marino El Salvador)
 // ============================================================
 
 .site-nav {
-  background: $color-white;
-  border-bottom: 1px solid $color-border;
+  background: $color-navy;       // Azul marino como barra de nav
+  border-bottom: 3px solid $color-gold; // Línea dorada inferior
   position: relative;
 
   &__inner {
@@ -21,13 +21,10 @@
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-
     &::-webkit-scrollbar { display: none; }
   }
 
-  &__item {
-    flex-shrink: 0;
-  }
+  &__item { flex-shrink: 0; }
 
   &__link {
     display: block;
@@ -35,13 +32,13 @@
     font-family: $font-sans;
     font-size: $text-sm;
     font-weight: 600;
-    letter-spacing: 0.03em;
-    color: $color-gray-600;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
     position: relative;
-    transition: color $transition-fast;
+    transition: color $transition-fast, background $transition-fast;
 
     &::after {
       content: '';
@@ -50,26 +47,22 @@
       left: 50%;
       right: 50%;
       height: 3px;
-      background: $color-accent;
+      background: $color-gold;
       transition: left $transition-base, right $transition-base;
     }
 
-    &:hover,
-    &--active {
-      color: $color-near-black;
+    &:hover {
+      color: $color-white;
+      background: rgba(255, 255, 255, 0.06);
 
-      &::after {
-        left: 0;
-        right: 0;
-      }
+      &::after { left: 0; right: 0; }
     }
 
     &--active {
-      color: $color-accent;
+      color: $color-gold;
+      background: rgba(0, 0, 0, 0.15);
 
-      &::after {
-        background: $color-accent;
-      }
+      &::after { left: 0; right: 0; background: $color-gold; }
     }
 
     @media (max-width: $bp-md) {
@@ -82,7 +75,7 @@
     position: absolute;
     bottom: 0;
     height: 3px;
-    background: $color-accent;
+    background: $color-gold;
     transition: left $transition-base, width $transition-base;
     pointer-events: none;
   }
@@ -94,16 +87,14 @@
     justify-content: center;
     gap: 5px;
     width: 36px;
-    height: 44px;
+    height: 48px;
     background: none;
     border: none;
     cursor: pointer;
     flex-shrink: 0;
-    padding: 0;
+    padding: 0 $space-3;
 
-    @media (max-width: $bp-sm) {
-      display: flex;
-    }
+    @media (max-width: $bp-sm) { display: flex; }
   }
 }
 
@@ -111,7 +102,7 @@
   display: block;
   width: 22px;
   height: 2px;
-  background: $color-near-black;
+  background: rgba(255, 255, 255, 0.85); // Blanco sobre navy
   border-radius: 2px;
   transition: all $transition-fast;
 
@@ -128,43 +119,45 @@
   position: fixed;
   inset: 0;
   z-index: $z-overlay;
-  background: rgba(0, 0, 0, 0.5);
-
+  background: rgba($color-navy-deeper, 0.6);
   &.is-open { display: flex; }
 }
 
 .mobile-nav {
   width: min(320px, 85vw);
   height: 100%;
-  background: $color-white;
+  background: $color-navy;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  border-right: 3px solid $color-gold;
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: $space-5 $space-6;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: $color-navy-dark;
   }
 
   &__title {
     font-family: $font-sans;
-    font-size: $text-sm;
+    font-size: $text-xs;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: $color-gray-400;
+    color: $color-gold;
   }
 
   &__close {
     background: none;
     border: none;
     font-size: $text-lg;
-    color: $color-gray-400;
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     padding: $space-1;
+    &:hover { color: $color-gold; }
   }
 
   &__list {
@@ -173,28 +166,34 @@
   }
 
   &__item {
-    border-bottom: 1px solid $color-gray-100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    &:last-child { border-bottom: none; }
   }
 
   &__link {
     display: block;
     padding: $space-4 $space-6;
     font-family: $font-sans;
-    font-size: $text-md;
+    font-size: $text-base;
     font-weight: 600;
-    color: $color-near-black;
+    color: rgba(255, 255, 255, 0.82);
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     border-left: 4px solid transparent;
     transition: all $transition-fast;
 
     &:hover {
-      background: $color-gray-50;
+      background: rgba(255, 255, 255, 0.07);
+      color: $color-white;
+      border-left-color: $color-gold;
     }
   }
 
   &__secondary {
     padding: $space-6;
-    border-top: 1px solid $color-border;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: $color-navy-dark;
     display: flex;
     flex-wrap: wrap;
     gap: $space-3;
@@ -203,10 +202,9 @@
   &__sec-link {
     font-family: $font-sans;
     font-size: $text-sm;
-    color: $color-gray-600;
+    color: rgba(255, 255, 255, 0.45);
     text-decoration: underline;
     text-underline-offset: 2px;
-
-    &:hover { color: $color-near-black; }
+    &:hover { color: $color-gold; }
   }
 }

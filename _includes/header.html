@@ -46,8 +46,17 @@
     <div class="container">
       <div class="masthead-inner">
         <a href="{{ '/' | relative_url }}" class="masthead-logo" aria-label="{{ site.title }} — Inicio">
-          <span class="masthead-logo__text">{{ site.title }}</span>
-          <span class="masthead-logo__subtitle">{{ site.subtitle }}</span>
+          <!-- Escudo El Salvador -->
+          <img src="{{ '/assets/images/logo.svg' | relative_url }}"
+               alt="Escudo de El Diario"
+               class="masthead-logo__shield"
+               width="56"
+               height="63"
+               loading="eager">
+          <div class="masthead-logo__text-group">
+            <span class="masthead-logo__text">{{ site.title }}</span>
+            <span class="masthead-logo__subtitle">{{ site.subtitle }}</span>
+          </div>
         </a>
       </div>
     </div>

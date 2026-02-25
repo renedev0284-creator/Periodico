@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 36">
+  <defs>
+    <clipPath id="fc">
+      <path d="M2,2 L30,2 L30,22 Q30,34 16,36 Q2,34 2,22 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Shield -->
+  <path d="M2,2 L30,2 L30,22 Q30,34 16,36 Q2,34 2,22 Z" fill="#00356E"/>
+
+  <!-- Sky dark -->
+  <rect x="2" y="2" width="28" height="28" fill="#001F4E" clip-path="url(#fc)"/>
+
+  <!-- Sea -->
+  <path d="M2,25 Q16,22 30,25 L30,36 Q16,38 2,36 Z" fill="#0F4C8A" opacity="0.8" clip-path="url(#fc)"/>
+
+  <!-- 5 Volcanoes -->
+  <polygon points="4,25  6.5,18 9,25"   fill="white" opacity="0.7" clip-path="url(#fc)"/>
+  <polygon points="8,25  11,15  14,25"  fill="white" opacity="0.9" clip-path="url(#fc)"/>
+  <polygon points="13,25 16,11  19,25"  fill="white"               clip-path="url(#fc)"/>
+  <polygon points="18,25 21,15  24,25"  fill="white" opacity="0.9" clip-path="url(#fc)"/>
+  <polygon points="23,25 25.5,18 28,25" fill="white" opacity="0.7" clip-path="url(#fc)"/>
+
+  <!-- Gold snow caps -->
+  <polygon points="5.5,20 6.5,18 7.5,20"   fill="#C8A951" clip-path="url(#fc)"/>
+  <polygon points="9.8,17 11,15 12.2,17"   fill="#C8A951" clip-path="url(#fc)"/>
+  <polygon points="14.6,13 16,11 17.4,13"  fill="#C8A951" clip-path="url(#fc)"/>
+  <polygon points="19.8,17 21,15 22.2,17"  fill="#C8A951" clip-path="url(#fc)"/>
+  <polygon points="24.5,20 25.5,18 26.5,20" fill="#C8A951" clip-path="url(#fc)"/>
+
+  <!-- Arc -->
+  <path d="M6,23 Q16,14 26,23" fill="none" stroke="#C8A951" stroke-width="1.5" clip-path="url(#fc)"/>
+
+  <!-- Sun -->
+  <circle cx="16" cy="7" r="3.5" fill="#C8A951" clip-path="url(#fc)"/>
+  <circle cx="16" cy="7" r="2"   fill="#001F4E" clip-path="url(#fc)"/>
+  <circle cx="16" cy="7" r="1"   fill="#C8A951" clip-path="url(#fc)"/>
+
+  <!-- Shield border -->
+  <path d="M2,2 L30,2 L30,22 Q30,34 16,36 Q2,34 2,22 Z"
+        fill="none" stroke="#C8A951" stroke-width="1.5"/>
+</svg>

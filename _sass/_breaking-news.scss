@@ -1,15 +1,16 @@
 // ============================================================
-// BREAKING NEWS — Ticker de última hora
+// BREAKING NEWS — Ticker de última hora (rojo oscuro serio)
 // ============================================================
 
 .breaking-news {
-  background: $color-breaking;
+  background: $color-breaking;  // Rojo oscuro sobrio
   color: $color-white;
   font-family: $font-sans;
   font-size: $text-sm;
   overflow: hidden;
   position: relative;
   z-index: $z-breaking;
+  border-bottom: 2px solid darken($color-breaking, 8%);
 
   &__inner {
     display: flex;
@@ -22,20 +23,21 @@
     align-items: center;
     gap: $space-2;
     padding: 0 $space-5;
-    background: darken($color-breaking, 10%);
+    background: darken($color-breaking, 12%);
     font-weight: 800;
     font-size: $text-xs;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     white-space: nowrap;
     flex-shrink: 0;
+    border-right: 2px solid rgba($color-gold, 0.35);
   }
 
   &__dot {
     display: inline-block;
     width: 7px;
     height: 7px;
-    background: $color-white;
+    background: $color-gold;       // Punto dorado (detalle El Salvador)
     border-radius: 50%;
     animation: pulse-dot 1.2s ease-in-out infinite;
   }
@@ -54,7 +56,6 @@
     gap: 0;
     animation: ticker-scroll 40s linear infinite;
     white-space: nowrap;
-
     &:hover { animation-play-state: paused; }
   }
 
@@ -66,10 +67,11 @@
     position: relative;
 
     &::after {
-      content: '●';
-      font-size: 0.4em;
-      opacity: 0.5;
+      content: '◆';
+      font-size: 0.45em;
+      opacity: 0.4;
       margin-left: $space-8;
+      color: $color-gold;
     }
 
     &:last-child::after { display: none; }
@@ -77,13 +79,14 @@
 
   &__cat {
     font-size: $text-xs;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-weight: 800;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     padding: 2px $space-2;
     border-radius: $radius-sm;
     white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   &__link {
@@ -93,8 +96,8 @@
     transition: opacity $transition-fast;
 
     &:hover {
-      color: $color-white;
-      opacity: 0.85;
+      color: $color-gold-pale;
+      opacity: 1;
       text-decoration: underline;
       text-underline-offset: 2px;
     }
@@ -107,16 +110,16 @@
     width: 38px;
     background: none;
     border: none;
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.7);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
     font-size: $text-sm;
     flex-shrink: 0;
-    transition: background $transition-fast;
+    transition: all $transition-fast;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.15);
-      color: $color-white;
+      background: rgba(0, 0, 0, 0.2);
+      color: $color-gold;
     }
   }
 }
@@ -128,10 +131,7 @@
 
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.4; transform: scale(0.7); }
+  50%       { opacity: 0.35; transform: scale(0.6); }
 }
 
-// Cuando el ticker está oculto
-.breaking-news.is-hidden {
-  display: none;
-}
+.breaking-news.is-hidden { display: none; }
