@@ -78,6 +78,7 @@ defaults:
       layout: "post"
       author: "la-redaccion"
       image: "/assets/images/default-og.jpg"
+      image_caption: ""
       featured: false
       breaking: false
   - scope:
@@ -93,8 +94,15 @@ defaults:
 # ============================================================
 # SEO
 # ============================================================
+
+# Logo del sitio (usado por jekyll-seo-tag en el JSON-LD del publisher)
+logo: "/assets/images/logo.png"
+
+# Twitter / X — jekyll-seo-tag necesita twitter.username para twitter:site
+# Pon aquí tu usuario de Twitter/X (sin el @) cuando lo tengas
 twitter:
   card: summary_large_image
+  # username: "ElDiarioSV"   # ← descomenta y ajusta cuando tengas cuenta
 
 social:
   name: "El Diario"

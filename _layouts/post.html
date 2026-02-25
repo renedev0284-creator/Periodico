@@ -4,35 +4,48 @@ layout: default
 
 {% include reading-time.html content=content %}
 
-<!-- JSON-LD: Schema.org NewsArticle para SEO -->
+<!-- JSON-LD: Schema.org NewsArticle para SEO y Google Rich Results -->
+{% assign _ld_author = site.authors | where: "name", page.author | first %}
+{% assign _ld_author_name = _ld_author.display_name | default: page.author | replace: '-', ' ' | capitalize %}
+{% assign _ld_img = page.image | default: '/assets/images/default-og.jpg' | absolute_url %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "NewsArticle",
   "headline": {{ page.title | jsonify }},
-  "description": {{ page.excerpt | strip_html | jsonify }},
+  "description": {{ page.excerpt | strip_html | truncate: 200 | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
   "datePublished": "{{ page.date | date_to_xmlschema }}",
   "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
   "image": {
     "@type": "ImageObject",
-    "url": "{{ page.image | absolute_url }}"
+    "url": {{ _ld_img | jsonify }},
+    "width": 1200,
+    "height": 630
   },
   "author": {
     "@type": "Person",
-    "name": "{% if page.author_name %}{{ page.author_name }}{% else %}{{ page.author | replace: '-', ' ' | capitalize }}{% endif %}"
+    "name": {{ _ld_author_name | jsonify }}{% if _ld_author %},
+    "url": "{{ _ld_author.url | absolute_url }}"{% if _ld_author.twitter %},
+    "sameAs": ["https://twitter.com/{{ _ld_author.twitter }}"]{% endif %}{% endif %}
   },
   "publisher": {
     "@type": "Organization",
     "name": {{ site.title | jsonify }},
+    "url": "{{ '/' | absolute_url }}",
     "logo": {
       "@type": "ImageObject",
-      "url": "{{ '/assets/images/logo.png' | absolute_url }}"
+      "url": "{{ '/assets/images/logo.png' | absolute_url }}",
+      "width": 600,
+      "height": 60
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
-  }
+  }{% if page.categories.size > 0 %},
+  "articleSection": {{ page.categories | first | jsonify }}{% endif %}{% if page.tags.size > 0 %},
+  "keywords": {{ page.tags | join: ', ' | jsonify }}{% endif %}
 }
 </script>
 
