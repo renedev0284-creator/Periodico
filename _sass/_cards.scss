@@ -1,0 +1,158 @@
+// ============================================================
+// CARDS — Tarjetas de artículo
+// ============================================================
+
+// Badge de categoría (compartido)
+.card-category-badge {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: $text-xs;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity $transition-fast;
+
+  &:hover { opacity: 0.8; }
+}
+
+// Base card
+.card {
+  display: flex;
+  flex-direction: column;
+  background: $color-white;
+  transition: box-shadow $transition-base;
+
+  &__image-link {
+    display: block;
+    overflow: hidden;
+  }
+
+  &__image-wrap {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-slow;
+
+    .card:hover & {
+      transform: scale(1.03);
+    }
+  }
+
+  &__breaking-badge {
+    position: absolute;
+    top: $space-3;
+    left: $space-3;
+    background: $color-breaking;
+    color: $color-white;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: $space-1 $space-3;
+    border-radius: $radius-sm;
+    z-index: 1;
+  }
+
+  &__content {
+    padding: $space-4 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__category {
+    @extend .card-category-badge;
+    margin-bottom: $space-1;
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    line-height: 1.25;
+    color: $color-near-black;
+    margin: 0;
+  }
+
+  &__title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-link; }
+  }
+
+  &__excerpt {
+    font-family: $font-serif-body;
+    color: $color-gray-600;
+    line-height: 1.65;
+    margin-top: $space-1;
+    flex: 1;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $space-1;
+    margin-top: auto;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-400;
+  }
+
+  &__author { font-weight: 600; color: $color-gray-600; }
+  &__sep { color: $color-gray-200; }
+  &__date { }
+  &__reading-time { }
+
+  // ---- Tamaños ----
+
+  // Large: hero de sección
+  &--large {
+    .card__image-wrap { aspect-ratio: 16 / 7; }
+    .card__title { font-size: clamp($text-2xl, 4vw, $text-4xl); font-weight: 800; }
+    .card__excerpt { font-size: $text-md; }
+  }
+
+  // Medium: grilla secundaria
+  &--medium {
+    .card__image-wrap { aspect-ratio: 16 / 10; }
+    .card__title { font-size: clamp($text-lg, 2.5vw, $text-2xl); font-weight: 700; }
+    .card__excerpt { font-size: $text-base; }
+  }
+
+  // Small: grilla de últimas noticias
+  &--small {
+    border-bottom: 1px solid $color-border;
+    padding-bottom: $space-5;
+
+    .card__image-wrap { aspect-ratio: 3 / 2; }
+    .card__title { font-size: clamp($text-base, 2vw, $text-lg); font-weight: 700; }
+    .card__content { padding: $space-3 0; }
+  }
+
+  // List: sidebar / sección trending
+  &--list {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $space-4;
+    padding: $space-4 0;
+    border-bottom: 1px solid $color-border;
+
+    .card__image-link { flex-shrink: 0; width: 90px; }
+    .card__image-wrap { aspect-ratio: 4 / 3; width: 90px; }
+    .card__content { padding: 0; }
+    .card__title { font-size: $text-sm; font-weight: 700; line-height: 1.35; }
+
+    &:last-child { border-bottom: none; }
+  }
+}

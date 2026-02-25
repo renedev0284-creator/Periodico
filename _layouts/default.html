@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ site.language | default: 'es' }}" dir="ltr">
+<head>
+  {% include head.html %}
+</head>
+<body class="layout-{{ page.layout }}{% if page.breaking %} has-breaking{% endif %}">
+
+  {% if site.data.settings.homepage.show_breaking and site.data.breaking_news.active %}
+    {% include breaking-news.html %}
+  {% endif %}
+
+  {% include header.html %}
+  {% include nav.html %}
+
+  <main id="main-content" role="main" tabindex="-1">
+    {{ content }}
+  </main>
+
+  {% include footer.html %}
+
+  {% if site.data.settings.google_analytics != "" and site.data.settings.google_analytics %}
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.settings.google_analytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.data.settings.google_analytics }}');
+  </script>
+  {% endif %}
+
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

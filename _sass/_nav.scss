@@ -1,0 +1,212 @@
+// ============================================================
+// NAV — Barra de secciones
+// ============================================================
+
+.site-nav {
+  background: $color-white;
+  border-bottom: 1px solid $color-border;
+  position: relative;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  &__item {
+    flex-shrink: 0;
+  }
+
+  &__link {
+    display: block;
+    padding: $space-4 $space-5;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: $color-gray-600;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    position: relative;
+    transition: color $transition-fast;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      right: 50%;
+      height: 3px;
+      background: $color-accent;
+      transition: left $transition-base, right $transition-base;
+    }
+
+    &:hover,
+    &--active {
+      color: $color-near-black;
+
+      &::after {
+        left: 0;
+        right: 0;
+      }
+    }
+
+    &--active {
+      color: $color-accent;
+
+      &::after {
+        background: $color-accent;
+      }
+    }
+
+    @media (max-width: $bp-md) {
+      padding: $space-3 $space-4;
+      font-size: $text-xs;
+    }
+  }
+
+  &__indicator {
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    background: $color-accent;
+    transition: left $transition-base, width $transition-base;
+    pointer-events: none;
+  }
+
+  // Burger (visible en móvil)
+  &__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+
+    @media (max-width: $bp-sm) {
+      display: flex;
+    }
+  }
+}
+
+.burger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: $color-near-black;
+  border-radius: 2px;
+  transition: all $transition-fast;
+
+  .is-open & {
+    &:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    &:nth-child(2) { opacity: 0; }
+    &:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+}
+
+// --- Menú móvil overlay ---
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: $z-overlay;
+  background: rgba(0, 0, 0, 0.5);
+
+  &.is-open { display: flex; }
+}
+
+.mobile-nav {
+  width: min(320px, 85vw);
+  height: 100%;
+  background: $color-white;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-5 $space-6;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__title {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-gray-400;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: $text-lg;
+    color: $color-gray-400;
+    cursor: pointer;
+    padding: $space-1;
+  }
+
+  &__list {
+    padding: $space-4 0;
+    flex: 1;
+  }
+
+  &__item {
+    border-bottom: 1px solid $color-gray-100;
+  }
+
+  &__link {
+    display: block;
+    padding: $space-4 $space-6;
+    font-family: $font-sans;
+    font-size: $text-md;
+    font-weight: 600;
+    color: $color-near-black;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $color-gray-50;
+    }
+  }
+
+  &__secondary {
+    padding: $space-6;
+    border-top: 1px solid $color-border;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+  }
+
+  &__sec-link {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover { color: $color-near-black; }
+  }
+}

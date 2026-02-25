@@ -1,0 +1,25 @@
+# Noticias de última hora para el ticker
+# Las primeras 5 se muestran en el ticker superior
+# Actualiza o deja vacío para ocultar el ticker
+
+active: true
+items:
+  - text: "Cumbre climática: 190 países firman nuevo acuerdo de reducción de emisiones"
+    url: "/nacional/2026/02/24/cumbre-climatica-acuerdo/"
+    category: "Internacional"
+
+  - text: "Los mercados europeos abren al alza impulsados por datos de empleo"
+    url: "/economia/2026/02/24/mercados-europeos-alza/"
+    category: "Economía"
+
+  - text: "El gobierno presenta el proyecto de presupuesto para 2027"
+    url: "/nacional/2026/02/24/presupuesto-2027/"
+    category: "Nacional"
+
+  - text: "Nueva IA supera a los humanos en diagnóstico médico según estudio"
+    url: "/tecnologia/2026/02/24/ia-diagnostico-medico/"
+    category: "Tecnología"
+
+  - text: "Festival Internacional de Cine anuncia su selección oficial"
+    url: "/cultura/2026/02/24/festival-cine-seleccion/"
+    category: "Cultura"

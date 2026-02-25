@@ -1,0 +1,62 @@
+---
+layout: default
+---
+
+{% assign author_posts = site.posts | where: "author", page.name %}
+
+<!-- Schema.org para autor -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ page.display_name | jsonify }},
+  "jobTitle": {{ page.title | jsonify }},
+  "description": {{ page.bio | jsonify }},
+  "image": "{{ page.avatar | absolute_url }}"
+}
+</script>
+
+<div class="author-page">
+  <div class="container">
+
+    <!-- Perfil del autor -->
+    <header class="author-profile">
+      {% if page.avatar %}
+      <img src="{{ page.avatar | relative_url }}"
+           alt="{{ page.display_name }}"
+           class="author-profile__avatar"
+           loading="lazy">
+      {% endif %}
+      <div class="author-profile__info">
+        <h1 class="author-profile__name">{{ page.display_name }}</h1>
+        {% if page.title %}<p class="author-profile__title">{{ page.title }}</p>{% endif %}
+        {% if page.bio %}<p class="author-profile__bio">{{ page.bio }}</p>{% endif %}
+        <div class="author-profile__links">
+          {% if page.twitter %}
+          <a href="https://twitter.com/{{ page.twitter }}" class="author-profile__link" rel="noopener noreferrer">
+            <span>@{{ page.twitter }}</span>
+          </a>
+          {% endif %}
+          {% if page.email %}
+          <a href="mailto:{{ page.email }}" class="author-profile__link">{{ page.email }}</a>
+          {% endif %}
+        </div>
+        <p class="author-profile__count">{{ author_posts.size }} artículos publicados</p>
+      </div>
+    </header>
+
+    <!-- Artículos del autor -->
+    <section class="author-articles">
+      <h2 class="author-articles__title">Artículos de {{ page.display_name }}</h2>
+      <div class="category-grid">
+        {% for post in author_posts %}
+          {% include article-card.html post=post size="small" %}
+        {% endfor %}
+      </div>
+      {% if author_posts.size == 0 %}
+      <p class="empty-state">Este autor no tiene artículos publicados aún.</p>
+      {% endif %}
+    </section>
+
+  </div>
+</div>

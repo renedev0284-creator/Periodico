@@ -1,0 +1,197 @@
+---
+layout: default
+---
+
+{% include reading-time.html content=content %}
+
+<!-- JSON-LD: Schema.org NewsArticle para SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.excerpt | strip_html | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ page.image | absolute_url }}"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "{% if page.author_name %}{{ page.author_name }}{% else %}{{ page.author | replace: '-', ' ' | capitalize }}{% endif %}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/assets/images/logo.png' | absolute_url }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  }
+}
+</script>
+
+<article class="article" itemscope itemtype="https://schema.org/NewsArticle">
+
+  <!-- Barra de progreso de lectura -->
+  {% if site.data.settings.article.show_progress_bar %}
+  <div class="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    <div class="reading-progress__bar" id="reading-progress-bar"></div>
+  </div>
+  {% endif %}
+
+  <!-- ===== CABECERA DEL ARTÍCULO ===== -->
+  <header class="article-header">
+    <div class="container container--narrow">
+
+      <!-- Categoría / Sección -->
+      {% if page.categories.size > 0 %}
+      <div class="article-header__meta-top">
+        {% assign cat = page.categories | first %}
+        {% assign nav_section = site.data.navigation.sections | where: "slug", cat | first %}
+        <a href="/seccion/{{ cat }}/" class="article-category"
+           {% if nav_section.color %}style="background: {{ nav_section.color }}"{% endif %}>
+          {{ cat | upcase }}
+        </a>
+        {% if page.breaking %}
+          <span class="article-breaking-badge">ÚLTIMA HORA</span>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Titular -->
+      <h1 class="article-title" itemprop="headline">{{ page.title }}</h1>
+
+      <!-- Entradilla / Subtítulo -->
+      {% if page.subtitle %}
+      <p class="article-subtitle" itemprop="description">{{ page.subtitle }}</p>
+      {% endif %}
+
+      <!-- Metadatos: autor, fecha, tiempo de lectura -->
+      <div class="article-byline">
+        {% assign author_data = site.authors | where: "name", page.author | first %}
+
+        <div class="article-byline__author">
+          {% if author_data %}
+            {% if author_data.avatar %}
+            <img src="{{ author_data.avatar | relative_url }}" alt="{{ author_data.display_name }}" class="article-byline__avatar" loading="lazy">
+            {% endif %}
+            <div class="article-byline__info">
+              <a href="{{ author_data.url | relative_url }}" class="article-byline__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <span itemprop="name">{{ author_data.display_name }}</span>
+              </a>
+              {% if author_data.title %}<span class="article-byline__role">{{ author_data.title }}</span>{% endif %}
+            </div>
+          {% else %}
+            <span class="article-byline__name">{{ page.author | replace: '-', ' ' | capitalize }}</span>
+          {% endif %}
+        </div>
+
+        <div class="article-byline__details">
+          <time class="article-byline__date" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+            {{ page.date | date: "%-d de %B de %Y" }}
+          </time>
+          {% if site.data.settings.article.show_reading_time %}
+          <span class="article-byline__sep">·</span>
+          <span class="article-byline__reading-time">{{ reading_time }} min de lectura</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Botones de compartir (cabecera) -->
+      {% if site.data.settings.article.show_share_buttons %}
+        {% include social-share.html %}
+      {% endif %}
+
+    </div>
+  </header>
+
+  <!-- ===== IMAGEN PRINCIPAL ===== -->
+  {% if page.image %}
+  <figure class="article-hero-image">
+    <div class="container">
+      <img src="{{ page.image | relative_url }}"
+           alt="{{ page.title }}"
+           class="article-hero-image__img"
+           itemprop="image"
+           loading="eager">
+      {% if page.image_caption %}
+      <figcaption class="article-hero-image__caption">{{ page.image_caption }}</figcaption>
+      {% endif %}
+    </div>
+  </figure>
+  {% endif %}
+
+  <!-- ===== CUERPO DEL ARTÍCULO + SIDEBAR ===== -->
+  <div class="container">
+    <div class="article-layout">
+
+      <!-- Cuerpo principal -->
+      <div class="article-body" itemprop="articleBody">
+        {{ content }}
+      </div>
+
+      <!-- Sidebar del artículo -->
+      <aside class="article-sidebar" aria-label="Contenido relacionado">
+        {% include sidebar.html context="article" %}
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ===== PIE DEL ARTÍCULO ===== -->
+  <footer class="article-footer">
+    <div class="container container--narrow">
+
+      <!-- Tags -->
+      {% if page.tags.size > 0 and site.data.settings.article.show_tags %}
+      <div class="article-tags">
+        <span class="article-tags__label">Temas:</span>
+        {% for tag in page.tags %}
+        <a href="/etiqueta/{{ tag | slugify }}/" class="article-tag">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Compartir (pie) -->
+      {% if site.data.settings.article.show_share_buttons %}
+      <div class="article-share-footer">
+        <p class="article-share-footer__label">¿Te resultó útil? Compártelo:</p>
+        {% include social-share.html %}
+      </div>
+      {% endif %}
+
+      <!-- Bio del autor -->
+      {% if site.data.settings.article.show_author_bio and author_data %}
+      <div class="author-bio">
+        {% if author_data.avatar %}
+        <img src="{{ author_data.avatar | relative_url }}" alt="{{ author_data.display_name }}" class="author-bio__avatar" loading="lazy">
+        {% endif %}
+        <div class="author-bio__content">
+          <h3 class="author-bio__name">
+            <a href="{{ author_data.url | relative_url }}">{{ author_data.display_name }}</a>
+          </h3>
+          {% if author_data.title %}<p class="author-bio__title">{{ author_data.title }}</p>{% endif %}
+          {% if author_data.bio %}<p class="author-bio__text">{{ author_data.bio }}</p>{% endif %}
+          <div class="author-bio__links">
+            {% if author_data.twitter %}<a href="https://twitter.com/{{ author_data.twitter }}" class="author-bio__link" rel="noopener">Twitter</a>{% endif %}
+            {% if author_data.email %}<a href="mailto:{{ author_data.email }}" class="author-bio__link">Email</a>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </footer>
+
+</article>
+
+<!-- ===== ARTÍCULOS RELACIONADOS ===== -->
+{% if site.data.settings.article.show_related %}
+  {% include related-posts.html %}
+{% endif %}

@@ -1,0 +1,138 @@
+# ============================================================
+# EL DIARIO — Configuración principal de Jekyll
+# Cambia los valores de esta sección para personalizar el sitio
+# ============================================================
+
+# --- Identidad del sitio ---
+title: "El Diario"
+subtitle: "Periodismo independiente y riguroso"
+description: "Noticias verificadas, análisis profundo y periodismo de calidad para lectores exigentes."
+long_description: "El Diario es un medio digital comprometido con la verdad, la independencia editorial y el rigor informativo. Cobertura nacional e internacional de actualidad, economía, cultura, tecnología y más."
+
+# --- URL del sitio (actualiza con tu usuario de GitHub) ---
+url: "https://tuusuario.github.io"
+baseurl: ""
+
+# --- Contacto y redes ---
+email: "redaccion@eldiario.com"
+twitter_username: "eldiario"
+facebook_username: "eldiario"
+instagram_username: "eldiario"
+youtube_channel: ""
+
+# --- Opciones editoriales ---
+founded_year: 2026
+edition: "Edición Digital"
+language: "es"
+locale: "es_ES"
+timezone: "America/Mexico_City"
+
+# ============================================================
+# Build Settings
+# ============================================================
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+encoding: utf-8
+
+# ============================================================
+# Plugins (todos compatibles con GitHub Pages)
+# ============================================================
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-relative-links
+
+# ============================================================
+# Paginación
+# ============================================================
+paginate: 10
+paginate_path: "/pagina/:num/"
+
+# ============================================================
+# Colecciones
+# ============================================================
+collections:
+  authors:
+    output: true
+    permalink: /autores/:name/
+
+# ============================================================
+# Front matter por defecto
+# ============================================================
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "la-redaccion"
+      image: "/assets/images/default-og.jpg"
+      featured: false
+      breaking: false
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
+  - scope:
+      path: "seccion"
+    values:
+      layout: "category"
+
+# ============================================================
+# SEO
+# ============================================================
+twitter:
+  username: eldiario
+  card: summary_large_image
+
+facebook:
+  publisher: "https://www.facebook.com/eldiario"
+
+social:
+  name: "El Diario"
+  links:
+    - "https://twitter.com/eldiario"
+    - "https://facebook.com/eldiario"
+    - "https://instagram.com/eldiario"
+
+# ============================================================
+# Feed RSS
+# ============================================================
+feed:
+  path: feed.xml
+  title: "El Diario — Últimas Noticias"
+
+# ============================================================
+# Sass
+# ============================================================
+sass:
+  style: compressed
+  sass_dir: _sass
+
+# ============================================================
+# Excluir del build
+# ============================================================
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .git
+  - .gitignore
+  - README.md
+  - "*.sh"

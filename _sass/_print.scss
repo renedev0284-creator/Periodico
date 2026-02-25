@@ -1,0 +1,153 @@
+// ============================================================
+// PRINT — Estilos de impresión
+// ============================================================
+
+@media print {
+  // Ocultar elementos innecesarios
+  .breaking-news,
+  .site-header__topbar,
+  .site-nav,
+  .reading-progress,
+  .social-share,
+  .article-share-footer,
+  .sidebar,
+  .article-sidebar,
+  .related-articles,
+  .newsletter-section,
+  .site-footer,
+  .mobile-nav-overlay,
+  .search-overlay,
+  .search-overlay-backdrop {
+    display: none !important;
+  }
+
+  // Reset general
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #000;
+  }
+
+  // Header para imprimir
+  .masthead-logo__text {
+    font-size: 28pt;
+    color: #000 !important;
+  }
+
+  .masthead-logo__subtitle {
+    font-size: 9pt;
+    color: #444 !important;
+  }
+
+  // Artículo
+  .article-title {
+    font-size: 22pt;
+    line-height: 1.15;
+    margin-bottom: 12pt;
+    page-break-after: avoid;
+  }
+
+  .article-subtitle {
+    font-size: 13pt;
+    margin-bottom: 16pt;
+    border-left: 2pt solid #000;
+    padding-left: 10pt;
+  }
+
+  .article-byline {
+    font-size: 9pt;
+    border: none;
+    border-top: 0.5pt solid #000;
+    border-bottom: 0.5pt solid #000;
+  }
+
+  .article-body {
+    font-size: 11pt;
+    line-height: 1.7;
+
+    // Quitar drop cap en impresión
+    > p:first-of-type::first-letter {
+      float: none;
+      font-size: inherit;
+      font-weight: normal;
+      color: inherit;
+      margin: 0;
+    }
+
+    h2 { font-size: 16pt; page-break-after: avoid; }
+    h3 { font-size: 13pt; page-break-after: avoid; }
+
+    blockquote {
+      border-left: 3pt solid #000;
+      padding: 6pt 10pt;
+      font-size: 12pt;
+    }
+
+    img {
+      max-width: 100% !important;
+      page-break-inside: avoid;
+    }
+
+    a {
+      text-decoration: underline;
+      // Mostrar URL completa en impresión
+      &::after {
+        content: " [" attr(href) "]";
+        font-size: 9pt;
+        color: #666 !important;
+      }
+    }
+
+    // No mostrar URL en enlaces internos
+    a[href^="#"]::after,
+    a[href^="/"]::after {
+      content: none;
+    }
+  }
+
+  // Imágenes
+  .article-hero-image {
+    margin: 16pt 0;
+    page-break-inside: avoid;
+  }
+
+  // Cortes de página
+  .article-header { page-break-after: avoid; }
+  figure { page-break-inside: avoid; }
+  blockquote { page-break-inside: avoid; }
+
+  // URLs visibles
+  a[href]::after {
+    font-size: 8pt;
+  }
+
+  // Tags
+  .article-tags { margin-top: 16pt; }
+  .article-tag {
+    border: 0.5pt solid #999;
+    padding: 2pt 6pt;
+    margin: 2pt;
+  }
+
+  // Pie
+  .article-footer { border-top: 0.5pt solid #000; margin-top: 16pt; padding-top: 12pt; }
+
+  // Páginas
+  @page {
+    margin: 2cm;
+  }
+
+  @page :first {
+    margin-top: 1.5cm;
+  }
+}

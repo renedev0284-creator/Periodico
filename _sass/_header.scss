@@ -1,0 +1,227 @@
+// ============================================================
+// HEADER — Masthead y barra superior
+// ============================================================
+
+// --- Barra superior (topbar) ---
+.site-header {
+  background: $color-white;
+  border-bottom: 1px solid $color-border;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  box-shadow: $shadow-sm;
+
+  &__topbar {
+    background: $color-near-black;
+    color: $color-gray-200;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    padding: $space-2 0;
+  }
+
+  &__masthead {
+    padding: $space-5 0;
+    border-bottom: 3px double $color-border;
+  }
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  color: $color-gray-400;
+
+  @media (max-width: $bp-md) {
+    display: none;
+  }
+}
+
+.topbar-date {
+  font-weight: 500;
+  color: $color-gray-200;
+}
+
+.topbar-edition {
+  color: $color-gray-400;
+}
+
+.topbar-nav {
+  @media (max-width: $bp-lg) { display: none; }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: $space-5;
+  }
+
+  &__link {
+    color: $color-gray-400;
+    transition: color $transition-fast;
+    font-size: $text-xs;
+
+    &:hover { color: $color-white; }
+  }
+}
+
+.topbar-social {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.topbar-social__link {
+  color: $color-gray-400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-white; }
+}
+
+.topbar-search-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  color: $color-gray-400;
+  cursor: pointer;
+  transition: color $transition-fast;
+  margin-left: $space-2;
+
+  &:hover { color: $color-white; }
+}
+
+// --- Masthead / Logo ---
+.masthead-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.masthead-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-1;
+  text-decoration: none;
+  color: $color-near-black;
+
+  &:hover { color: $color-near-black; }
+
+  &__text {
+    font-family: $font-serif-display;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: $color-near-black;
+    text-transform: none;
+  }
+
+  &__subtitle {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-gray-400;
+  }
+}
+
+// --- Búsqueda overlay ---
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-overlay;
+  background: $color-white;
+  padding: $space-6;
+  box-shadow: $shadow-lg;
+  transform: translateY(-100%);
+  transition: transform $transition-base;
+  pointer-events: none;
+
+  &.is-open {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: 0 $container-padding;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: $text-lg;
+    color: $color-gray-400;
+    cursor: pointer;
+    padding: $space-2;
+    flex-shrink: 0;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-near-black; }
+  }
+}
+
+.search-form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid $color-near-black;
+
+  &__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: $font-serif-display;
+    font-size: $text-2xl;
+    color: $color-near-black;
+    padding: $space-3 0;
+    background: transparent;
+
+    &::placeholder { color: $color-gray-200; }
+  }
+
+  &__btn {
+    background: none;
+    border: none;
+    color: $color-gray-400;
+    cursor: pointer;
+    padding: $space-2;
+    transition: color $transition-fast;
+    flex-shrink: 0;
+
+    &:hover { color: $color-near-black; }
+  }
+}
+
+.search-overlay-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: calc(#{$z-overlay} - 1);
+
+  &.is-open { display: block; }
+}

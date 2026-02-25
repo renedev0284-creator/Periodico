@@ -1,0 +1,36 @@
+---
+# Archivo de entrada de estilos — Jekyll procesa este SCSS
+---
+
+// 1. Variables y tokens de diseño
+@import "variables";
+
+// 2. Base y reset
+@import "base";
+
+// 3. Tipografía editorial
+@import "typography";
+
+// 4. Componentes globales de UI
+@import "breaking-news";
+@import "header";
+@import "nav";
+
+// 5. Componentes de contenido
+@import "cards";
+@import "featured";
+@import "sidebar";
+@import "social-share";
+
+// 6. Páginas
+@import "home";
+@import "article";
+
+// 7. Pie de página
+@import "footer";
+
+// 8. Responsive y utilidades
+@import "responsive";
+
+// 9. Estilos de impresión (al final, sin media query wrapper)
+@import "print";

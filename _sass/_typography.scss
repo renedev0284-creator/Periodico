@@ -1,0 +1,254 @@
+// ============================================================
+// TYPOGRAPHY — Sistema tipográfico editorial
+// ============================================================
+
+// Estilos del cuerpo de artículos (typography)
+.article-body {
+  font-family: $font-serif-body;
+  font-size: clamp($text-md, 2vw, 1.2rem);
+  line-height: 1.85;
+  color: $color-near-black;
+
+  // Párrafos
+  p {
+    margin-bottom: 1.6em;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  // Titulares dentro del artículo
+  h2 {
+    font-family: $font-serif-display;
+    font-size: clamp($text-xl, 3vw, $text-3xl);
+    font-weight: 700;
+    line-height: 1.2;
+    color: $color-black;
+    margin: 2.5em 0 0.7em;
+    padding-bottom: $space-3;
+    border-bottom: 2px solid $color-border;
+  }
+
+  h3 {
+    font-family: $font-serif-display;
+    font-size: clamp($text-lg, 2.5vw, $text-2xl);
+    font-weight: 700;
+    line-height: 1.25;
+    color: $color-black;
+    margin: 2em 0 0.6em;
+  }
+
+  h4 {
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $color-gray-600;
+    margin: 1.8em 0 0.5em;
+  }
+
+  // Links
+  a {
+    color: $color-link;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+
+    &:hover {
+      color: $color-link-hover;
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  // Negrita
+  strong, b {
+    font-weight: 700;
+    color: $color-black;
+  }
+
+  // Cursiva
+  em, i {
+    font-style: italic;
+  }
+
+  // Listas
+  ul, ol {
+    margin: 1.5em 0 1.5em 1.5em;
+
+    li {
+      margin-bottom: 0.6em;
+      line-height: 1.7;
+    }
+  }
+
+  ul li {
+    list-style: disc;
+    padding-left: $space-2;
+  }
+
+  ol li {
+    list-style: decimal;
+    padding-left: $space-2;
+  }
+
+  // Lista sin viñeta
+  ul.no-bullet li { list-style: none; margin-left: 0; }
+
+  // Cita destacada (blockquote)
+  blockquote {
+    position: relative;
+    margin: 2.5em 0;
+    padding: $space-6 $space-8;
+    border-left: 4px solid $color-accent;
+    background: $color-gray-50;
+    font-family: $font-serif-display;
+    font-size: clamp($text-lg, 2.5vw, $text-2xl);
+    font-style: italic;
+    line-height: 1.5;
+    color: $color-dark;
+
+    &::before {
+      content: '\201C';
+      position: absolute;
+      top: -0.2em;
+      left: $space-4;
+      font-size: 5rem;
+      color: $color-accent;
+      opacity: 0.2;
+      font-family: $font-serif-display;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    p {
+      margin-bottom: 0.5em;
+      &:last-child { margin-bottom: 0; }
+    }
+
+    cite {
+      display: block;
+      margin-top: $space-4;
+      font-family: $font-sans;
+      font-size: $text-sm;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: $color-gray-600;
+      text-transform: uppercase;
+
+      &::before { content: '— '; }
+    }
+  }
+
+  // Código
+  code {
+    font-family: 'SFMono-Regular', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.875em;
+    background: $color-gray-100;
+    color: $color-accent-dark;
+    padding: 0.15em 0.4em;
+    border-radius: $radius-sm;
+  }
+
+  pre {
+    background: $color-near-black;
+    color: #e8e8e8;
+    padding: $space-6;
+    border-radius: $radius-md;
+    overflow-x: auto;
+    margin: 2em 0;
+    line-height: 1.6;
+
+    code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      font-size: $text-sm;
+    }
+  }
+
+  // Imágenes dentro del artículo
+  figure {
+    margin: 2.5em 0;
+
+    img {
+      width: 100%;
+      border-radius: $radius-sm;
+    }
+
+    figcaption {
+      margin-top: $space-3;
+      font-family: $font-sans;
+      font-size: $text-sm;
+      color: $color-gray-400;
+      font-style: italic;
+      line-height: 1.5;
+    }
+  }
+
+  // Tabla
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    font-family: $font-sans;
+    font-size: $text-sm;
+
+    th {
+      background: $color-near-black;
+      color: $color-white;
+      padding: $space-3 $space-4;
+      text-align: left;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: $text-xs;
+    }
+
+    td {
+      padding: $space-3 $space-4;
+      border-bottom: 1px solid $color-border;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:nth-child(even) td { background: $color-gray-50; }
+  }
+
+  // Separador horizontal dentro de artículo (estrella tipográfica)
+  hr {
+    border: none;
+    text-align: center;
+    color: $color-gray-400;
+    margin: $space-10 0;
+
+    &::after {
+      content: '✦ ✦ ✦';
+      font-size: $text-sm;
+      letter-spacing: 0.5em;
+    }
+  }
+
+  // Número inicial (drop cap) en el primer párrafo
+  > p:first-of-type::first-letter {
+    float: left;
+    font-family: $font-serif-display;
+    font-size: 4.5em;
+    font-weight: 900;
+    line-height: 0.75;
+    margin: 0.05em $space-3 0 0;
+    color: $color-accent;
+  }
+}
+
+// Nota al pie / Disclaimer
+.article-note {
+  font-family: $font-sans;
+  font-size: $text-sm;
+  color: $color-gray-600;
+  background: $color-gray-50;
+  border-left: 3px solid $color-gray-200;
+  padding: $space-4 $space-5;
+  margin: $space-8 0;
+  line-height: 1.6;
+}

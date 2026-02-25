@@ -1,0 +1,116 @@
+---
+layout: default
+---
+
+{% assign featured_posts = site.posts | where: "featured", true %}
+{% assign breaking_posts = site.posts | where: "breaking", true %}
+{% assign hero_post = featured_posts | first %}
+{% if hero_post == nil %}{% assign hero_post = site.posts | first %}{% endif %}
+
+<!-- ===== PORTADA: HERO PRINCIPAL ===== -->
+<section class="homepage-hero" aria-label="Artículo principal">
+  <div class="container">
+    {% include featured-article.html post=hero_post size="hero" %}
+  </div>
+</section>
+
+<!-- ===== DESTACADOS SECUNDARIOS ===== -->
+{% assign secondary_posts = featured_posts | where_exp: "p", "p.url != hero_post.url" | limit: 3 %}
+{% if secondary_posts.size == 0 %}
+  {% assign secondary_posts = site.posts | where_exp: "p", "p.url != hero_post.url" | limit: 3 %}
+{% endif %}
+
+<section class="homepage-secondary" aria-label="Noticias destacadas">
+  <div class="container">
+    <div class="secondary-grid">
+      {% for post in secondary_posts %}
+        {% include article-card.html post=post size="medium" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="section-divider container"><span>Lo último</span></div>
+
+<!-- ===== CUERPO PRINCIPAL: NOTICIAS + SIDEBAR ===== -->
+<section class="homepage-body" aria-label="Últimas noticias">
+  <div class="container">
+    <div class="homepage-layout">
+
+      <!-- Columna principal -->
+      <div class="main-column">
+        {% assign shown_urls = "" | split: "" %}
+        {% assign shown_urls = shown_urls | push: hero_post.url %}
+        {% for p in secondary_posts %}
+          {% assign shown_urls = shown_urls | push: p.url %}
+        {% endfor %}
+
+        {% assign latest_posts = site.posts | where_exp: "p", "shown_urls contains p.url == false" | limit: site.data.settings.homepage.latest_count %}
+
+        <div class="latest-grid">
+          {% for post in latest_posts %}
+            {% include article-card.html post=post size="small" %}
+          {% endfor %}
+        </div>
+
+        <!-- Sección por categoría -->
+        {% for section in site.data.navigation.sections limit: 4 %}
+          {% assign section_posts = site.posts | where: "categories", section.slug | limit: 3 %}
+          {% if section_posts.size > 0 %}
+          <div class="section-block">
+            <div class="section-block__header">
+              <h2 class="section-block__title" style="border-color: {{ section.color }}">
+                <a href="{{ section.url | relative_url }}">{{ section.name }}</a>
+              </h2>
+              <a href="{{ section.url | relative_url }}" class="section-block__more">Ver todo →</a>
+            </div>
+            <div class="section-block__grid">
+              {% for post in section_posts %}
+                {% include article-card.html post=post size="list" %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+
+        <!-- Paginación -->
+        {% if paginator %}
+        <nav class="pagination" aria-label="Paginación">
+          {% if paginator.previous_page %}
+            <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__btn pagination__btn--prev">← Más recientes</a>
+          {% endif %}
+          <span class="pagination__info">Página {{ paginator.page }} de {{ paginator.total_pages }}</span>
+          {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__btn pagination__btn--next">Anteriores →</a>
+          {% endif %}
+        </nav>
+        {% endif %}
+      </div>
+
+      <!-- Sidebar -->
+      {% if site.data.settings.homepage.show_sidebar %}
+        {% include sidebar.html %}
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+{% if site.data.settings.homepage.show_newsletter and site.data.settings.newsletter.active %}
+<section class="newsletter-section" aria-label="Boletín de noticias">
+  <div class="container">
+    <div class="newsletter-box">
+      <div class="newsletter-box__icon">✉</div>
+      <div class="newsletter-box__content">
+        <h2 class="newsletter-box__title">{{ site.data.settings.newsletter.title }}</h2>
+        <p class="newsletter-box__desc">{{ site.data.settings.newsletter.description }}</p>
+      </div>
+      <form class="newsletter-box__form" action="{{ site.data.settings.newsletter.action_url }}" method="post">
+        <input type="email" name="email" placeholder="tu@correo.com" required aria-label="Correo electrónico" class="newsletter-box__input">
+        <button type="submit" class="newsletter-box__btn">Suscribirse</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endif %}

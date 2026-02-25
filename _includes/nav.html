@@ -1,0 +1,55 @@
+<nav class="site-nav" role="navigation" aria-label="Secciones del periódico" id="main-nav">
+  <div class="container">
+    <div class="site-nav__inner">
+
+      <!-- Botón hamburguesa (móvil) -->
+      <button class="site-nav__burger" aria-label="Abrir menú de secciones" aria-expanded="false" aria-controls="nav-sections" id="nav-burger">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <!-- Lista de secciones -->
+      <ul class="site-nav__list" id="nav-sections" role="list">
+        {% for section in site.data.navigation.sections %}
+        <li class="site-nav__item">
+          <a href="{{ section.url | relative_url }}"
+             class="site-nav__link{% if page.url contains section.slug %} site-nav__link--active{% endif %}"
+             data-section="{{ section.slug }}">
+            {{ section.name }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <!-- Indicador de sección activa (barra de color) -->
+      <div class="site-nav__indicator" id="nav-indicator" aria-hidden="true"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- Menú móvil overlay -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+  <div class="mobile-nav">
+    <div class="mobile-nav__header">
+      <span class="mobile-nav__title">Secciones</span>
+      <button class="mobile-nav__close" aria-label="Cerrar menú" id="mobile-nav-close">✕</button>
+    </div>
+    <ul class="mobile-nav__list">
+      {% for section in site.data.navigation.sections %}
+      <li class="mobile-nav__item">
+        <a href="{{ section.url | relative_url }}"
+           class="mobile-nav__link"
+           style="border-left-color: {{ section.color }}">
+          {{ section.name }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="mobile-nav__secondary">
+      {% for item in site.data.navigation.secondary %}
+      <a href="{{ item.url | relative_url }}" class="mobile-nav__sec-link">{{ item.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</div>

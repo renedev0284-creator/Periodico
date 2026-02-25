@@ -1,0 +1,58 @@
+---
+layout: default
+---
+
+{% assign section = site.data.navigation.sections | where: "slug", page.category_slug | first %}
+{% assign section_posts = site.posts | where: "categories", page.category_slug %}
+
+<!-- ===== CABECERA DE SECCIÓN ===== -->
+<header class="category-header" {% if section.color %}style="border-color: {{ section.color }}"{% endif %}>
+  <div class="container">
+    <div class="category-header__inner">
+      <span class="category-header__breadcrumb"><a href="{{ '/' | relative_url }}">Portada</a> /</span>
+      <h1 class="category-header__title" {% if section.color %}style="color: {{ section.color }}"{% endif %}>
+        {{ page.title }}
+      </h1>
+      {% if page.description %}
+      <p class="category-header__desc">{{ page.description }}</p>
+      {% endif %}
+      <p class="category-header__count">{{ section_posts.size }} artículos en esta sección</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===== CONTENIDO DE SECCIÓN ===== -->
+<section class="category-content">
+  <div class="container">
+
+    <!-- Artículo destacado de la sección -->
+    {% assign section_hero = section_posts | first %}
+    {% if section_hero %}
+    <div class="category-hero">
+      {% include featured-article.html post=section_hero size="medium-hero" %}
+    </div>
+    {% endif %}
+
+    <div class="category-layout">
+      <!-- Grid de artículos -->
+      <div class="main-column">
+        <div class="category-grid">
+          {% for post in section_posts offset: 1 %}
+            {% include article-card.html post=post size="small" %}
+          {% endfor %}
+        </div>
+
+        {% if section_posts.size == 0 %}
+        <div class="empty-state">
+          <p>Aún no hay artículos en esta sección. Vuelve pronto.</p>
+          <a href="{{ '/' | relative_url }}" class="btn">← Volver a la portada</a>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Sidebar -->
+      {% include sidebar.html %}
+    </div>
+
+  </div>
+</section>

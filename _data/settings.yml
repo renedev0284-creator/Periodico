@@ -1,0 +1,48 @@
+# Configuración editorial y visual
+# Personaliza el comportamiento y apariencia del periódico
+
+# --- Portada ---
+homepage:
+  hero_count: 1           # Artículos en el hero principal
+  featured_count: 3       # Artículos destacados secundarios
+  latest_count: 6         # Artículos en sección "Lo último"
+  show_breaking: true     # Mostrar ticker de última hora
+  show_sidebar: true      # Mostrar barra lateral
+  show_newsletter: true   # Mostrar formulario de boletín
+
+# --- Artículos ---
+article:
+  show_reading_time: true
+  show_related: true
+  related_count: 3
+  show_author_bio: true
+  show_share_buttons: true
+  show_tags: true
+  show_progress_bar: true  # Barra de progreso de lectura
+
+# --- Sidebar ---
+sidebar:
+  trending_count: 5       # Artículos más leídos
+
+# --- Anuncios (dejar vacío para desactivar) ---
+ads:
+  header_banner: ""       # URL del banner de cabecera
+  sidebar_box: ""         # URL del anuncio del sidebar
+  article_mid: ""         # URL del anuncio a mitad del artículo
+
+# --- Newsletter ---
+newsletter:
+  active: true
+  provider: ""            # "mailchimp", "convertkit", etc.
+  action_url: ""          # URL del formulario de suscripción
+  title: "Mantente informado"
+  description: "Recibe cada mañana las noticias más importantes directamente en tu correo."
+
+# --- Google Analytics ---
+google_analytics: ""      # Tu ID de Google Analytics (G-XXXXXXXXXX)
+
+# --- Comentarios ---
+comments:
+  active: false
+  provider: ""            # "disqus", "utterances"
+  disqus_shortname: ""

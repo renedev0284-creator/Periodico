@@ -1,0 +1,243 @@
+// ============================================================
+// FOOTER — Pie de página
+// ============================================================
+
+.site-footer {
+  margin-top: auto;
+
+  &__top {
+    background: $color-bg-dark;
+    padding: $space-12 0 $space-10;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__bottom {
+    background: darken($color-bg-dark, 5%);
+    padding: $space-5 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+// --- Grid superior del footer ---
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: $space-10;
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-8;
+  }
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+    gap: $space-6;
+  }
+}
+
+// --- Marca en el footer ---
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  &__logo {
+    font-family: $font-serif-display;
+    font-size: $text-3xl;
+    font-weight: 900;
+    color: $color-white;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    line-height: 1;
+
+    &:hover { color: $color-white; opacity: 0.85; }
+  }
+
+  &__desc {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 280px;
+  }
+
+  &__founded {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.05em;
+  }
+}
+
+// --- Navegación en el footer ---
+.footer-nav {
+  &__title {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: $space-4;
+    padding-bottom: $space-3;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__link {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+}
+
+// --- Contacto en el footer ---
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.footer-contact__email {
+  font-family: $font-sans;
+  font-size: $text-sm;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-white; }
+}
+
+// --- Redes en el footer ---
+.footer-social {
+  display: flex;
+  gap: $space-3;
+  flex-wrap: wrap;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: $radius-sm;
+    text-decoration: none;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $color-accent;
+      color: $color-white;
+    }
+  }
+}
+
+// --- Newsletter en el footer ---
+.footer-newsletter {
+  &__label {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: $space-2;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  &__form {
+    display: flex;
+    gap: 0;
+  }
+
+  &__input {
+    flex: 1;
+    padding: $space-3 $space-4;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: $color-white;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    outline: none;
+    min-width: 0;
+    transition: background $transition-fast;
+
+    &::placeholder { color: rgba(255, 255, 255, 0.3); }
+    &:focus { background: rgba(255, 255, 255, 0.13); }
+  }
+
+  &__btn {
+    padding: $space-3 $space-4;
+    background: $color-accent;
+    border: none;
+    color: $color-white;
+    font-size: $text-lg;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background $transition-fast;
+
+    &:hover { background: $color-accent-dark; }
+  }
+}
+
+// --- Bottom bar ---
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-6;
+  flex-wrap: wrap;
+
+  @media (max-width: $bp-sm) {
+    flex-direction: column;
+    text-align: center;
+    gap: $space-3;
+  }
+}
+
+.footer-copyright {
+  font-family: $font-sans;
+  font-size: $text-xs;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.footer-legal {
+  display: flex;
+  gap: $space-5;
+  flex-wrap: wrap;
+
+  &__link {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: rgba(255, 255, 255, 0.8); }
+  }
+}
+
+.footer-skip {
+  &__link {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: rgba(255, 255, 255, 0.7); }
+  }
+}

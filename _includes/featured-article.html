@@ -1,0 +1,80 @@
+{% assign post = include.post %}
+{% assign size = include.size | default: "hero" %}
+
+{% if post %}
+{% assign cat = post.categories | first %}
+{% assign nav_section = site.data.navigation.sections | where: "slug", cat | first %}
+
+{% include reading-time.html content=post.content %}
+
+<article class="featured featured--{{ size }}" itemscope itemtype="https://schema.org/NewsArticle">
+
+  <!-- Imagen de fondo / principal -->
+  {% if post.image %}
+  <a href="{{ post.url | relative_url }}" class="featured__image-link" tabindex="-1" aria-hidden="true">
+    <figure class="featured__image-wrap">
+      <img src="{{ post.image | relative_url }}"
+           alt="{{ post.title }}"
+           class="featured__image"
+           loading="eager"
+           itemprop="image">
+      {% if size == "hero" %}
+      <div class="featured__image-overlay" aria-hidden="true"></div>
+      {% endif %}
+    </figure>
+  </a>
+  {% endif %}
+
+  <!-- Contenido superpuesto (hero) o debajo (otros) -->
+  <div class="featured__content">
+
+    <!-- Categoría -->
+    {% if cat %}
+    <a href="/seccion/{{ cat }}/"
+       class="featured__category"
+       {% if nav_section.color %}style="background: {{ nav_section.color }}"{% endif %}>
+      {{ cat | upcase }}
+    </a>
+    {% endif %}
+
+    {% if post.breaking %}
+    <span class="featured__breaking">⚡ ÚLTIMA HORA</span>
+    {% endif %}
+
+    <!-- Titular -->
+    <h2 class="featured__title" itemprop="headline">
+      <a href="{{ post.url | relative_url }}" class="featured__title-link" itemprop="url">
+        {{ post.title }}
+      </a>
+    </h2>
+
+    <!-- Subtítulo / Entradilla -->
+    {% if post.subtitle %}
+    <p class="featured__subtitle" itemprop="description">{{ post.subtitle }}</p>
+    {% elsif post.excerpt %}
+    <p class="featured__subtitle">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+    {% endif %}
+
+    <!-- Meta -->
+    <div class="featured__meta">
+      {% if post.author %}
+      <span class="featured__author" itemprop="author">
+        {{ post.author | replace: '-', ' ' | capitalize }}
+      </span>
+      <span class="featured__sep">·</span>
+      {% endif %}
+      <time class="featured__date"
+            datetime="{{ post.date | date_to_xmlschema }}"
+            itemprop="datePublished">
+        {{ post.date | date: "%-d de %B de %Y" }}
+      </time>
+      {% if site.data.settings.article.show_reading_time %}
+      <span class="featured__sep">·</span>
+      <span class="featured__reading-time">{{ reading_time }} min de lectura</span>
+      {% endif %}
+    </div>
+
+  </div>
+
+</article>
+{% endif %}

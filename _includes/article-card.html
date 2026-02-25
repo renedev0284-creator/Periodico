@@ -1,0 +1,78 @@
+{% assign post = include.post %}
+{% assign size = include.size | default: "medium" %}
+
+{% if post %}
+{% assign cat = post.categories | first %}
+{% assign nav_section = site.data.navigation.sections | where: "slug", cat | first %}
+
+{% include reading-time.html content=post.content %}
+
+<article class="card card--{{ size }}"
+         itemscope
+         itemtype="https://schema.org/NewsArticle">
+
+  <!-- Imagen -->
+  {% if post.image and size != "list" %}
+  <a href="{{ post.url | relative_url }}" class="card__image-link" tabindex="-1" aria-hidden="true">
+    <figure class="card__image-wrap">
+      <img src="{{ post.image | relative_url }}"
+           alt="{{ post.title }}"
+           class="card__image"
+           loading="lazy"
+           itemprop="image">
+      {% if post.breaking %}
+      <span class="card__breaking-badge">ÚLTIMA HORA</span>
+      {% endif %}
+    </figure>
+  </a>
+  {% endif %}
+
+  <!-- Contenido -->
+  <div class="card__content">
+
+    <!-- Categoría -->
+    {% if cat %}
+    <a href="/seccion/{{ cat }}/"
+       class="card__category"
+       {% if nav_section.color %}style="color: {{ nav_section.color }}"{% endif %}>
+      {{ cat | upcase }}
+    </a>
+    {% endif %}
+
+    <!-- Titular -->
+    <h2 class="card__title" itemprop="headline">
+      <a href="{{ post.url | relative_url }}" class="card__title-link" itemprop="url">
+        {{ post.title }}
+      </a>
+    </h2>
+
+    <!-- Entradilla (no en cards pequeñas o list) -->
+    {% if size == "medium" or size == "large" or size == "medium-hero" %}
+    <p class="card__excerpt" itemprop="description">
+      {{ post.excerpt | strip_html | truncatewords: 25 }}
+    </p>
+    {% endif %}
+
+    <!-- Meta: autor y fecha -->
+    <div class="card__meta">
+      {% if post.author %}
+      <span class="card__author" itemprop="author">
+        {{ post.author | replace: '-', ' ' | capitalize }}
+      </span>
+      <span class="card__sep">·</span>
+      {% endif %}
+      <time class="card__date"
+            datetime="{{ post.date | date_to_xmlschema }}"
+            itemprop="datePublished">
+        {{ post.date | date: "%-d %b %Y" }}
+      </time>
+      {% if site.data.settings.article.show_reading_time and size != "list" %}
+      <span class="card__sep">·</span>
+      <span class="card__reading-time">{{ reading_time }} min</span>
+      {% endif %}
+    </div>
+
+  </div>
+
+</article>
+{% endif %}

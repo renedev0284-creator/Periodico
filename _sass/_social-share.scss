@@ -1,0 +1,63 @@
+// ============================================================
+// SOCIAL SHARE — Botones de compartir
+// ============================================================
+
+.social-share {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-2;
+
+  &__label {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-gray-400;
+    margin-right: $space-2;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-4;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 600;
+    color: $color-gray-600;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all $transition-fast;
+    line-height: 1;
+
+    span { white-space: nowrap; }
+
+    &:hover {
+      box-shadow: $shadow-sm;
+    }
+
+    &--twitter:hover  { border-color: #1da1f2; color: #1da1f2; }
+    &--facebook:hover { border-color: #1877f2; color: #1877f2; }
+    &--whatsapp:hover { border-color: #25d366; color: #25d366; }
+    &--telegram:hover { border-color: #0088cc; color: #0088cc; }
+
+    &--copy {
+      &.is-copied {
+        border-color: #16a34a;
+        color: #16a34a;
+        background: rgba(22, 163, 74, 0.05);
+      }
+    }
+
+    // En móvil, ocultar el texto de compartir en algunos botones
+    @media (max-width: $bp-xs) {
+      padding: $space-2 $space-3;
+      span { display: none; }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+// ============================================================
+// BREAKING NEWS — Ticker de última hora
+// ============================================================
+
+.breaking-news {
+  background: $color-breaking;
+  color: $color-white;
+  font-family: $font-sans;
+  font-size: $text-sm;
+  overflow: hidden;
+  position: relative;
+  z-index: $z-breaking;
+
+  &__inner {
+    display: flex;
+    align-items: stretch;
+    height: 38px;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 0 $space-5;
+    background: darken($color-breaking, 10%);
+    font-weight: 800;
+    font-size: $text-xs;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: $color-white;
+    border-radius: 50%;
+    animation: pulse-dot 1.2s ease-in-out infinite;
+  }
+
+  &__ticker-wrap {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, black 3%, black 90%, transparent 100%);
+  }
+
+  &__ticker {
+    display: flex;
+    gap: 0;
+    animation: ticker-scroll 40s linear infinite;
+    white-space: nowrap;
+
+    &:hover { animation-play-state: paused; }
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-3;
+    padding: 0 $space-8;
+    position: relative;
+
+    &::after {
+      content: '●';
+      font-size: 0.4em;
+      opacity: 0.5;
+      margin-left: $space-8;
+    }
+
+    &:last-child::after { display: none; }
+  }
+
+  &__cat {
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px $space-2;
+    border-radius: $radius-sm;
+    white-space: nowrap;
+  }
+
+  &__link {
+    color: $color-white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      color: $color-white;
+      opacity: 0.85;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    background: none;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: $text-sm;
+    flex-shrink: 0;
+    transition: background $transition-fast;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+      color: $color-white;
+    }
+  }
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+// Cuando el ticker está oculto
+.breaking-news.is-hidden {
+  display: none;
+}

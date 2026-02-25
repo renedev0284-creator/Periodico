@@ -1,0 +1,54 @@
+# Navegación principal del periódico
+# Agrega, elimina o reordena secciones según tu editorial
+
+sections:
+  - name: "Nacional"
+    url: "/seccion/nacional/"
+    slug: "nacional"
+    color: "#c41e3a"
+
+  - name: "Internacional"
+    url: "/seccion/internacional/"
+    slug: "internacional"
+    color: "#1a53a0"
+
+  - name: "Economía"
+    url: "/seccion/economia/"
+    slug: "economia"
+    color: "#2d7d46"
+
+  - name: "Tecnología"
+    url: "/seccion/tecnologia/"
+    slug: "tecnologia"
+    color: "#6b21a8"
+
+  - name: "Cultura"
+    url: "/seccion/cultura/"
+    slug: "cultura"
+    color: "#c2410c"
+
+  - name: "Ciencia"
+    url: "/seccion/ciencia/"
+    slug: "ciencia"
+    color: "#0369a1"
+
+  - name: "Deportes"
+    url: "/seccion/deportes/"
+    slug: "deportes"
+    color: "#15803d"
+
+  - name: "Opinión"
+    url: "/seccion/opinion/"
+    slug: "opinion"
+    color: "#78350f"
+
+# Menú secundario (header superior)
+secondary:
+  - name: "Boletín"
+    url: "/newsletter/"
+  - name: "Podcasts"
+    url: "/podcasts/"
+  - name: "Hemeroteca"
+    url: "/archivo/"
+  - name: "Nosotros"
+    url: "/nosotros/"

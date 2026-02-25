@@ -1,0 +1,29 @@
+{% assign max_related = site.data.settings.article.related_count | default: 3 %}
+{% assign current_cats = page.categories %}
+{% assign current_tags = page.tags %}
+{% assign related = "" | split: "" %}
+
+{% for post in site.posts %}
+  {% unless post.url == page.url %}
+    {% assign shared_cats = post.categories | where_exp: "c", "current_cats contains c" %}
+    {% assign shared_tags = post.tags | where_exp: "t", "current_tags contains t" %}
+    {% if shared_cats.size > 0 or shared_tags.size > 0 %}
+      {% assign related = related | push: post %}
+    {% endif %}
+  {% endunless %}
+{% endfor %}
+
+{% assign related = related | limit: max_related %}
+
+{% if related.size > 0 %}
+<section class="related-articles" aria-label="Artículos relacionados">
+  <div class="container">
+    <h2 class="related-articles__title">También te puede interesar</h2>
+    <div class="related-articles__grid">
+      {% for post in related %}
+        {% include article-card.html post=post size="medium" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

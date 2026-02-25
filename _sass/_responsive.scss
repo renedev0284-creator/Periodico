@@ -1,0 +1,108 @@
+// ============================================================
+// RESPONSIVE — Media queries globales y ajustes
+// ============================================================
+
+// --- Utilidades responsivas ---
+@media (max-width: $bp-md) {
+  .hide-mobile { display: none !important; }
+}
+
+@media (min-width: $bp-md) {
+  .hide-desktop { display: none !important; }
+}
+
+// --- Ajuste del header en scroll (sticky) ---
+.site-header {
+  @media (max-width: $bp-md) {
+    &__masthead {
+      padding: $space-4 0;
+    }
+
+    .masthead-logo__text {
+      font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+  }
+
+  @media (max-width: $bp-sm) {
+    position: sticky;
+    top: 0;
+
+    &__topbar { display: none; }
+
+    &__masthead {
+      padding: $space-3 0;
+      border-bottom: 2px solid $color-border;
+    }
+  }
+}
+
+// --- Nav en tablet ---
+@media (max-width: $bp-sm) {
+  .site-nav__list {
+    display: none; // Oculto en móvil, se usa el menú hamburguesa
+  }
+}
+
+// --- Portada responsive ---
+@media (max-width: $bp-md) {
+  .homepage-hero { padding: $space-5 0 0; }
+
+  .homepage-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .latest-grid {
+    grid-template-columns: 1fr;
+    gap: $space-4;
+  }
+}
+
+// --- Artículo responsive ---
+@media (max-width: $bp-lg) {
+  .article-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .article-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .article-title {
+    font-size: clamp($text-2xl, 7vw, $text-4xl);
+  }
+
+  .article-hero-image__img {
+    border-radius: 0;
+    max-height: 280px;
+  }
+
+  .related-articles__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --- Footer responsive ---
+@media (max-width: $bp-md) {
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-8;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: $bp-sm) {
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --- Hover solo en dispositivos con hover ---
+@media (hover: none) {
+  .card:hover .card__image { transform: none; }
+  .featured--hero:hover .featured__image { transform: none; }
+}
