@@ -5,6 +5,14 @@
 </head>
 <body class="layout-{{ page.layout }}{% if page.breaking %} has-breaking{% endif %}">
 
+{% if page.layout == "post" %}
+<!-- Facebook SDK — solo en artículos -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v25.0&appId=4378317975732663">
+</script>
+{% endif %}
+
   {% if site.data.settings.homepage.show_breaking and site.data.breaking_news.active %}
     {% include breaking-news.html %}
   {% endif %}
