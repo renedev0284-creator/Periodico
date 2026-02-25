@@ -77,12 +77,12 @@
 
 .article-title {
   font-family: $font-serif-display;
-  font-size: clamp($text-3xl, 5vw, $text-6xl);
+  font-size: clamp($text-3xl, 4.5vw, $text-5xl);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: $color-black;
-  margin-bottom: $space-5;
+  margin-bottom: $space-4;
 }
 
 .article-subtitle {
@@ -184,13 +184,17 @@
 // --- Layout artículo + sidebar ---
 .article-layout {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: $space-12;
+  grid-template-columns: 1fr 260px;
+  gap: $space-10;
   align-items: start;
   padding: 0 0 $space-12;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
 
   @media (max-width: $bp-lg) {
     grid-template-columns: 1fr;
+    max-width: 680px;
 
     .article-sidebar {
       display: none; // Ocultar sidebar en móvil

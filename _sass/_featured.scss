@@ -29,9 +29,10 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      transparent 30%,
-      rgba(0, 0, 0, 0.3) 60%,
-      rgba(0, 0, 0, 0.85) 100%
+      transparent 20%,
+      rgba(0, 0, 0, 0.25) 55%,
+      rgba(0, 0, 0, 0.82) 85%,
+      rgba(0, 0, 0, 0.92) 100%
     );
   }
 
@@ -114,7 +115,8 @@
       grid-column: 1;
       aspect-ratio: 21 / 10;
       min-height: 400px;
-      max-height: 620px;
+      max-height: 600px;
+      background: $color-navy-dark; // Fallback cuando no hay imagen
 
       @media (max-width: $bp-md) {
         aspect-ratio: 16 / 9;
@@ -139,15 +141,17 @@
     }
 
     .featured__title {
-      font-size: clamp($text-2xl, 4.5vw, $text-5xl);
+      font-size: clamp($text-2xl, 4vw, $text-4xl);
       color: $color-white;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+      letter-spacing: -0.02em;
     }
 
     .featured__subtitle {
-      font-size: clamp($text-base, 2vw, $text-lg);
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 680px;
+      font-size: clamp($text-sm, 1.8vw, $text-md);
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 640px;
+      line-height: 1.55;
     }
 
     .featured__meta {

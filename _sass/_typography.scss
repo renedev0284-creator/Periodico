@@ -5,13 +5,14 @@
 // Estilos del cuerpo de artículos (typography)
 .article-body {
   font-family: $font-serif-body;
-  font-size: clamp($text-md, 2vw, 1.2rem);
-  line-height: 1.85;
+  font-size: clamp(1.1rem, 2vw, 1.22rem);
+  line-height: 1.72;
   color: $color-near-black;
+  letter-spacing: -0.01em;
 
   // Párrafos
   p {
-    margin-bottom: 1.6em;
+    margin-bottom: 1.35em;
 
     &:last-child { margin-bottom: 0; }
   }
@@ -233,10 +234,10 @@
   > p:first-of-type::first-letter {
     float: left;
     font-family: $font-serif-display;
-    font-size: 4.5em;
+    font-size: 3.8em;
     font-weight: 900;
-    line-height: 0.75;
-    margin: 0.05em $space-3 0 0;
+    line-height: 0.82;
+    margin: 0.06em $space-3 0 0;
     color: $color-accent;
   }
 }
