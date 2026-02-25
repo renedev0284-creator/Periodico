@@ -551,6 +551,56 @@
     text-align: center;
   }
 
+  // Teléfonos / WhatsApp bajo el CTA (inline)
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    align-items: center;
+    margin-top: $space-2;
+  }
+
+  &__contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    font-family: $font-sans;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba($color-gold, 0.8);
+    text-decoration: none;
+    transition: color $transition-fast;
+    white-space: nowrap;
+
+    svg { flex-shrink: 0; color: #25D366; }
+
+    &:hover { color: $color-gold-pale; }
+  }
+
+  // Teléfonos en sidebar compact
+  &__compact-phones {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    margin-top: $space-2;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: $space-1;
+      font-family: $font-sans;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: rgba($color-gold, 0.75);
+      text-decoration: none;
+      transition: color $transition-fast;
+
+      svg { flex-shrink: 0; color: #25D366; }
+
+      &:hover { color: $color-gold-pale; }
+    }
+  }
+
   // ── COMPACT (sidebar) ─────────────────────────────────────
   &--compact {
     padding: $space-4;
