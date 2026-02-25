@@ -1,9 +1,9 @@
 ---
-name: carlos-mendez
-display_name: "Carlos Méndez"
-title: "Corresponsal de Política Nacional"
-bio: "Carlos Méndez lleva más de quince años cubriendo la escena política nacional. Ha sido corresponsal en el Congreso, la Presidencia y organismos electorales. Premio Nacional de Periodismo 2022."
+name: rene-moya
+display_name: "René Moya"
+title: "Escritor de filosofía y crítico de política"
+bio: "René Moya es nuevo columnista en nuestro periódico digital. Escribe para la web desde hace 10 años, siguió de cerca las elecciones de 2019 apoyando la candidatura de Nayib Bukele. Actualmente marketer y desarrollador de software."
 avatar: "/assets/images/authors/carlos-mendez.jpg"
-email: "cmendez@eldiario.com"
-twitter: "cmendez_periodista"
+email: "rmoya@eldiario.com"
+twitter: "rene_moya"
 ---
