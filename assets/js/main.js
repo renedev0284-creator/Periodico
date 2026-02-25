@@ -254,4 +254,56 @@
     }
   });
 
+  // ============================================================
+  // 10. COOKIE CONSENT BANNER
+  // ============================================================
+  const cookieBanner  = document.getElementById('cookie-banner');
+  const cookieAccept  = document.getElementById('cookie-accept');
+  const cookieReject  = document.getElementById('cookie-reject');
+  const COOKIE_KEY    = 'ed-cookie-consent'; // 'ed' = El Diario
+
+  function hideBanner() {
+    if (!cookieBanner) return;
+    cookieBanner.classList.remove('is-visible');
+    cookieBanner.setAttribute('aria-hidden', 'true');
+    // Devolver foco al body al cerrar
+    document.body.focus();
+  }
+
+  function initCookieBanner() {
+    if (!cookieBanner) return;
+    const stored = localStorage.getItem(COOKIE_KEY);
+    if (stored) return; // Ya decidió
+
+    // Mostrar con pequeño delay para no bloquear el render inicial
+    setTimeout(() => {
+      cookieBanner.classList.add('is-visible');
+      cookieBanner.setAttribute('aria-hidden', 'false');
+    }, 800);
+  }
+
+  if (cookieAccept) {
+    cookieAccept.addEventListener('click', () => {
+      localStorage.setItem(COOKIE_KEY, 'all');
+      hideBanner();
+    });
+  }
+
+  if (cookieReject) {
+    cookieReject.addEventListener('click', () => {
+      localStorage.setItem(COOKIE_KEY, 'essential');
+      hideBanner();
+    });
+  }
+
+  // Cerrar con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cookieBanner && cookieBanner.classList.contains('is-visible')) {
+      localStorage.setItem(COOKIE_KEY, 'essential');
+      hideBanner();
+    }
+  });
+
+  initCookieBanner();
+
 })();

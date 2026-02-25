@@ -11,15 +11,20 @@
     text-decoration: none;
   }
 
+  // Contenedor de imagen — siempre mantiene dimensiones
   &__image-wrap {
     position: relative;
     overflow: hidden;
     margin: 0;
+    width: 100%;
   }
 
+  // Imagen — siempre llena el contenedor centrada
   &__image {
     width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center center; // Centrado explícito para portrait/landscape
     display: block;
     transition: transform $transition-slow;
   }
@@ -34,6 +39,7 @@
       rgba(0, 0, 0, 0.82) 85%,
       rgba(0, 0, 0, 0.92) 100%
     );
+    pointer-events: none;
   }
 
   &__content { }
@@ -78,7 +84,6 @@
   &__title-link {
     color: inherit;
     text-decoration: none;
-
     &:hover { text-decoration: underline; text-underline-offset: 4px; }
   }
 
@@ -100,97 +105,144 @@
 
   &__author  { font-weight: 600; }
   &__sep     { opacity: 0.5; }
-  &__date    { }
-  &__reading-time { }
 
-  // ====================
-  // Hero: texto sobre imagen
-  // ====================
+  // ======================================================
+  // HERO: texto absolutamente posicionado sobre la imagen
+  // ======================================================
   &--hero {
-    display: grid;
-    grid-template-rows: 1fr;
+    // Ya tiene position: relative del padre .featured
+
+    // --- Imagen ocupa todo el bloque ---
+    .featured__image-link {
+      display: block;
+      width: 100%;
+    }
 
     .featured__image-wrap {
-      grid-row: 1;
-      grid-column: 1;
       aspect-ratio: 21 / 10;
-      min-height: 400px;
+      min-height: 380px;
       max-height: 600px;
-      background: $color-navy-dark; // Fallback cuando no hay imagen
-
-      @media (max-width: $bp-md) {
-        aspect-ratio: 16 / 9;
-      }
+      background: $color-navy-dark; // Fallback sin imagen
     }
 
     .featured__image {
+      position: absolute; // Necesario para llenar el wrap
+      inset: 0;
       width: 100%;
       height: 100%;
     }
 
+    // --- Contenido flotante en la base de la imagen ---
     .featured__content {
-      grid-row: 1;
-      grid-column: 1;
-      position: relative;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
       z-index: 2;
-      padding: $space-8;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-self: stretch;
+      padding: clamp($space-5, 4vw, $space-10);
     }
 
     .featured__title {
-      font-size: clamp($text-2xl, 4vw, $text-4xl);
+      font-size: clamp($text-xl, 3.5vw, $text-4xl);
       color: $color-white;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
-      letter-spacing: -0.02em;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.55);
     }
 
     .featured__subtitle {
       font-size: clamp($text-sm, 1.8vw, $text-md);
       color: rgba(255, 255, 255, 0.88);
       max-width: 640px;
-      line-height: 1.55;
     }
 
-    .featured__meta {
-      color: rgba(255, 255, 255, 0.8);
+    .featured__meta { color: rgba(255, 255, 255, 0.78); }
+
+    &:hover .featured__image { transform: scale(1.02); }
+
+    // --- MÓVIL: apilado (imagen arriba, texto debajo) ---
+    @media (max-width: $bp-md) {
+      // Volver a flujo normal
+      .featured__image-link { position: relative; }
+
+      .featured__image-wrap {
+        aspect-ratio: 16 / 9;
+        min-height: 180px;
+        max-height: 260px;
+      }
+
+      .featured__image {
+        position: static; // Sale de absolute para flujo normal
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        max-height: 260px;
+      }
+
+      // Ocultar overlay en móvil (el texto ya no está encima)
+      .featured__image-overlay { display: none; }
+
+      // Contenido debajo de la imagen, con estilo claro
+      .featured__content {
+        position: static;
+        padding: $space-5 0 $space-3;
+        background: $color-white;
+      }
+
+      .featured__title {
+        color: $color-near-black;
+        text-shadow: none;
+        font-size: clamp($text-xl, 5vw, $text-3xl);
+      }
+
+      .featured__subtitle {
+        color: $color-gray-600;
+        opacity: 1;
+      }
+
+      .featured__meta { color: $color-gray-400; }
+
+      .featured__category { color: $color-white; } // La categoría está sobre la imagen
     }
 
-    &:hover .featured__image {
-      transform: scale(1.02);
+    @media (max-width: $bp-sm) {
+      .featured__image-wrap {
+        aspect-ratio: 4 / 3;
+        min-height: 160px;
+        max-height: 220px;
+      }
+
+      .featured__image { max-height: 220px; }
+
+      .featured__title { font-size: $text-xl; }
     }
   }
 
-  // ====================
-  // Medium-hero: imagen arriba, texto debajo
-  // ====================
+  // ======================================================
+  // MEDIUM-HERO: imagen arriba, texto debajo
+  // ======================================================
   &--medium-hero {
     .featured__image-wrap {
       aspect-ratio: 16 / 7;
+
+      @media (max-width: $bp-md) {
+        aspect-ratio: 16 / 9;
+        max-height: 220px;
+      }
     }
 
-    .featured__content {
-      padding: $space-5 0;
-    }
+    .featured__image-overlay { display: none; }
+
+    .featured__content { padding: $space-5 0; }
 
     .featured__title {
-      font-size: clamp($text-2xl, 3.5vw, $text-4xl);
+      font-size: clamp($text-xl, 3vw, $text-3xl);
       color: $color-near-black;
     }
 
-    .featured__subtitle {
-      font-size: $text-md;
-      color: $color-gray-600;
-    }
+    .featured__subtitle { font-size: $text-md; color: $color-gray-600; }
+    .featured__meta     { color: $color-gray-400; }
 
-    .featured__meta {
-      color: $color-gray-400;
-    }
-
-    &:hover .featured__image {
-      transform: scale(1.03);
-    }
+    &:hover .featured__image { transform: scale(1.03); }
   }
 }

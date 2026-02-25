@@ -1,0 +1,149 @@
+// ============================================================
+// COOKIE BANNER — Consentimiento de cookies
+// ============================================================
+
+.cookie-banner {
+  position: fixed;
+  bottom: $space-5;
+  left: $space-5;
+  right: $space-5;
+  max-width: 760px;
+  margin: 0 auto;
+  z-index: $z-modal;
+  background: $color-navy-deeper;
+  border: 1px solid rgba($color-gold, 0.3);
+  border-radius: $radius-lg;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba($color-gold, 0.1);
+  transform: translateY(120%);
+  opacity: 0;
+  transition: transform $transition-slow, opacity $transition-slow;
+  pointer-events: none;
+
+  // Línea dorada superior
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: $space-6;
+    right: $space-6;
+    height: 2px;
+    background: linear-gradient(to right, transparent, $color-gold, transparent);
+    border-radius: 99px;
+  }
+
+  &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: $space-6;
+    padding: $space-5 $space-6;
+
+    @media (max-width: $bp-md) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: $space-4;
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-4;
+    flex: 1;
+  }
+
+  &__icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  &__text {
+    flex: 1;
+  }
+
+  &__title {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 700;
+    color: $color-white;
+    margin-bottom: $space-1;
+    letter-spacing: 0.02em;
+  }
+
+  &__desc {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  &__link {
+    color: $color-gold;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity $transition-fast;
+
+    &:hover { opacity: 0.8; color: $color-gold; }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-3;
+    flex-shrink: 0;
+
+    @media (max-width: $bp-md) {
+      flex-direction: row;
+      justify-content: stretch;
+
+      .cookie-banner__btn { flex: 1; }
+    }
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-3 $space-5;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all $transition-fast;
+    border: 1px solid transparent;
+
+    &--reject {
+      background: rgba(255, 255, 255, 0.07);
+      color: rgba(255, 255, 255, 0.7);
+      border-color: rgba(255, 255, 255, 0.15);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: $color-white;
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    &--accept {
+      background: $color-gold;
+      color: $color-navy-deeper;
+      border-color: $color-gold;
+
+      &:hover {
+        background: $color-gold-dark;
+        border-color: $color-gold-dark;
+      }
+    }
+  }
+}

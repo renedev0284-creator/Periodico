@@ -6,20 +6,56 @@
 @media (max-width: $bp-md) {
   .hide-mobile { display: none !important; }
 }
-
 @media (min-width: $bp-md) {
   .hide-desktop { display: none !important; }
 }
 
-// --- Ajuste del header en scroll (sticky) ---
+// ============================================================
+// FIX GLOBAL DE IMÁGENES
+// Garantiza que todas las imágenes de contenido estén centradas
+// y no desborden su contenedor — crítico para imágenes portrait
+// ============================================================
+
+// Todos los contenedores de imagen tienen overflow: hidden
+// y las imágenes mantienen object-fit: cover + centrado explícito
+.card__image-wrap,
+.featured__image-wrap,
+.article-hero-image {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%; // Nunca desborda el contenedor padre
+}
+
+// Imágenes siempre centradas, nunca desalineadas
+.card__image,
+.featured__image,
+.article-hero-image__img {
+  object-fit: cover;
+  object-position: center center; // Centrado en ambos ejes
+  max-width: 100%;
+  width: 100%;
+  display: block;
+}
+
+// Prevenir que el contenido más ancho que el viewport cause overflow
+* { box-sizing: border-box; }
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+// --- Ajuste del header en scroll ---
 .site-header {
   @media (max-width: $bp-md) {
-    &__masthead {
-      padding: $space-4 0;
-    }
+    &__masthead { padding: $space-4 0; }
 
     .masthead-logo__text {
-      font-size: clamp(1.8rem, 8vw, 2.5rem);
+      font-size: clamp(1.6rem, 7vw, 2.4rem);
+    }
+
+    .masthead-logo__shield {
+      width: 38px;
     }
   }
 
@@ -31,25 +67,58 @@
 
     &__masthead {
       padding: $space-3 0;
-      border-bottom: 2px solid $color-border;
+      border-bottom: 2px solid $color-navy;
     }
+
+    .masthead-logo {
+      gap: $space-3;
+    }
+
+    .masthead-logo__shield { width: 30px; }
+    .masthead-logo__text   { font-size: clamp(1.4rem, 8vw, 2rem); }
   }
 }
 
-// --- Nav en tablet ---
+// --- Nav en móvil ---
 @media (max-width: $bp-sm) {
   .site-nav__list {
-    display: none; // Oculto en móvil, se usa el menú hamburguesa
+    display: none; // Reemplazado por el menú hamburguesa
   }
 }
 
-// --- Portada responsive ---
+// --- Hero de portada: overflow y padding ---
 @media (max-width: $bp-md) {
-  .homepage-hero { padding: $space-5 0 0; }
-
-  .homepage-layout {
-    grid-template-columns: 1fr;
+  .homepage-hero {
+    padding: $space-4 0 0;
+    overflow: hidden; // Evita que la imagen hero desborde
+    max-width: 100vw;
   }
+
+  // El container del hero no añade padding lateral en el hero
+  // para que la imagen ocupe todo el ancho
+  .homepage-hero .container {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  // El contenido del hero (título, meta) recupera el padding
+  .homepage-hero .featured__content {
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .homepage-secondary {
+    .secondary-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: $space-4;
+    }
+    // Ocultar tercera card en tablet estrecho
+    .secondary-grid > *:nth-child(3) { display: none; }
+  }
+
+  .homepage-layout { grid-template-columns: 1fr; }
 
   .latest-grid {
     grid-template-columns: 1fr;
@@ -57,15 +126,24 @@
   }
 }
 
+@media (max-width: $bp-sm) {
+  .homepage-secondary {
+    .secondary-grid {
+      grid-template-columns: 1fr;
+      > * + * {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid $color-border;
+        padding-top: $space-4;
+      }
+    }
+  }
+}
+
 // --- Artículo responsive ---
 @media (max-width: $bp-lg) {
-  .article-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .article-sidebar {
-    display: none;
-  }
+  .article-layout      { grid-template-columns: 1fr; }
+  .article-sidebar     { display: none; }
 }
 
 @media (max-width: $bp-md) {
@@ -73,14 +151,68 @@
     font-size: clamp($text-2xl, 7vw, $text-4xl);
   }
 
+  // Imagen hero del artículo — sin bordes redondeados en móvil,
+  // max-height controlado para portrait images
+  .article-hero-image {
+    margin-left: 0;
+    margin-right: 0;
+
+    .container { padding: 0; max-width: 100%; }
+  }
+
   .article-hero-image__img {
     border-radius: 0;
     max-height: 280px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center top; // Portrait images muestran la parte superior
   }
 
-  .related-articles__grid {
-    grid-template-columns: 1fr;
+  .related-articles__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: $bp-sm) {
+  // Artículo: reducir padding del cuerpo
+  .article-body { font-size: $text-base; }
+
+  .article-header .container--narrow {
+    padding: 0 $space-4;
   }
+
+  .article-hero-image__img {
+    max-height: 220px;
+  }
+
+  // Drop cap más pequeño en móvil
+  .article-body > p:first-of-type::first-letter {
+    font-size: 3.5em;
+    margin-right: $space-2;
+  }
+}
+
+// --- Cards responsive ---
+@media (max-width: $bp-sm) {
+  // Cards en lista horizontal pasan a columna
+  .card--list {
+    flex-direction: column;
+
+    .card__image-link { width: 100%; }
+    .card__image-wrap { width: 100%; aspect-ratio: 16/9; }
+  }
+
+  // Cards pequeñas: padding reducido
+  .card--small {
+    padding-bottom: $space-4;
+  }
+}
+
+// --- Category page ---
+@media (max-width: $bp-lg) {
+  .category-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: $bp-md) {
+  .category-grid { grid-template-columns: 1fr; }
 }
 
 // --- Footer responsive ---
@@ -89,20 +221,24 @@
     grid-template-columns: 1fr 1fr;
     gap: $space-8;
   }
-
-  .footer-brand {
-    grid-column: 1 / -1;
-  }
+  .footer-brand { grid-column: 1 / -1; }
 }
 
 @media (max-width: $bp-sm) {
-  .footer-top-grid {
-    grid-template-columns: 1fr;
-  }
+  .footer-top-grid { grid-template-columns: 1fr; }
 }
 
-// --- Hover solo en dispositivos con hover ---
+// --- Hover: solo en dispositivos con hover real ---
 @media (hover: none) {
-  .card:hover .card__image { transform: none; }
+  .card:hover .card__image            { transform: none; }
   .featured--hero:hover .featured__image { transform: none; }
+  .featured--medium-hero:hover .featured__image { transform: none; }
+}
+
+// --- Prefers reduced motion ---
+@media (prefers-reduced-motion: reduce) {
+  .breaking-news__ticker       { animation: none; }
+  .breaking-news__dot          { animation: none; }
+  .reading-progress__bar       { transition: none; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
