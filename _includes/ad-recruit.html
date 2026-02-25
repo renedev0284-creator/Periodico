@@ -1,0 +1,105 @@
+<!-- ============================================================
+     BANNER RECLUTAMIENTO — "Únete a nuestra redacción"
+     Versión: inline (full-width en contenido) y compact (sidebar)
+     Uso: {% include ad-recruit.html variant="inline" %}
+          {% include ad-recruit.html variant="compact" %}
+     ============================================================ -->
+
+{% assign ad_variant = include.variant | default: "inline" %}
+
+{% if ad_variant == "inline" %}
+
+<div class="ad-banner ad-recruit ad-recruit--inline" role="complementary" aria-label="Convocatoria de redactores">
+  <div class="ad-recruit__bg-pattern" aria-hidden="true"></div>
+
+  <div class="ad-recruit__badge" aria-label="Convocatoria abierta">
+    <span class="ad-recruit__badge-dot" aria-hidden="true"></span>
+    Convocatoria abierta
+  </div>
+
+  <div class="ad-recruit__content">
+    <div class="ad-recruit__left">
+      <div class="ad-recruit__pen-icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" fill="rgba(0,53,110,0.7)" stroke="rgba(200,169,81,0.5)" stroke-width="1.5"/>
+          <!-- Pluma de escritura -->
+          <path d="M32 14l6 6-16 16-8 2 2-8 16-16z" fill="none" stroke="#C8A951" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M30 16l6 6" stroke="#C8A951" stroke-width="2" stroke-linecap="round"/>
+          <path d="M17 35l3-3" stroke="#C8A951" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ad-recruit__center">
+      <h3 class="ad-recruit__title">
+        ¿Tienes algo que contar? <span class="ad-recruit__title-highlight">Escribe para El Diario</span>
+      </h3>
+      <p class="ad-recruit__desc">
+        Buscamos redactores apasionados de todas las áreas — desde principiantes hasta expertos.
+        Publica sobre lo que más te apasiona.
+      </p>
+
+      <div class="ad-recruit__topics" aria-label="Temas disponibles">
+        <span class="ad-recruit__topic">Deportes</span>
+        <span class="ad-recruit__topic">Política</span>
+        <span class="ad-recruit__topic">Tecnología</span>
+        <span class="ad-recruit__topic">Espectáculos</span>
+        <span class="ad-recruit__topic">Nacionales</span>
+        <span class="ad-recruit__topic">Cultura</span>
+        <span class="ad-recruit__topic">Ciencia</span>
+        <span class="ad-recruit__topic">Redes Sociales</span>
+        <span class="ad-recruit__topic">Economía</span>
+        <span class="ad-recruit__topic">Opinión</span>
+        <span class="ad-recruit__topic ad-recruit__topic--more">+más</span>
+      </div>
+
+      <ul class="ad-recruit__perks" aria-label="Beneficios">
+        <li>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l3.5 3.5 6.5-7" stroke="#C8A951" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sin experiencia mínima requerida
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l3.5 3.5 6.5-7" stroke="#C8A951" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Tu nombre y perfil de autor propio en el periódico
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l3.5 3.5 6.5-7" stroke="#C8A951" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Libertad editorial — escribes sobre lo que sabes
+        </li>
+      </ul>
+    </div>
+
+    <div class="ad-recruit__right">
+      <a href="mailto:{{ site.email }}?subject=Quiero%20ser%20redactor%20de%20El%20Diario"
+         class="ad-recruit__cta"
+         aria-label="Enviar solicitud para ser redactor de El Diario">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M3 10h14M9 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Quiero escribir
+      </a>
+      <p class="ad-recruit__cta-note">Envíanos un correo y hablamos</p>
+    </div>
+  </div>
+</div>
+
+{% elsif ad_variant == "compact" %}
+
+<div class="ad-banner ad-recruit ad-recruit--compact sidebar-widget" role="complementary" aria-label="Convocatoria de redactores">
+  <div class="ad-recruit__badge ad-recruit__badge--sm" aria-label="Plaza disponible">
+    <span class="ad-recruit__badge-dot" aria-hidden="true"></span>
+    Plaza disponible
+  </div>
+  <h3 class="ad-recruit__compact-title">¿Eres periodista o quieres serlo?</h3>
+  <p class="ad-recruit__compact-desc">Cualquier nivel, cualquier tema. Únete a nuestra redacción.</p>
+  <div class="ad-recruit__compact-topics" aria-hidden="true">
+    <span>Deportes</span><span>Política</span><span>Tech</span><span>Cultura</span><span>+más</span>
+  </div>
+  <a href="mailto:{{ site.email }}?subject=Quiero%20ser%20redactor%20de%20El%20Diario"
+     class="ad-recruit__compact-cta"
+     aria-label="Solicitar puesto de redactor">
+    Únete al equipo →
+  </a>
+</div>
+
+{% endif %}

@@ -30,6 +30,11 @@ layout: default
   </div>
 </section>
 
+<!-- ===== BANNER RECLUTAMIENTO (tras destacados) ===== -->
+<div class="container">
+  {% include ad-recruit.html variant="inline" %}
+</div>
+
 <div class="section-divider container"><span>Lo último</span></div>
 
 <!-- ===== CUERPO PRINCIPAL: NOTICIAS + SIDEBAR ===== -->
@@ -57,6 +62,9 @@ layout: default
             {% include article-card.html post=post size="small" %}
           {% endfor %}
         </div>
+
+        <!-- Banner publicitario entre "Lo último" y secciones -->
+        {% include ad-advertise.html variant="leaderboard" %}
 
         <!-- Sección por categoría -->
         {% for section in site.data.navigation.sections limit: 4 %}

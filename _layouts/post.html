@@ -191,6 +191,11 @@ layout: default
 
 </article>
 
+<!-- ===== BANNER ENTRE ARTÍCULO Y RELACIONADOS ===== -->
+<div class="container container--narrow">
+  {% include ad-advertise.html variant="leaderboard" %}
+</div>
+
 <!-- ===== ARTÍCULOS RELACIONADOS ===== -->
 {% if site.data.settings.article.show_related %}
   {% include related-posts.html %}
