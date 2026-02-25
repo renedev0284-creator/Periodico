@@ -9,6 +9,9 @@
   line-height: 1.72;
   color: $color-near-black;
   letter-spacing: -0.01em;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 
   // Párrafos
   p {

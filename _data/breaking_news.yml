@@ -5,21 +5,21 @@
 active: true
 items:
   - text: "Cumbre climática: 190 países firman nuevo acuerdo de reducción de emisiones"
-    url: "/nacional/2026/02/24/cumbre-climatica-acuerdo/"
+    url: "/internacional/2026/02/23/cumbre-climatica-acuerdo-historico/"
     category: "Internacional"
 
   - text: "Los mercados europeos abren al alza impulsados por datos de empleo"
-    url: "/economia/2026/02/24/mercados-europeos-alza/"
+    url: "/economia/2026/02/22/mercados-europeos-crecimiento/"
     category: "Economía"
 
   - text: "El gobierno presenta el proyecto de presupuesto para 2027"
-    url: "/nacional/2026/02/24/presupuesto-2027/"
+    url: "/nacional/2026/02/24/presupuesto-nacional-2027/"
     category: "Nacional"
 
   - text: "Nueva IA supera a los humanos en diagnóstico médico según estudio"
-    url: "/tecnologia/2026/02/24/ia-diagnostico-medico/"
+    url: "/tecnologia/2026/02/24/inteligencia-artificial-diagnostico-medico/"
     category: "Tecnología"
 
   - text: "Festival Internacional de Cine anuncia su selección oficial"
-    url: "/cultura/2026/02/24/festival-cine-seleccion/"
+    url: "/cultura/2026/02/23/festival-cine-seleccion-oficial/"
     category: "Cultura"
