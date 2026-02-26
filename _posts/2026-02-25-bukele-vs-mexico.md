@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Bukele sugiere aplicar su modelo de seguridad en México “estado por estado” y desata críticas en redes"
+has_tweets: true
 subtitle: "La propuesta del presidente salvadoreño reaviva el debate regional sobre el “modelo Bukele”: resultados en reducción de homicidios, pero fuertes cuestionamientos por costos democráticos y denuncias de abusos"
 date: 2026-02-25 16:00:00 +0000
 categories: [politica]
@@ -44,6 +45,8 @@ En análisis internacionales, incluso cuando se reconocen los avances en reducci
 ## ¿Se puede aplicar en México?
 
 Especialistas suelen coincidir en que no hay “copiar y pegar” en materia de seguridad. Aun si México intentara un enfoque territorial por estados, tendría que enfrentar factores estructurales: coordinación federal y estatal, capacidades policiales heterogéneas, corrupción, economías ilegales de gran escala, flujos financieros y armamento, además de presiones políticas y legales para implementar medidas extraordinarias.
+
+{% include tweet.html id="2026798434305348044" %}
 
 Por ahora, la discusión sigue ocurriendo principalmente en el plano digital, entre quienes ven el estilo de mano dura como una alternativa atractiva y quienes advierten que replicarlo sin controles puede **erosionar instituciones** y agravar abusos.
 
