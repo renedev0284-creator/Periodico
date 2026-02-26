@@ -42,8 +42,9 @@ El retiro del TAT-8 pone sobre la mesa una realidad que pocos ven: el internet i
 TAT-8 no es solo un cable antiguo. Es un símbolo de cómo se construyó la conectividad moderna: paso a paso, con avances que parecían gigantes en su época y que hoy forman parte de la base silenciosa del mundo digital.
 
 ## Fuentes
-- WIRED, reportaje sobre el retiro del TAT-8 y su falla en 2002 :contentReference[oaicite:0]{index=0}
-- IEEE ETHW, ficha histórica del TAT-8 (entrada en servicio, distancia y capacidad) :contentReference[oaicite:1]{index=1}
-- Wikipedia, datos generales del sistema TAT-8 y su retiro en 2002 :contentReference[oaicite:2]{index=2}
-- Tom’s Hardware, cobertura sobre la recuperación del cable tras décadas en el fondo marino :contentReference[oaicite:3]{index=3}
-- Xataka, resumen en español sobre la avería de 2002 y el retiro actual :contentReference[oaicite:4]{index=4}
+
+- WIRED — reportaje sobre el retiro del TAT-8 y su falla en 2002
+- IEEE ETHW — ficha histórica del TAT-8 (entrada en servicio, distancia y capacidad)
+- Wikipedia — datos generales del sistema TAT-8 y su retiro en 2002
+- Tom’s Hardware — cobertura sobre la recuperación del cable tras décadas en el fondo marino
+- Xataka — resumen en español sobre la avería de 2002 y el retiro actual

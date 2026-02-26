@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Seis planetas se alinearán en el cielo a finales de febrero: cómo ver el “desfile planetario”"
+title: 'Seis planetas se alinearán en el cielo a finales de febrero: cómo ver el “desfile planetario”'
 subtitle: "Mercurio, Venus, Júpiter y Saturno podrán distinguirse a simple vista si el cielo está despejado; Urano y Neptuno requerirán binoculares o telescopio"
 date: 2026-02-25 16:00:00 +0000
 categories: [ciencia]
