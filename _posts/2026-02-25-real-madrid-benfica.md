@@ -9,7 +9,7 @@ author: rene-moya
 image: "/assets/images/posts/real-madrid-benfica.jpg"
 image_caption: "Vinícius Júnior celebra el gol decisivo ante Benfica en el Santiago Bernabéu. Foto: cortesía"
 excerpt: "Benfica igualó la serie temprano, pero Real Madrid respondió de inmediato y lo sentenció en el tramo final: 2-1 en Madrid y 3-1 en el global para sellar el pase a octavos."
-featured: false
+featured: true
 breaking: true
 ---
 
