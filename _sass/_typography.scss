@@ -150,6 +150,22 @@
     }
   }
 
+  // Reset estilos para embeds de Twitter/X
+  blockquote.twitter-tweet {
+    all: unset;
+    display: block;
+    margin: 2em auto;
+    max-width: 550px;
+
+    &::before { content: none; }
+  }
+
+  .tweet-embed {
+    margin: 2em 0;
+    display: flex;
+    justify-content: center;
+  }
+
   // Código
   code {
     font-family: 'SFMono-Regular', 'Fira Code', 'Cascadia Code', monospace;
