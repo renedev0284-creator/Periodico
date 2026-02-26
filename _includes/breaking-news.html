@@ -1,5 +1,5 @@
-{% assign bn = site.data.breaking_news %}
-{% if bn.active and bn.items.size > 0 %}
+{% assign breaking_posts = site.posts | where: "breaking", true | limit: 6 %}
+{% if breaking_posts.size > 0 %}
 <div class="breaking-news" role="region" aria-label="Última hora" aria-live="polite">
   <div class="breaking-news__inner">
     <span class="breaking-news__label" aria-hidden="true">
@@ -8,12 +8,12 @@
     </span>
     <div class="breaking-news__ticker-wrap" aria-label="Noticias de última hora">
       <ul class="breaking-news__ticker" id="breaking-ticker">
-        {% for item in bn.items %}
+        {% for post in breaking_posts %}
         <li class="breaking-news__item">
-          {% if item.category %}
-          <span class="breaking-news__cat">{{ item.category }}</span>
+          {% if post.categories.first %}
+          <span class="breaking-news__cat">{{ post.categories.first | capitalize }}</span>
           {% endif %}
-          <a href="{{ item.url | relative_url }}" class="breaking-news__link">{{ item.text }}</a>
+          <a href="{{ post.url | relative_url }}" class="breaking-news__link">{{ post.title }}</a>
         </li>
         {% endfor %}
       </ul>
