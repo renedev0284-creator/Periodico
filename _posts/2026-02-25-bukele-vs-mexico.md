@@ -6,7 +6,7 @@ subtitle: "La propuesta del presidente salvadoreño reaviva el debate regional s
 date: 2026-02-25 16:00:00 +0000
 categories: [politica]
 tags: [bukele, mexico, seguridad, crimen-organizado, redes-sociales, derechos-humanos]
-author: la-redaccion
+author: rene-moya
 image: "/assets/images/posts/bukele-mexico.jpg"
 image_caption: "El presidente de El Salvador, Nayib Bukele, en una imagen de archivo. Foto: cortesía"
 excerpt: "Una publicación de Nayib Bukele, en la que plantea resolver la inseguridad mexicana “estado por estado”, volvió a encender la discusión en redes: críticos señalan que el tamaño, la geografía y el poder de los cárteles hacen inviable replicar el esquema salvadoreño."
