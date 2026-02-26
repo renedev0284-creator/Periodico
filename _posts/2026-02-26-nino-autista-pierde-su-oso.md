@@ -4,7 +4,7 @@ title: "Policía ayuda a niño con autismo a encontrar su osito de peluche tras 
 subtitle: "La intervención del oficial Khari Manzini, capacitado para atender casos relacionados con el espectro autista, convirtió un momento de angustia en una historia de empatía y sensibilidad"
 date: 2026-02-26 16:00:00 +0000
 categories: [sociedad]
-tags: [autismo, 911, policía, inclusión, niñez]
+tags: [autismo, "911", policía, inclusión, niñez]
 author: su-ortega
 image: "/assets/images/posts/oso-perdido.jpg"
 image_caption: "Imagen referencial de un osito de peluche. Foto: cortesía"
