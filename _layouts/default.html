@@ -5,7 +5,7 @@
 </head>
 <body class="layout-{{ page.layout }}{% if page.breaking %} has-breaking{% endif %}">
 
-  {% if site.data.settings.homepage.show_breaking and site.data.breaking_news.active %}
+  {% if site.data.settings.homepage.show_breaking %}
     {% include breaking-news.html %}
   {% endif %}
 

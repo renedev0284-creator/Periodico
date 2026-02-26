@@ -1,5 +1,6 @@
+{% assign tweet_url = include.url | replace: "x.com", "twitter.com" %}
 <div class="tweet-embed">
   <blockquote class="twitter-tweet" data-lang="es" data-dnt="true" data-theme="light">
-    <a href="{{ include.url }}"></a>
+    <a href="{{ tweet_url }}"></a>
   </blockquote>
 </div>
