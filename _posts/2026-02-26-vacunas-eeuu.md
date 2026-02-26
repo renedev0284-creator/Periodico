@@ -9,7 +9,7 @@ author: la-redaccion
 image: "/assets/images/posts/vacunas-infantiles-eeuu.jpg"
 image_caption: "Vacunación infantil en un centro de salud de Estados Unidos. Imagen referencial."
 excerpt: "Una coalición de estados demandó al Gobierno de Donald Trump por modificar recomendaciones de vacunas infantiles. La disputa enfrenta a autoridades estatales, médicos y funcionarios federales sobre el futuro de la salud pública en EE.UU."
-featured: false
+featured: true
 breaking: true
 ---
 
