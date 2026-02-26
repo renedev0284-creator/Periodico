@@ -5,7 +5,7 @@ subtitle: "El llamado popcorn lung (bronquiolitis obliterante) se asocia a la in
 date: 2026-02-25 16:00:00 +0000
 categories: [salud]
 tags: [vapeo, pulmones, diacetilo, adolescentes, salud pública]
-author: la-redaccion
+author: sussy-ortega
 image: "/assets/images/posts/vapeo-pulmones.jpg"
 image_caption: "Dispositivo de vapeo y vapor. Imagen referencial."
 excerpt: "Un caso reportado en EE. UU. reaviva la preocupación por el “pulmón de palomitas de maíz”, una enfermedad rara y permanente asociada a la inhalación de químicos como el diacetilo, detectado en algunos productos de vapeo."
