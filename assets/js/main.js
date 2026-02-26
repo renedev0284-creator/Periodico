@@ -307,27 +307,29 @@
   initCookieBanner();
 
   // ============================================================
-  // 11. TOONS SLIDER
+  // 11. TOONS SLIDER + LIGHTBOX
   // ============================================================
   const toonsSlider = document.getElementById('toons-slider');
   if (toonsSlider) {
     const track   = document.getElementById('toons-track');
-    const items   = track.querySelectorAll('.toons-slider__item');
+    const items   = Array.from(track.querySelectorAll('.toons-slider__item'));
     const btnPrev = toonsSlider.querySelector('.toons-slider__btn--prev');
     const btnNext = toonsSlider.querySelector('.toons-slider__btn--next');
     let current = 0;
 
     function getVisible() {
-      if (window.innerWidth < 640)  return 2;
-      if (window.innerWidth < 1024) return 3;
-      return 4;
+      const w = window.innerWidth;
+      if (w < 480)  return 2;
+      if (w < 768)  return 3;
+      if (w < 1100) return 4;
+      return 5;
     }
 
-    function updateToons() {
+    function updateSlider() {
       const visible = getVisible();
       const max = Math.max(0, items.length - visible);
       current = Math.min(current, max);
-      const gapPx = window.innerWidth < 640 ? 12 : 16;
+      const gapPx = window.innerWidth < 480 ? 12 : 16;
       const viewportW = track.parentElement.offsetWidth;
       const itemW = (viewportW - gapPx * (visible - 1)) / visible;
       track.style.transform = `translateX(-${current * (itemW + gapPx)}px)`;
@@ -335,10 +337,57 @@
       btnNext.disabled = current >= max;
     }
 
-    btnPrev.addEventListener('click', () => { current--; updateToons(); });
-    btnNext.addEventListener('click', () => { current++; updateToons(); });
-    window.addEventListener('resize', () => { current = 0; updateToons(); }, { passive: true });
-    updateToons();
+    btnPrev.addEventListener('click', () => { current--; updateSlider(); });
+    btnNext.addEventListener('click', () => { current++; updateSlider(); });
+    window.addEventListener('resize', () => { current = 0; updateSlider(); }, { passive: true });
+    updateSlider();
+
+    // --- LIGHTBOX ---
+    const lightbox   = document.getElementById('toons-lightbox');
+    const lbImg      = document.getElementById('toons-lb-img');
+    const lbCaption  = document.getElementById('toons-lb-caption');
+    const lbClose    = document.getElementById('toons-lb-close');
+    const lbPrev     = document.getElementById('toons-lb-prev');
+    const lbNext     = document.getElementById('toons-lb-next');
+    const lbBackdrop = document.getElementById('toons-lb-backdrop');
+    let lbIndex = 0;
+
+    function showLbSlide() {
+      const item = items[lbIndex];
+      lbImg.src        = item.dataset.src;
+      lbImg.alt        = item.dataset.caption;
+      lbCaption.textContent = item.dataset.caption;
+      lbPrev.disabled  = lbIndex === 0;
+      lbNext.disabled  = lbIndex === items.length - 1;
+    }
+
+    function openLightbox(index) {
+      lbIndex = index;
+      showLbSlide();
+      lightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    items.forEach((item) => {
+      item.addEventListener('click', () => openLightbox(parseInt(item.dataset.index, 10)));
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbBackdrop.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => { lbIndex--; showLbSlide(); });
+    lbNext.addEventListener('click', () => { lbIndex++; showLbSlide(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.hidden) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft'  && lbIndex > 0)                { lbIndex--; showLbSlide(); }
+      if (e.key === 'ArrowRight' && lbIndex < items.length - 1) { lbIndex++; showLbSlide(); }
+    });
   }
 
 })();

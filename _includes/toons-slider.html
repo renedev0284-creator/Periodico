@@ -13,13 +13,20 @@
       <div class="toons-slider__viewport">
         <div class="toons-slider__track" id="toons-track">
           {% for toon in toon_files %}
-          <div class="toons-slider__item">
-            <a href="{{ toon.path }}" class="toons-slider__link" target="_blank" rel="noopener">
-              <div class="toons-slider__img-wrap">
-                <img src="{{ toon.path }}" alt="{{ toon.basename | replace: '-', ' ' | replace: '_', ' ' | capitalize }}" loading="lazy" class="toons-slider__img">
+          <div class="toons-slider__item"
+               data-index="{{ forloop.index0 }}"
+               data-src="{{ toon.path }}"
+               data-caption="{{ toon.basename | replace: '-', ' ' | replace: '_', ' ' | capitalize }}">
+            <div class="toons-slider__img-wrap">
+              <img src="{{ toon.path }}"
+                   alt="{{ toon.basename | replace: '-', ' ' | replace: '_', ' ' | capitalize }}"
+                   loading="lazy"
+                   class="toons-slider__img">
+              <div class="toons-slider__overlay">
+                <span class="toons-slider__zoom-icon">&#x2922;</span>
               </div>
-              <p class="toons-slider__caption">{{ toon.basename | replace: '-', ' ' | replace: '_', ' ' | capitalize }}</p>
-            </a>
+            </div>
+            <p class="toons-slider__caption">{{ toon.basename | replace: '-', ' ' | replace: '_', ' ' | capitalize }}</p>
           </div>
           {% endfor %}
         </div>
@@ -30,4 +37,17 @@
 
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div class="toons-lightbox" id="toons-lightbox" aria-modal="true" role="dialog" aria-label="Ver imagen" hidden>
+  <div class="toons-lightbox__backdrop" id="toons-lb-backdrop"></div>
+  <button class="toons-lightbox__close" id="toons-lb-close" aria-label="Cerrar">&times;</button>
+  <button class="toons-lightbox__nav toons-lightbox__nav--prev" id="toons-lb-prev" aria-label="Anterior">&#8249;</button>
+  <div class="toons-lightbox__content">
+    <img src="" alt="" class="toons-lightbox__img" id="toons-lb-img">
+    <p class="toons-lightbox__caption" id="toons-lb-caption"></p>
+  </div>
+  <button class="toons-lightbox__nav toons-lightbox__nav--next" id="toons-lb-next" aria-label="Siguiente">&#8250;</button>
+</div>
+
 {% endif %}
