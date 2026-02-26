@@ -306,4 +306,39 @@
 
   initCookieBanner();
 
+  // ============================================================
+  // 11. TOONS SLIDER
+  // ============================================================
+  const toonsSlider = document.getElementById('toons-slider');
+  if (toonsSlider) {
+    const track   = document.getElementById('toons-track');
+    const items   = track.querySelectorAll('.toons-slider__item');
+    const btnPrev = toonsSlider.querySelector('.toons-slider__btn--prev');
+    const btnNext = toonsSlider.querySelector('.toons-slider__btn--next');
+    let current = 0;
+
+    function getVisible() {
+      if (window.innerWidth < 640)  return 2;
+      if (window.innerWidth < 1024) return 3;
+      return 4;
+    }
+
+    function updateToons() {
+      const visible = getVisible();
+      const max = Math.max(0, items.length - visible);
+      current = Math.min(current, max);
+      const gapPx = window.innerWidth < 640 ? 12 : 16;
+      const viewportW = track.parentElement.offsetWidth;
+      const itemW = (viewportW - gapPx * (visible - 1)) / visible;
+      track.style.transform = `translateX(-${current * (itemW + gapPx)}px)`;
+      btnPrev.disabled = current === 0;
+      btnNext.disabled = current >= max;
+    }
+
+    btnPrev.addEventListener('click', () => { current--; updateToons(); });
+    btnNext.addEventListener('click', () => { current++; updateToons(); });
+    window.addEventListener('resize', () => { current = 0; updateToons(); }, { passive: true });
+    updateToons();
+  }
+
 })();

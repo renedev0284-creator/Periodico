@@ -1,0 +1,33 @@
+{% assign toon_files = site.static_files | where_exp: "f", "f.path contains '/assets/images/comics'" %}
+{% if toon_files.size > 0 %}
+<section class="toons-section" aria-label="Toons">
+  <div class="container">
+
+    <div class="toons-header">
+      <h2 class="toons-header__title">Toons</h2>
+    </div>
+
+    <div class="toons-slider" id="toons-slider">
+      <button class="toons-slider__btn toons-slider__btn--prev" aria-label="Anterior" disabled>&#8249;</button>
+
+      <div class="toons-slider__viewport">
+        <div class="toons-slider__track" id="toons-track">
+          {% for toon in toon_files %}
+          <div class="toons-slider__item">
+            <a href="{{ toon.path }}" class="toons-slider__link" target="_blank" rel="noopener">
+              <div class="toons-slider__img-wrap">
+                <img src="{{ toon.path }}" alt="{{ toon.basename | replace: '-', ' ' | replace: '_', ' ' | capitalize }}" loading="lazy" class="toons-slider__img">
+              </div>
+              <p class="toons-slider__caption">{{ toon.basename | replace: '-', ' ' | replace: '_', ' ' | capitalize }}</p>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button class="toons-slider__btn toons-slider__btn--next" aria-label="Siguiente">&#8250;</button>
+    </div>
+
+  </div>
+</section>
+{% endif %}
