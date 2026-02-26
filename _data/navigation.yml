@@ -2,40 +2,35 @@
 # Agrega, elimina o reordena secciones según tu editorial
 
 sections:
-  - name: "Nacional"
-    url: "/seccion/nacional/"
-    slug: "nacional"
+  - name: "Política"
+    url: "/seccion/politica/"
+    slug: "politica"
     color: "#00356E"
 
-  - name: "Internacional"
-    url: "/seccion/internacional/"
-    slug: "internacional"
-    color: "#0A4A8C"
-
-  - name: "Economía"
-    url: "/seccion/economia/"
-    slug: "economia"
-    color: "#2d7d46"
+  - name: "Deportes"
+    url: "/seccion/deportes/"
+    slug: "deportes"
+    color: "#15803d"
 
   - name: "Tecnología"
     url: "/seccion/tecnologia/"
     slug: "tecnologia"
     color: "#6b21a8"
 
-  - name: "Cultura"
-    url: "/seccion/cultura/"
-    slug: "cultura"
-    color: "#c2410c"
-
   - name: "Ciencia"
     url: "/seccion/ciencia/"
     slug: "ciencia"
     color: "#0369a1"
 
-  - name: "Deportes"
-    url: "/seccion/deportes/"
-    slug: "deportes"
-    color: "#15803d"
+  - name: "Salud"
+    url: "/seccion/salud/"
+    slug: "salud"
+    color: "#0e7490"
+
+  - name: "Sociedad"
+    url: "/seccion/sociedad/"
+    slug: "sociedad"
+    color: "#c2410c"
 
   - name: "Opinión"
     url: "/seccion/opinion/"
