@@ -46,7 +46,7 @@ En análisis internacionales, incluso cuando se reconocen los avances en reducci
 
 Especialistas suelen coincidir en que no hay “copiar y pegar” en materia de seguridad. Aun si México intentara un enfoque territorial por estados, tendría que enfrentar factores estructurales: coordinación federal y estatal, capacidades policiales heterogéneas, corrupción, economías ilegales de gran escala, flujos financieros y armamento, además de presiones políticas y legales para implementar medidas extraordinarias.
 
-{% include tweet.html id="2026798434305348044" %}
+{% include tweet.html url="https://x.com/nayibbukele/status/2026798434305348044" %}
 
 Por ahora, la discusión sigue ocurriendo principalmente en el plano digital, entre quienes ven el estilo de mano dura como una alternativa atractiva y quienes advierten que replicarlo sin controles puede **erosionar instituciones** y agravar abusos.
 
