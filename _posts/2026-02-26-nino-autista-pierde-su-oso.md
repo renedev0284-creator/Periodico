@@ -9,7 +9,7 @@ author: su-ortega
 image: "/assets/images/posts/oso-perdido.jpg"
 image_caption: "Imagen referencial de un osito de peluche. Foto: cortesía"
 excerpt: "La angustia de un niño de 12 años con autismo por la desaparición de su osito favorito movilizó a un oficial capacitado para responder con empatía, paciencia y comprensión."
-featured: false
+featured: true
 breaking: false
 ---
 
