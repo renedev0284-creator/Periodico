@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Bukele sugiere aplicar su modelo de seguridad en México “estado por estado” y desata críticas en redes"
+title: “Bukele sugiere aplicar su modelo de seguridad en México “estado por estado” y desata críticas en redes”
 has_tweets: true
 subtitle: "La propuesta del presidente salvadoreño reaviva el debate regional sobre el “modelo Bukele”: resultados en reducción de homicidios, pero fuertes cuestionamientos por costos democráticos y denuncias de abusos"
 date: 2026-02-25 16:00:00 +0000
