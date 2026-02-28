@@ -46,25 +46,3 @@ comments:
   active: false
   provider: ""            # "disqus", "utterances"
   disqus_shortname: ""
-
-# --- Amazon Associates ---
-# Documentación: https://affiliate-program.amazon.com.mx
-#
-# Front matter de posts:
-#   amazon_affiliate: true        → muestra aviso de afiliado en el artículo
-#   amazon_products:              → lista de tarjetas de producto al final del artículo
-#     - title: "Nombre"
-#       image: "https://..."      # URL de la imagen del producto (desde Amazon)
-#       url:   "https://..."      # Link con ?tag=rmdigital0284-21 (usa SiteStripe)
-#       price: "$599 MXN"         # Precio (actualizar manualmente)
-#       badge: "Más vendido"      # Opcional
-#       description: "..."        # Descripción corta opcional
-#
-# Cómo obtener las URLs: en Amazon.com.mx abre el producto,
-# busca la barra SiteStripe (arriba) → "Texto" → copia el link corto.
-amazon:
-  active: true
-  associates_tag: "rmdigital0284-21"
-  marketplace: "MX"            # MX | US | ES
-  disclosure:
-    show_globally: false       # true = aviso en TODOS los artículos (recomendado si usas muchos links)

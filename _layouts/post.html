@@ -140,16 +140,6 @@ layout: default
   </figure>
   {% endif %}
 
-  <!-- ===== DISCLOSURE DE AFILIADO (si aplica) ===== -->
-  {% assign amz = site.data.settings.amazon %}
-  {% if amz.active %}
-    {% if page.amazon_affiliate or amz.disclosure.show_globally %}
-    <div class="container container--narrow">
-      {% include affiliate-disclosure.html %}
-    </div>
-    {% endif %}
-  {% endif %}
-
   <!-- ===== CUERPO DEL ARTÍCULO + SIDEBAR ===== -->
   <div class="container">
     <div class="article-layout">
@@ -157,9 +147,6 @@ layout: default
       <!-- Cuerpo principal -->
       <div class="article-body" itemprop="articleBody">
         {{ content }}
-
-        <!-- Grid de productos Amazon (definido en el front matter del post) -->
-        {% include amazon-products.html %}
       </div>
 
       <!-- Sidebar del artículo -->
