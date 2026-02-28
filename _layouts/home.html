@@ -122,7 +122,7 @@ layout: default
         <h2 class="newsletter-box__title">{{ site.data.settings.newsletter.title }}</h2>
         <p class="newsletter-box__desc">{{ site.data.settings.newsletter.description }}</p>
       </div>
-      <form class="newsletter-box__form" action="{{ site.data.settings.newsletter.action_url }}" method="post" target="_blank">
+      <form class="newsletter-box__form" action="{{ site.data.settings.newsletter.action_url }}" method="post">
         <input type="email" name="fields[email]" placeholder="tu@correo.com" required aria-label="Correo electrónico" class="newsletter-box__input" autocomplete="email">
         <input type="hidden" name="ml-submit" value="1">
         <input type="hidden" name="anticsrf" value="true">

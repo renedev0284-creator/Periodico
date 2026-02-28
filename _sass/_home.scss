@@ -228,3 +228,23 @@
     }
   }
 }
+
+// Mensaje de éxito tras suscripción (reemplaza al formulario)
+.newsletter-success {
+  font-family: $font-sans;
+  font-size: $text-base;
+  font-weight: 600;
+  color: $color-white;
+  text-align: center;
+  padding: $space-4 $space-6;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: $radius-md;
+
+  // Versión dentro del sidebar (fondo oscuro no disponible)
+  .sidebar-widget & {
+    color: $color-navy;
+    background: lighten($color-gold-pale, 6%);
+    border-color: $color-gold;
+  }
+}

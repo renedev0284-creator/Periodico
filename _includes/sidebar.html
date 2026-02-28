@@ -56,7 +56,7 @@
   <div class="sidebar-widget sidebar-widget--newsletter">
     <h3 class="sidebar-widget__title">✉ Boletín diario</h3>
     <p class="sidebar-widget__desc">Las noticias más importantes cada mañana.</p>
-    <form class="sidebar-newsletter" action="{{ site.data.settings.newsletter.action_url }}" method="post" target="_blank">
+    <form class="sidebar-newsletter" action="{{ site.data.settings.newsletter.action_url }}" method="post">
       <input type="email" name="fields[email]" placeholder="tu@correo.com" required aria-label="Email" class="sidebar-newsletter__input" autocomplete="email">
       <input type="hidden" name="ml-submit" value="1">
       <input type="hidden" name="anticsrf" value="true">

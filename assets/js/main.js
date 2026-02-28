@@ -390,4 +390,47 @@
     });
   }
 
+  // ============================================================
+  // 12. NEWSLETTER — envío AJAX a MailerLite (sin redirigir)
+  // ============================================================
+  document.querySelectorAll('.newsletter-box__form, .sidebar-newsletter').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const emailInput = form.querySelector('input[type="email"]');
+      const submitBtn  = form.querySelector('button[type="submit"]');
+      const email      = emailInput ? emailInput.value.trim() : '';
+      if (!email) return;
+
+      const originalText   = submitBtn.textContent;
+      submitBtn.disabled   = true;
+      submitBtn.textContent = '...';
+
+      const body = `fields[email]=${encodeURIComponent(email)}&ml-submit=1&anticsrf=true`;
+
+      fetch(form.action, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.success) {
+            const msg = document.createElement('p');
+            msg.className   = 'newsletter-success';
+            msg.textContent = '¡Gracias! Revisa tu correo para confirmar.';
+            form.replaceWith(msg);
+          } else {
+            submitBtn.disabled   = false;
+            submitBtn.textContent = originalText;
+          }
+        })
+        .catch(() => {
+          // Fallback: submit normal si fetch falla
+          form.removeAttribute('target');
+          form.submit();
+        });
+    });
+  });
+
 })();
