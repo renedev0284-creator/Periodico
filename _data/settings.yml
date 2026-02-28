@@ -33,8 +33,8 @@ ads:
 # --- Newsletter ---
 newsletter:
   active: true
-  provider: ""            # "mailchimp", "convertkit", etc.
-  action_url: ""          # URL del formulario de suscripción
+  provider: "mailerlite"
+  action_url: "https://assets.mailerlite.com/jsonp/2151165/forms/180691016168244281/subscribe"
   title: "Mantente informado"
   description: "Recibe cada mañana las noticias más importantes directamente en tu correo."
 
