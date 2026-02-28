@@ -64,6 +64,14 @@
   <hr class="sidebar-divider">
   {% endif %}
 
+  <!-- Widget Amazon Native Ads (sidebar) -->
+  {% if site.data.settings.amazon.active and site.data.settings.amazon.ads.sidebar_id != "" %}
+  <div class="sidebar-widget sidebar-widget--amazon">
+    {% include amazon-native-ads.html variant="sidebar" context="sidebar" %}
+  </div>
+  <hr class="sidebar-divider">
+  {% endif %}
+
   <!-- Banner compact: Anúnciate con nosotros -->
   <div class="ad-banner ad-advertise ad-advertise--compact sidebar-widget" role="complementary" aria-label="Espacio publicitario disponible">
     <div class="ad-advertise__glow" aria-hidden="true"></div>

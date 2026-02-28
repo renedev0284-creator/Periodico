@@ -1,0 +1,49 @@
+{% comment %}
+  Grid de productos Amazon — renderiza los productos definidos en el front matter.
+  ---------------------------------------------------------------------------------
+  Uso en el front matter del post:
+
+    amazon_affiliate: true
+    amazon_products:
+      - title: "Nombre del producto"
+        image: "https://images-na.ssl-images-amazon.com/images/I/XXXX.jpg"
+        url: "https://www.amazon.com.mx/dp/ASIN?tag=rmdigital0284-21"
+        price: "$599 MXN"
+        badge: "Más vendido"
+        description: "Descripción corta opcional."
+
+  También se puede insertar una tarjeta individual dentro del Markdown del artículo:
+    {% include amazon-product-card.html title="..." image="..." url="..." price="..." %}
+{% endcomment %}
+
+{% assign amz = site.data.settings.amazon %}
+
+{% if amz.active and page.amazon_products and page.amazon_products.size > 0 %}
+
+<section class="amz-products" aria-label="Productos recomendados">
+
+  <div class="amz-products__header">
+    <span class="amz-products__icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FF9900"/>
+      </svg>
+    </span>
+    <h3 class="amz-products__title">Productos recomendados</h3>
+    <span class="amz-products__disclaimer">Afiliado</span>
+  </div>
+
+  <div class="amz-products__grid amz-products__grid--{{ page.amazon_products.size | at_most: 3 }}col">
+    {% for product in page.amazon_products %}
+      {% include amazon-product-card.html
+         title=product.title
+         image=product.image
+         url=product.url
+         price=product.price
+         badge=product.badge
+         description=product.description %}
+    {% endfor %}
+  </div>
+
+</section>
+
+{% endif %}

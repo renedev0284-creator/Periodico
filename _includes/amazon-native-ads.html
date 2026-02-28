@@ -1,0 +1,69 @@
+{% comment %}
+  Amazon Native Shopping Ads — El Diario
+  ----------------------------------------
+  Parámetros del include:
+    variant  — "recommendation" (auto, por defecto) | "search" | "sidebar"
+    context  — "article" (por defecto) | "sidebar" | "home"
+    asins    — ASINs separados por coma para producto manual (ej: "B08N5WRWNW,B07ZPKN6YR")
+
+  Activación en settings.yml → amazon.active: true
+  Front matter de posts → amazon_ads: true (y opcionalmente amazon_asins: "...")
+{% endcomment %}
+
+{% assign amz = site.data.settings.amazon %}
+
+{% if amz.active and amz.associates_tag != "" %}
+
+  {% assign _variant = include.variant | default: "recommendation" %}
+  {% assign _context = include.context | default: "article" %}
+  {% assign _mp      = amz.marketplace | default: "MX" %}
+
+  {% comment %} Servidor de anuncios según mercado {% endcomment %}
+  {% if _mp == "ES" %}
+    {% assign _host = "z-eu" %}
+  {% else %}
+    {% assign _host = "z-na" %}
+  {% endif %}
+
+  {% comment %} Seleccionar instance ID según variante {% endcomment %}
+  {% if _variant == "sidebar" %}
+    {% assign _id = amz.ads.sidebar_id %}
+  {% elsif _variant == "search" %}
+    {% assign _id = amz.ads.search_id %}
+  {% else %}
+    {% assign _id = amz.ads.recommendation_id %}
+  {% endif %}
+
+  {% if _id and _id != "" %}
+
+<div class="amazon-native amazon-native--{{ _context }}"
+     role="complementary"
+     aria-label="Productos recomendados por Amazon">
+
+  <div class="amazon-native__bar">
+    <span class="amazon-native__pub-label">Publicidad</span>
+    <span class="amazon-native__brand" aria-label="Amazon">amazon</span>
+  </div>
+
+  <div class="amazon-native__widget">
+    <script type="text/javascript">
+      amzn_assoc_placement   = "adunit0";
+      amzn_assoc_tracking_id = "{{ amz.associates_tag }}";
+      amzn_assoc_ad_mode     = "auto";
+      amzn_assoc_ad_type     = "smart";
+      amzn_assoc_marketplace = "amazon";
+      amzn_assoc_region      = "{{ _mp }}";
+      amzn_assoc_linkid      = "{{ _id }}";
+      {% if include.asins and include.asins != "" %}
+      amzn_assoc_ad_mode     = "manual";
+      amzn_assoc_asins       = "{{ include.asins }}";
+      {% endif %}
+    </script>
+    <script src="//{{ _host }}.amazon-adsystem.com/widgets/onejs?MarketPlace={{ _mp }}&adInstanceId={{ _id }}"></script>
+  </div>
+
+</div>
+
+  {% endif %}
+
+{% endif %}

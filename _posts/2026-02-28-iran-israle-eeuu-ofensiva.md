@@ -11,6 +11,13 @@ image_caption: "Humo sobre Teherán tras los ataques reportados el 28 de febrero
 excerpt: "La crisis en Oriente Medio escaló este sábado a un conflicto abierto de gran magnitud: Estados Unidos e Israel atacaron Irán, Teherán respondió con misiles y drones, y el impacto ya se siente en la aviación, el petróleo y la seguridad regional."
 featured: true
 breaking: true
+amazon_affiliate: true          ← LÍNEA 1: activa el aviso legal
+amazon_products:                ← LÍNEA 2: tus tarjetas de producto
+  - title: "Depiladora Eléctrica Para Una Eliminación Del Vello Fácil"
+    image: "https://m.media-amazon.com/images/I/51mqXCGO4sL._AC_SX679_.jpg"
+    url: "https://amzn.to/4kZne7H"
+    price: "$1650 MXN"
+    badge: "Más vendido"
 ---
 
 Oriente Medio entró este sábado en una nueva fase de guerra abierta luego de que Estados Unidos e Israel lanzaran ataques coordinados contra Irán, en una ofensiva que golpeó objetivos vinculados al liderazgo político, la estructura militar y el aparato nuclear iraní.
