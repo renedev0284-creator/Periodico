@@ -47,6 +47,12 @@ weather:
 # --- Google Analytics ---
 google_analytics: ""      # Tu ID de Google Analytics (G-XXXXXXXXXX)
 
+# --- Apoyo del lector (PayPal) ---
+support:
+  active: true
+  paypal_email: "rene0284@msn.com"
+  label: "Apoya el periodismo libre"    # Texto del enlace/botón
+
 # --- Comentarios ---
 comments:
   active: false

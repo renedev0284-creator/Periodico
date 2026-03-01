@@ -89,6 +89,27 @@
   }
 }
 
+// --- Apoyo del lector (footer) ---
+.footer-support {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-sans;
+  font-size: $text-xs;
+  color: rgba(255, 255, 255, 0.32);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color $transition-fast;
+  margin-top: $space-1;
+
+  svg { opacity: 0.5; flex-shrink: 0; transition: opacity $transition-fast; }
+
+  &:hover {
+    color: rgba($color-gold, 0.75);
+    svg { opacity: 1; }
+  }
+}
+
 // --- Navegación en el footer ---
 .footer-nav {
   &__title {
