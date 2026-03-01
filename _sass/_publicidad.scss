@@ -1,0 +1,508 @@
+// ================================================================
+// PUBLICIDAD — Página de contratación publicitaria
+// ================================================================
+
+// ----------------------------------------------------------------
+// Hero
+// ----------------------------------------------------------------
+
+.pub-hero {
+  background: $color-navy-deeper;
+  position: relative;
+  overflow: hidden;
+  padding: $space-16 0 $space-14;
+  text-align: center;
+
+  // Textura diagonal sutil
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba($color-gold, 0.025) 40px,
+        rgba($color-gold, 0.025) 41px
+      );
+    pointer-events: none;
+  }
+
+  &__inner {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 $container-padding;
+  }
+
+  &__badge {
+    display: inline-block;
+    font-family: $font-sans;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-gold;
+    border: 1px solid rgba($color-gold, 0.35);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: $space-5;
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: $color-white;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 $space-5;
+  }
+
+  &__desc {
+    font-family: $font-serif-body;
+    font-size: clamp($text-base, 2vw, $text-md);
+    color: rgba(255, 255, 255, 0.62);
+    line-height: 1.7;
+    margin: 0 0 $space-8;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-4 $space-8;
+    background: $color-gold;
+    color: $color-navy-deeper;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: $radius-sm;
+    transition: background $transition-fast, transform $transition-fast;
+
+    &:hover {
+      background: $color-gold-dark;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// Formatos
+// ----------------------------------------------------------------
+
+.pub-formats {
+  padding: $space-14 0 $space-10;
+  background: $color-white;
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: $text-2xl;
+    font-weight: 700;
+    color: $color-near-black;
+    text-align: center;
+    margin: 0 0 $space-3;
+  }
+
+  &__sub {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    text-align: center;
+    margin: 0 auto $space-10;
+    max-width: 500px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-6;
+
+    @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+}
+
+.pub-format-card {
+  padding: $space-6;
+  border: 1px solid $color-border;
+  border-top: 3px solid $color-navy;
+  border-radius: 0 0 $radius-md $radius-md;
+  background: $color-white;
+  position: relative;
+  transition: box-shadow $transition-base, transform $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+
+  &--featured {
+    border-top-color: $color-gold;
+    background: #fffdf5;
+  }
+
+  &__icon {
+    color: $color-navy;
+    margin-bottom: $space-4;
+
+    .pub-format-card--featured & { color: $color-gold-dark; }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -1px;
+    right: $space-4;
+    background: $color-gold;
+    color: $color-navy-deeper;
+    font-family: $font-sans;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 0 0 $radius-sm $radius-sm;
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: $text-lg;
+    font-weight: 700;
+    color: $color-near-black;
+    margin: 0 0 $space-3;
+  }
+
+  &__desc {
+    font-family: $font-serif-body;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    line-height: 1.6;
+    margin: 0 0 $space-4;
+  }
+
+  &__specs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+
+    li {
+      font-family: $font-sans;
+      font-size: $text-xs;
+      color: $color-gray-600;
+      padding-left: $space-4;
+      position: relative;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: $color-navy;
+        font-weight: 700;
+
+        .pub-format-card--featured & { color: $color-gold-dark; }
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// Garantías (franja de confianza)
+// ----------------------------------------------------------------
+
+.pub-trust {
+  background: $color-navy;
+  padding: $space-10 0;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-8;
+    text-align: center;
+
+    @media (max-width: $bp-md) { grid-template-columns: 1fr; gap: $space-6; }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+    color: rgba(255, 255, 255, 0.72);
+    font-family: $font-sans;
+    font-size: $text-sm;
+    line-height: 1.5;
+
+    strong {
+      color: $color-white;
+      font-size: $text-base;
+      display: block;
+      margin-bottom: $space-1;
+    }
+  }
+
+  &__icon {
+    font-size: 1.75rem;
+    margin-bottom: $space-2;
+    line-height: 1;
+  }
+}
+
+// ----------------------------------------------------------------
+// Sección del formulario
+// ----------------------------------------------------------------
+
+.pub-form-section {
+  background: $color-bg-alt;
+  padding: $space-14 0 $space-16;
+}
+
+.pub-form-wrap {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: $space-12;
+  align-items: start;
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: 1fr;
+    gap: $space-8;
+  }
+}
+
+// Intro lateral
+.pub-form-intro {
+  &__title {
+    font-family: $font-serif-display;
+    font-size: $text-2xl;
+    font-weight: 700;
+    color: $color-near-black;
+    margin: 0 0 $space-4;
+    line-height: 1.2;
+  }
+
+  &__desc {
+    font-family: $font-serif-body;
+    font-size: $text-base;
+    color: $color-gray-600;
+    line-height: 1.7;
+    margin: 0 0 $space-8;
+  }
+
+  &__alt {
+    padding: $space-5;
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-left: 3px solid $color-navy;
+    border-radius: 0 $radius-sm $radius-sm 0;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  &__alt-label {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $color-gray-400;
+    margin: 0;
+  }
+
+  &__contact {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 500;
+    color: $color-navy;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-accent; }
+
+    &--wa {
+      color: #25d366;
+      &:hover { color: darken(#25d366, 10%); }
+    }
+  }
+}
+
+// El formulario
+.pub-form {
+  background: $color-white;
+  padding: $space-8;
+  border: 1px solid $color-border;
+  border-top: 3px solid $color-navy;
+  border-radius: 0 0 $radius-md $radius-md;
+  box-shadow: $shadow-sm;
+
+  @media (max-width: $bp-sm) { padding: $space-5; }
+
+  &__row {
+    margin-bottom: $space-5;
+
+    &--2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: $space-4;
+
+      @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    margin-bottom: $space-5;
+  }
+
+  &__label {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $color-near-black;
+
+    span { color: $color-accent; }
+  }
+
+  &__input,
+  &__select,
+  &__textarea {
+    width: 100%;
+    padding: $space-3 $space-4;
+    border: 1px solid $color-border;
+    background: $color-white;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-near-black;
+    outline: none;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+    border-radius: $radius-sm;
+    box-sizing: border-box;
+
+    &::placeholder { color: $color-gray-400; }
+
+    &:focus {
+      border-color: $color-navy;
+      box-shadow: 0 0 0 3px rgba($color-navy, 0.08);
+    }
+  }
+
+  &__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $space-4 center;
+    padding-right: $space-10;
+    cursor: pointer;
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  &__radios {
+    display: flex;
+    gap: $space-5;
+    margin-top: $space-1;
+  }
+
+  &__radio-label {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-near-black;
+    cursor: pointer;
+
+    input[type="radio"] { accent-color: $color-navy; width: 16px; height: 16px; }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    margin-top: $space-6;
+    padding-top: $space-5;
+    border-top: 1px solid $color-gray-100;
+    flex-wrap: wrap;
+  }
+
+  &__note {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-600;
+    margin: 0;
+
+    strong { color: $color-near-black; }
+    svg { flex-shrink: 0; color: $color-navy; }
+  }
+
+  &__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-4 $space-8;
+    background: $color-navy;
+    color: $color-white;
+    border: none;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: $radius-sm;
+    transition: background $transition-fast, transform $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: $color-navy-deeper;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+  }
+
+  // Resultado de envío
+  &__result {
+    margin-top: $space-5;
+    padding: $space-4 $space-5;
+    border-radius: $radius-sm;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    line-height: 1.6;
+
+    &--ok {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #166534;
+    }
+
+    &--err {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+
+      a { color: #991b1b; font-weight: 600; }
+    }
+  }
+}
