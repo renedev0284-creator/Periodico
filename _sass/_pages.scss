@@ -1,0 +1,461 @@
+// ============================================================
+// PÁGINAS ESTÁTICAS — Nosotros · Hemeroteca · Boletín
+// ============================================================
+
+// ── Nosotros: Equipo ─────────────────────────────────────
+
+.about-team {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+  margin: $space-8 0;
+}
+
+.about-member {
+  display: flex;
+  gap: $space-6;
+  align-items: flex-start;
+
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid $color-border;
+    background: $color-gray-100;
+
+    &--placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: $font-serif-display;
+      font-size: $text-2xl;
+      font-weight: 900;
+      color: $color-navy;
+      background: $color-gray-100;
+    }
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    display: block;
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-weight: 700;
+    color: $color-navy;
+    margin-bottom: 2px;
+  }
+
+  &__title {
+    display: block;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 500;
+    color: $color-gold-dark;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: $space-2;
+  }
+
+  &__bio {
+    font-family: $font-serif-body;
+    font-size: $text-base;
+    color: $color-gray-600;
+    line-height: 1.6;
+    margin: 0 0 $space-3;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+  }
+
+  &__link {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-link;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    &:hover { color: $color-link-hover; }
+  }
+
+  @media (max-width: $bp-sm) {
+    flex-direction: column;
+    &__avatar { width: 60px; height: 60px; }
+  }
+}
+
+// ── Hemeroteca ──────────────────────────────────────────
+
+.archive-page { padding-bottom: $space-16; }
+
+.archive-header {
+  background: $color-bg-alt;
+  padding: $space-10 0 $space-8;
+  margin-bottom: $space-10;
+  border-bottom: 3px solid $color-navy;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, $color-gold 0%, transparent 60%);
+    opacity: 0.7;
+  }
+
+  &__breadcrumb {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-400;
+    margin-bottom: $space-3;
+    a { color: $color-gray-400; text-decoration: underline; text-underline-offset: 2px; }
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: clamp($text-3xl, 4vw, $text-4xl);
+    font-weight: 900;
+    color: $color-navy;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: $space-2;
+  }
+
+  &__desc {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-400;
+  }
+}
+
+.archive-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: $space-10;
+  align-items: start;
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.archive-main { min-width: 0; }
+
+.archive-year-group { margin-bottom: $space-8; }
+
+.archive-year {
+  font-family: $font-serif-display;
+  font-size: $text-2xl;
+  font-weight: 900;
+  color: $color-navy;
+  letter-spacing: -0.02em;
+  padding-bottom: $space-3;
+  border-bottom: 2px solid $color-navy;
+  margin-bottom: $space-4;
+}
+
+.archive-month {
+  font-family: $font-sans;
+  font-size: $text-xs;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $color-gold-dark;
+  margin: $space-5 0 $space-2;
+}
+
+.archive-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid $color-border;
+}
+
+.archive-item {
+  display: flex;
+  align-items: baseline;
+  gap: $space-3;
+  padding: $space-3 0;
+  border-bottom: 1px solid $color-border;
+
+  &__date {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: $color-gray-400;
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+
+  &__cat {
+    font-family: $font-sans;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-white;
+    background: $color-navy;
+    padding: 1px 6px;
+    border-radius: $radius-sm;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  &__title {
+    font-family: $font-serif-body;
+    font-size: $text-base;
+    color: $color-near-black;
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-navy; text-decoration: underline; text-underline-offset: 2px; }
+  }
+}
+
+// Sidebar del archivo
+.archive-sidebar {
+  position: sticky;
+  top: 80px;
+
+  @media (max-width: $bp-lg) { display: none; }
+}
+
+.archive-widget {
+  background: $color-bg-alt;
+  border: 1px solid $color-border;
+  border-top: 3px solid $color-navy;
+  padding: $space-5;
+  border-radius: 0 0 $radius-md $radius-md;
+
+  &__title {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-gray-400;
+    margin: 0 0 $space-4;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-2 $space-3;
+    border-radius: $radius-md;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-dark;
+    text-decoration: none;
+    transition: background $transition-fast, color $transition-fast;
+
+    &:hover {
+      background: rgba($color-navy, 0.06);
+      color: $color-navy;
+    }
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &__count {
+    margin-left: auto;
+    font-size: $text-xs;
+    color: $color-gray-400;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// ── Newsletter Page ──────────────────────────────────────
+
+.newsletter-page {
+  padding-bottom: $space-16;
+
+  &__header {
+    background: $color-navy-deeper;
+    color: $color-white;
+    padding: $space-12 0 $space-10;
+    text-align: center;
+    margin-bottom: $space-10;
+  }
+
+  &__breadcrumb {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: $space-5;
+    a { color: rgba(255, 255, 255, 0.4); text-decoration: underline; }
+  }
+
+  &__icon {
+    font-size: 2.5rem;
+    margin-bottom: $space-4;
+    filter: grayscale(1) brightness(2);
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: clamp($text-3xl, 4vw, $text-4xl);
+    font-weight: 900;
+    color: $color-gold;
+    letter-spacing: -0.02em;
+    margin-bottom: $space-4;
+  }
+
+  &__desc {
+    font-family: $font-serif-body;
+    font-size: $text-lg;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  &__body {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  &__card {
+    background: $color-bg-alt;
+    border: 1px solid $color-border;
+    border-top: 3px solid $color-navy;
+    border-radius: 0 0 $radius-lg $radius-lg;
+    padding: $space-8;
+    margin-bottom: $space-8;
+  }
+
+  &__label {
+    display: block;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $color-navy;
+    margin-bottom: $space-3;
+  }
+
+  &__row {
+    display: flex;
+    gap: $space-3;
+
+    @media (max-width: $bp-sm) { flex-direction: column; }
+  }
+
+  &__input {
+    flex: 1;
+    padding: $space-4 $space-5;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    font-family: $font-sans;
+    font-size: $text-base;
+    color: $color-near-black;
+    background: $color-white;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+    outline: none;
+
+    &:focus {
+      border-color: $color-navy;
+      box-shadow: 0 0 0 3px rgba($color-navy, 0.1);
+    }
+
+    &::placeholder { color: $color-gray-400; }
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-4 $space-6;
+    background: $color-navy;
+    color: $color-white;
+    border: none;
+    border-radius: $radius-md;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background $transition-fast, transform $transition-fast;
+
+    &:hover { background: $color-navy-dark; transform: translateY(-1px); }
+
+    svg { transition: transform $transition-fast; }
+    &:hover svg { transform: translateX(3px); }
+
+    @media (max-width: $bp-sm) { width: 100%; justify-content: center; }
+  }
+
+  &__privacy {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-400;
+    margin-top: $space-4;
+    text-align: center;
+
+    a { color: $color-link; text-decoration: underline; text-underline-offset: 2px; }
+  }
+}
+
+// Beneficios del boletín
+.newsletter-perks {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.newsletter-perk {
+  display: flex;
+  gap: $space-4;
+  align-items: flex-start;
+
+  &__icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  strong {
+    display: block;
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-weight: 700;
+    color: $color-navy;
+    margin-bottom: $space-1;
+  }
+
+  p {
+    font-family: $font-serif-body;
+    font-size: $text-base;
+    color: $color-gray-600;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
