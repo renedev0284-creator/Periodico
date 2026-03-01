@@ -124,6 +124,15 @@ layout: default
     </div>
   </header>
 
+  <!-- ===== VIDEO PRINCIPAL (de X.com) ===== -->
+  {% if page.video_url %}
+  <div class="article-video-lead">
+    <div class="container container--narrow">
+      {% include x-video.html url=page.video_url caption=page.video_caption %}
+    </div>
+  </div>
+  {% endif %}
+
   <!-- ===== IMAGEN PRINCIPAL ===== -->
   {% if page.image %}
   <figure class="article-hero-image">
@@ -214,7 +223,7 @@ layout: default
   {% include related-posts.html %}
 {% endif %}
 
-{% if page.has_tweets %}
+{% if page.has_tweets or page.video_url %}
 <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endif %}
 

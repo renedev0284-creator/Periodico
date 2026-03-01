@@ -1,0 +1,44 @@
+{% comment %}
+  Embed de video de X.com (Twitter) con atribución automática al autor.
+
+  Uso dentro de un artículo:
+    {% include x-video.html url="https://x.com/usuario/status/1234567890" %}
+
+  Uso desde front matter (automático en post.html):
+    video_url: "https://x.com/usuario/status/1234567890"
+
+  Parámetros:
+    url     (requerido) — URL del tweet en x.com o twitter.com
+    caption (opcional)  — Pie de video personalizado; sobreescribe la atribución automática
+{% endcomment %}
+
+{% assign _xv_url  = include.url %}
+{% assign _xv_norm = _xv_url | remove: "https://x.com/" | remove: "https://twitter.com/" | remove: "http://x.com/" | remove: "http://twitter.com/" %}
+{% assign _xv_parts    = _xv_norm | split: "/" %}
+{% assign _xv_username = _xv_parts[0] %}
+{% assign _xv_tw_url   = _xv_url | replace: "x.com", "twitter.com" %}
+
+<div class="x-video-embed" data-x-video-url="{{ _xv_url | escape }}">
+  <blockquote class="twitter-tweet"
+              data-lang="es"
+              data-dnt="true"
+              data-conversation="none">
+    <a href="{{ _xv_tw_url }}"></a>
+  </blockquote>
+  <p class="x-video-source">
+    <svg class="x-video-source__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+    {% if include.caption %}
+      {{ include.caption }}
+    {% else %}
+      Vía
+      <a href="https://x.com/{{ _xv_username }}"
+         class="x-video-source__link"
+         target="_blank"
+         rel="noopener noreferrer"
+         data-x-profile-link="{{ _xv_url | escape }}">@<span class="x-video-source__name">{{ _xv_username }}</span></a>
+      en X
+    {% endif %}
+  </p>
+</div>

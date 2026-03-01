@@ -1,0 +1,262 @@
+// ============================================================
+// VIDEOS — Embeds de X.com y galería de videos
+// ============================================================
+
+// --- Embed individual ---
+
+.x-video-embed {
+  max-width: 560px;
+  margin: $space-6 auto;
+
+  // El widget de Twitter centra solo internamente; forzamos que ocupe el ancho disponible
+  .twitter-tweet {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+.x-video-source {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-sans;
+  font-size: $text-xs;
+  color: $color-gray-600;
+  margin: $space-1 0 0;
+  padding: 0;
+
+  &__icon {
+    width: 13px;
+    height: 13px;
+    fill: currentColor;
+    flex-shrink: 0;
+    position: relative;
+    top: 1px;
+  }
+
+  &__link {
+    color: $color-gray-600;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-navy;
+      text-decoration: underline;
+    }
+  }
+
+  // El nombre real (display name) se inyecta via JS; por defecto muestra @username
+  &__name {
+    font-weight: 600;
+  }
+}
+
+// --- Embed dentro del cuerpo del artículo ---
+
+.article-body .x-video-embed {
+  margin: $space-8 auto;
+}
+
+// --- Video destacado (encabezado del artículo) ---
+
+.article-video-lead {
+  background: $color-bg-alt;
+  padding: $space-6 0 $space-4;
+  margin-bottom: $space-8;
+
+  .container--narrow & .x-video-embed,
+  & .x-video-embed {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .x-video-source {
+    justify-content: center;
+    margin-top: $space-3;
+  }
+}
+
+// ============================================================
+// GALERÍA DE VIDEOS
+// ============================================================
+
+.video-gallery-page {
+  padding: $space-8 0 $space-20;
+}
+
+.video-gallery-header {
+  border-bottom: 3px solid $color-navy;
+  padding-bottom: $space-4;
+  margin-bottom: $space-8;
+
+  &__eyebrow {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-navy;
+    margin-bottom: $space-2;
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: $text-3xl;
+    font-weight: 700;
+    color: $color-near-black;
+    margin: 0 0 $space-2;
+    line-height: 1.15;
+  }
+
+  &__count {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+  }
+}
+
+.video-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: $space-10;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+    gap: $space-8;
+  }
+}
+
+.video-gallery-item {
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: $color-bg;
+  transition: box-shadow $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  // Zona del embed
+  &__embed {
+    background: $color-bg-alt;
+    padding: $space-4 $space-4 0;
+
+    .x-video-embed {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .x-video-source {
+      padding-bottom: $space-3;
+    }
+  }
+
+  // Zona del contenido editorial
+  &__content {
+    padding: $space-4 $space-5 $space-5;
+    border-top: 1px solid $color-border;
+  }
+
+  &__category {
+    display: inline-block;
+    font-family: $font-sans;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $color-bg;
+    background: $color-navy;
+    padding: 0.15rem 0.5rem;
+    border-radius: $radius-sm;
+    text-decoration: none;
+    margin-bottom: $space-2;
+
+    &:hover {
+      background: $color-navy-dark;
+    }
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: $text-lg;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 $space-2;
+
+    a {
+      color: $color-near-black;
+      text-decoration: none;
+
+      &:hover {
+        color: $color-navy;
+      }
+    }
+  }
+
+  &__excerpt {
+    font-family: $font-serif-body;
+    font-size: $text-sm;
+    color: $color-gray-800;
+    line-height: 1.6;
+    margin: 0 0 $space-3;
+
+    // Limitar a 3 líneas
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-600;
+  }
+
+  &__read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    margin-top: $space-3;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $color-navy;
+    text-decoration: none;
+
+    &::after {
+      content: "→";
+      transition: transform $transition-fast;
+    }
+
+    &:hover {
+      color: $color-navy-light;
+
+      &::after {
+        transform: translateX(3px);
+      }
+    }
+  }
+}
+
+// Estado vacío (sin videos aún)
+.video-gallery-empty {
+  text-align: center;
+  padding: $space-20 $space-8;
+  color: $color-gray-600;
+
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: $space-4;
+    opacity: 0.4;
+  }
+
+  &__text {
+    font-family: $font-sans;
+    font-size: $text-md;
+  }
+}

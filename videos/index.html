@@ -1,0 +1,88 @@
+---
+layout: default
+title: "Galería de Videos"
+description: "Videos de última hora y contenido multimedia publicado en El Diario."
+permalink: /videos/
+---
+
+{% assign video_posts = site.posts | where_exp: "p", "p.video_url" %}
+
+<div class="video-gallery-page">
+  <div class="container">
+
+    <header class="video-gallery-header">
+      <p class="video-gallery-header__eyebrow">Multimedia</p>
+      <h1 class="video-gallery-header__title">Galería de Videos</h1>
+      {% if video_posts.size > 0 %}
+        <p class="video-gallery-header__count">{{ video_posts.size }} video{% if video_posts.size != 1 %}s{% endif %} publicado{% if video_posts.size != 1 %}s{% endif %}</p>
+      {% endif %}
+    </header>
+
+    {% if video_posts.size > 0 %}
+
+      <div class="video-gallery-grid">
+        {% for post in video_posts %}
+          {% assign cat = post.categories | first %}
+          {% assign nav_section = site.data.navigation.sections | where: "slug", cat | first %}
+
+          <article class="video-gallery-item">
+
+            <!-- Embed del video -->
+            <div class="video-gallery-item__embed">
+              {% include x-video.html url=post.video_url caption=post.video_caption %}
+            </div>
+
+            <!-- Contenido editorial -->
+            <div class="video-gallery-item__content">
+
+              {% if cat %}
+                <a href="/seccion/{{ cat }}/"
+                   class="video-gallery-item__category"
+                   {% if nav_section.color %}style="background: {{ nav_section.color }}"{% endif %}>
+                  {{ cat | upcase }}
+                </a>
+              {% endif %}
+
+              <h2 class="video-gallery-item__title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              </h2>
+
+              {% if post.subtitle %}
+                <p class="video-gallery-item__excerpt">{{ post.subtitle }}</p>
+              {% elsif post.excerpt %}
+                <p class="video-gallery-item__excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+              {% endif %}
+
+              <div class="video-gallery-item__meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                  {{ post.date | date: "%-d de %B de %Y" }}
+                </time>
+                {% assign author_data = site.authors | where: "name", post.author | first %}
+                {% if author_data %}
+                  <span>·</span>
+                  <span>{{ author_data.display_name }}</span>
+                {% endif %}
+              </div>
+
+              <a href="{{ post.url | relative_url }}" class="video-gallery-item__read-more">
+                Leer nota completa
+              </a>
+
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+    {% else %}
+
+      <div class="video-gallery-empty">
+        <div class="video-gallery-empty__icon">▶</div>
+        <p class="video-gallery-empty__text">Aún no hay videos publicados.</p>
+      </div>
+
+    {% endif %}
+
+  </div>
+</div>
+
+<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

@@ -39,6 +39,8 @@ sections:
 
 # Menú secundario (header superior)
 secondary:
+  - name: "Videos"
+    url: "/videos/"
   - name: "Boletín"
     url: "/newsletter/"
   - name: "Podcasts"
