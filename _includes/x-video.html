@@ -1,44 +1,129 @@
 {% comment %}
-  Embed de video de X.com (Twitter) con atribución automática al autor.
+  Embed de video de X.com con reveal retardado y pre-roll publicitario opcional.
 
-  Uso dentro de un artículo:
+  Uso:
     {% include x-video.html url="https://x.com/usuario/status/1234567890" %}
 
-  Uso desde front matter (automático en post.html):
-    video_url: "https://x.com/usuario/status/1234567890"
-
   Parámetros:
-    url     (requerido) — URL del tweet en x.com o twitter.com
-    caption (opcional)  — Pie de video personalizado; sobreescribe la atribución automática
+    url          (requerido) — URL del tweet en x.com o twitter.com
+    caption      (opcional)  — Pie de video personalizado; reemplaza "Vía @usuario en X"
+    no_preroll   (opcional)  — Pasar cualquier valor para suprimir el pre-roll en este embed
 {% endcomment %}
 
-{% assign _xv_url  = include.url %}
-{% assign _xv_norm = _xv_url | remove: "https://x.com/" | remove: "https://twitter.com/" | remove: "http://x.com/" | remove: "http://twitter.com/" %}
+{% assign _xv_url      = include.url %}
+{% assign _xv_norm     = _xv_url | remove: "https://x.com/" | remove: "https://twitter.com/" | remove: "http://x.com/" | remove: "http://twitter.com/" %}
 {% assign _xv_parts    = _xv_norm | split: "/" %}
 {% assign _xv_username = _xv_parts[0] %}
 {% assign _xv_tw_url   = _xv_url | replace: "x.com", "twitter.com" %}
+{% assign _xv_ad       = site.data.settings.video_ad %}
 
-<div class="x-video-embed" data-x-video-url="{{ _xv_url | escape }}">
-  <blockquote class="twitter-tweet"
-              data-lang="es"
-              data-dnt="true"
-              data-conversation="none">
-    <a href="{{ _xv_tw_url }}"></a>
-  </blockquote>
-  <p class="x-video-source">
-    <svg class="x-video-source__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-    </svg>
-    {% if include.caption %}
-      {{ include.caption }}
-    {% else %}
-      Vía
-      <a href="https://x.com/{{ _xv_username }}"
-         class="x-video-source__link"
-         target="_blank"
-         rel="noopener noreferrer"
-         data-x-profile-link="{{ _xv_url | escape }}">@<span class="x-video-source__name">{{ _xv_username }}</span></a>
-      en X
-    {% endif %}
-  </p>
+{% if _xv_ad.enabled and include.no_preroll == nil %}
+  {% assign _xv_show_preroll = true %}
+{% else %}
+  {% assign _xv_show_preroll = false %}
+{% endif %}
+
+{% assign _xv_duration   = _xv_ad.duration   | default: 7 %}
+{% assign _xv_skip_after = _xv_ad.skip_after  | default: 3 %}
+
+<div class="x-video-wrapper"
+     data-ad-enabled="{{ _xv_show_preroll }}"
+     data-ad-duration="{{ _xv_duration }}"
+     data-skip-after="{{ _xv_skip_after }}">
+
+  <!-- ===== ESTADO 1: COLAPSADO ===== -->
+  <div class="x-video-collapsed">
+    <div class="x-video-collapsed__backdrop" aria-hidden="true">
+      <svg viewBox="0 0 24 24" class="x-video-collapsed__bg-logo" fill="white">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </div>
+    <div class="x-video-collapsed__inner">
+      <button class="x-video-reveal-btn" type="button" aria-label="Reproducir video de @{{ _xv_username }}">
+        <span class="x-video-reveal-btn__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="x-video-reveal-btn__label">Ver video</span>
+      </button>
+      <p class="x-video-collapsed__credit">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        @{{ _xv_username }} en X
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== ESTADO 2: PRE-ROLL (solo si está activo) ===== -->
+  {% if _xv_show_preroll %}
+  <div class="x-video-preroll" hidden aria-live="polite">
+
+    <div class="x-video-preroll__body">
+      {% if _xv_ad.ad_image and _xv_ad.ad_image != "" %}
+
+        <!-- Imagen de anuncio completa -->
+        <a href="{{ _xv_ad.sponsor_url }}" target="_blank" rel="noopener sponsored"
+           class="x-video-preroll__img-link">
+          <img src="{{ _xv_ad.ad_image | relative_url }}"
+               alt="{{ _xv_ad.sponsor_name | default: 'Anuncio' }}"
+               class="x-video-preroll__img" loading="eager">
+        </a>
+
+      {% elsif _xv_ad.sponsor_name and _xv_ad.sponsor_name != "" %}
+
+        <!-- Tarjeta de patrocinador (logo + tagline) -->
+        <div class="x-video-preroll__sponsor-card">
+          {% if _xv_ad.sponsor_logo and _xv_ad.sponsor_logo != "" %}
+            <img src="{{ _xv_ad.sponsor_logo | relative_url }}"
+                 alt="{{ _xv_ad.sponsor_name }}"
+                 class="x-video-preroll__sponsor-logo" loading="eager">
+          {% else %}
+            <p class="x-video-preroll__sponsor-name">{{ _xv_ad.sponsor_name }}</p>
+          {% endif %}
+          {% if _xv_ad.sponsor_tagline and _xv_ad.sponsor_tagline != "" %}
+            <p class="x-video-preroll__tagline">{{ _xv_ad.sponsor_tagline }}</p>
+          {% endif %}
+          {% if _xv_ad.sponsor_url and _xv_ad.sponsor_url != "" %}
+            <a href="{{ _xv_ad.sponsor_url }}" target="_blank" rel="noopener sponsored"
+               class="x-video-preroll__visit-btn">Visitar sitio →</a>
+          {% endif %}
+        </div>
+
+      {% else %}
+
+        <!-- Sin patrocinador configurado → banner promocional animado -->
+        {% include ad-promo-video.html %}
+
+      {% endif %}
+    </div>
+
+    <div class="x-video-preroll__footer">
+      <span class="x-video-preroll__badge">{{ _xv_ad.ad_label | default: "Publicidad" }}</span>
+      <span class="x-video-preroll__timer">
+        El video inicia en <strong class="x-video-preroll__countdown">{{ _xv_duration }}</strong>s
+      </span>
+      <button class="x-video-preroll__skip" type="button" hidden>Saltar →</button>
+    </div>
+
+  </div>
+  {% endif %}
+
+  <!-- ===== ESTADO 3: VIDEO ===== -->
+  <!-- El blockquote se inyecta via JS al mostrar, evitando carga anticipada del widget -->
+  <div class="x-video-embed" hidden
+       data-tweet-url="{{ _xv_tw_url | escape }}"
+       data-x-video-url="{{ _xv_url | escape }}">
+    <p class="x-video-source">
+      <svg class="x-video-source__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+      {% if include.caption %}
+        {{ include.caption }}
+      {% else %}
+        Vía <a href="https://x.com/{{ _xv_username }}" class="x-video-source__link"
+               target="_blank" rel="noopener noreferrer">@{{ _xv_username }}</a> en X
+      {% endif %}
+    </p>
+  </div>
+
 </div>

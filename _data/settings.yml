@@ -58,3 +58,18 @@ comments:
   active: false
   provider: ""            # "disqus", "utterances"
   disqus_shortname: ""
+
+# --- Video pre-roll publicitario ---
+# Cuando enabled: true, el video aparece colapsado y muestra un anuncio
+# durante N segundos antes de reproducirse. Ideal para monetización.
+video_ad:
+  enabled: false          # true para activar el pre-roll en todos los videos
+  duration: 7             # Segundos que dura el anuncio antes de mostrar el video
+  skip_after: 3           # Segundos tras los que aparece el botón "Saltar"
+  ad_label: "Publicidad"  # Etiqueta del anuncio
+  # --- Datos del patrocinador (dejar vacío = muestra banner "Tu marca aquí") ---
+  sponsor_name: ""        # Nombre de la marca (ej: "Banco Agrícola")
+  sponsor_url: ""         # URL de destino (ej: "https://bancoagricola.com")
+  sponsor_logo: ""        # Logo del patrocinador (ej: /assets/images/ads/logo-marca.png)
+  sponsor_tagline: ""     # Mensaje de la marca (ej: "El banco que te acompaña")
+  ad_image: ""            # Imagen principal del anuncio (reemplaza logo+tagline si se usa)

@@ -562,4 +562,97 @@
     }
   }
 
+
+  // ============================================================
+  // 14. VIDEO REVEAL — Collapse + Pre-roll publicitario
+  // ============================================================
+  document.querySelectorAll('.x-video-wrapper').forEach(function (wrapper) {
+    var revealBtn = wrapper.querySelector('.x-video-reveal-btn');
+    var collapsed = wrapper.querySelector('.x-video-collapsed');
+    var preroll   = wrapper.querySelector('.x-video-preroll');
+    var embed     = wrapper.querySelector('.x-video-embed');
+
+    if (!revealBtn || !embed) return;
+
+    var adEnabled = wrapper.dataset.adEnabled === 'true';
+    var duration  = parseInt(wrapper.dataset.adDuration, 10) || 7;
+    var skipAfter = parseInt(wrapper.dataset.skipAfter,  10) || 3;
+
+    // Muestra el embed de Twitter inyectando el blockquote dinámicamente
+    function showVideo() {
+      if (preroll)   preroll.hidden   = true;
+      if (collapsed) collapsed.hidden = true;
+      embed.hidden = false;
+
+      // Inyectar blockquote solo si aún no existe (evita duplicados)
+      var tweetUrl = embed.dataset.tweetUrl;
+      if (tweetUrl && !embed.querySelector('.twitter-tweet')) {
+        var bq = document.createElement('blockquote');
+        bq.className = 'twitter-tweet';
+        bq.setAttribute('data-lang', 'es');
+        bq.setAttribute('data-dnt', 'true');
+        bq.setAttribute('data-conversation', 'none');
+        var a = document.createElement('a');
+        a.href = tweetUrl;
+        bq.appendChild(a);
+        embed.insertBefore(bq, embed.firstChild);
+      }
+
+      // Renderizar widget si ya está cargado; si no, se procesa cuando cargue
+      if (window.twttr && window.twttr.widgets) {
+        window.twttr.widgets.load(embed);
+      } else if (!document.querySelector('script[src*="widgets.js"]')) {
+        var s = document.createElement('script');
+        s.src = 'https://platform.twitter.com/widgets.js';
+        s.charset = 'utf-8';
+        s.async = true;
+        document.body.appendChild(s);
+      }
+    }
+
+    // Inicia el pre-roll con cuenta regresiva
+    function startPreroll() {
+      if (!preroll) { showVideo(); return; }
+
+      collapsed.hidden = true;
+      preroll.hidden   = false;
+
+      var countdownEl = preroll.querySelector('.x-video-preroll__countdown');
+      var skipBtn     = preroll.querySelector('.x-video-preroll__skip');
+      var remaining   = duration;
+
+      var timer = setInterval(function () {
+        remaining--;
+        if (countdownEl) countdownEl.textContent = remaining;
+
+        // Mostrar "Saltar" después de skip_after segundos
+        if (skipBtn && remaining <= duration - skipAfter) {
+          skipBtn.hidden = false;
+        }
+
+        if (remaining <= 0) {
+          clearInterval(timer);
+          showVideo();
+        }
+      }, 1000);
+
+      if (skipBtn) {
+        skipBtn.addEventListener('click', function () {
+          clearInterval(timer);
+          showVideo();
+        });
+      }
+    }
+
+    // Clic en "Ver video"
+    revealBtn.addEventListener('click', function () {
+      if (adEnabled && preroll) {
+        startPreroll();
+      } else {
+        collapsed.hidden = true;
+        showVideo();
+      }
+    });
+  });
+
 })();

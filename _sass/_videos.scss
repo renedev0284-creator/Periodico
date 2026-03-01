@@ -1,14 +1,501 @@
 // ============================================================
-// VIDEOS — Embeds de X.com y galería de videos
+// VIDEOS — Embeds de X.com, galería y publicidad pre-roll
 // ============================================================
 
-// --- Embed individual ---
+// ============================================================
+// 1. ANIMACIONES
+// ============================================================
 
-.x-video-embed {
+@keyframes xv-gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes xv-orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(15px, -20px) scale(1.08); }
+}
+
+@keyframes xv-orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-20px, 12px) scale(0.92); }
+}
+
+@keyframes xv-orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(10px, 18px) scale(1.05); }
+  66%       { transform: translate(-8px, -10px) scale(0.96); }
+}
+
+@keyframes xv-shine-sweep {
+  0%   { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(220%) skewX(-20deg); opacity: 0; }
+}
+
+@keyframes xv-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+@keyframes xv-btn-glow {
+  0%, 100% { box-shadow: 0 0 18px rgba(255, 45, 120, 0.6); }
+  50%       { box-shadow: 0 0 36px rgba(255, 45, 120, 0.95), 0 0 60px rgba(255, 107, 53, 0.4); }
+}
+
+@keyframes xv-play-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35); }
+  50%       { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0); }
+}
+
+@keyframes xv-badge-blink {
+  0%, 90%, 100% { opacity: 1; }
+  45%            { opacity: 0.5; }
+}
+
+// ============================================================
+// 2. WRAPPER PRINCIPAL
+// ============================================================
+
+.x-video-wrapper {
   max-width: 560px;
   margin: $space-6 auto;
 
-  // El widget de Twitter centra solo internamente; forzamos que ocupe el ancho disponible
+  // Evitar que hidden override de flex/grid se rompa
+  [hidden] { display: none !important; }
+}
+
+// ============================================================
+// 3. ESTADO COLAPSADO
+// ============================================================
+
+.x-video-collapsed {
+  position: relative;
+  background: #0a0f1e;
+  border-radius: $radius-md;
+  overflow: hidden;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  &__bg-logo {
+    width: 200px;
+    height: 200px;
+    opacity: 0.04;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-5;
+    padding: $space-8;
+  }
+
+  &__credit {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0;
+
+    svg {
+      width: 11px;
+      height: 11px;
+    }
+  }
+}
+
+// --- Botón de reveal ---
+
+.x-video-reveal-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $space-3;
+
+  &__play {
+    width: 76px;
+    height: 76px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.30);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background $transition-base, border-color $transition-base, transform $transition-base;
+    animation: xv-play-ring 2.5s ease-in-out infinite;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+      margin-left: 4px; // centrado óptico del icono play
+    }
+  }
+
+  &__label {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.04em;
+  }
+
+  &:hover &__play,
+  &:focus-visible &__play {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.70);
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 4px;
+    border-radius: $radius-md;
+  }
+}
+
+// ============================================================
+// 4. ESTADO PRE-ROLL
+// ============================================================
+
+.x-video-preroll {
+  border-radius: $radius-md;
+  overflow: hidden;
+  border: 1px solid $color-border;
+  background: $color-bg;
+
+  &__body {
+    min-height: 210px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  &__img-link {
+    display: block;
+    width: 100%;
+  }
+
+  &__img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    max-height: 280px;
+  }
+
+  // Tarjeta de patrocinador (sin imagen)
+  &__sponsor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: $space-8 $space-6;
+    width: 100%;
+    background: $color-bg-alt;
+  }
+
+  &__sponsor-logo {
+    max-height: 64px;
+    max-width: 220px;
+    object-fit: contain;
+    margin-bottom: $space-4;
+  }
+
+  &__sponsor-name {
+    font-family: $font-serif-display;
+    font-size: $text-2xl;
+    font-weight: 700;
+    color: $color-near-black;
+    margin: 0 0 $space-3;
+  }
+
+  &__tagline {
+    font-family: $font-sans;
+    font-size: $text-base;
+    color: $color-gray-800;
+    margin: 0 0 $space-5;
+    line-height: 1.5;
+  }
+
+  &__visit-btn {
+    display: inline-block;
+    padding: $space-2 $space-6;
+    background: $color-navy;
+    color: white;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: $radius-sm;
+    transition: background $transition-fast;
+
+    &:hover { background: $color-navy-light; }
+  }
+
+  // Pie del pre-roll (countdown + skip)
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    padding: $space-3 $space-4;
+    background: #0a0f1e;
+  }
+
+  &__badge {
+    font-family: $font-sans;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 0.15rem 0.45rem;
+    border-radius: $radius-sm;
+    white-space: nowrap;
+  }
+
+  &__timer {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.7);
+    flex: 1;
+    text-align: center;
+  }
+
+  &__countdown {
+    color: white;
+    font-weight: 700;
+    font-size: $text-sm;
+  }
+
+  &__skip {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.75);
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 600;
+    padding: $space-1 $space-3;
+    cursor: pointer;
+    border-radius: $radius-sm;
+    white-space: nowrap;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.55);
+      color: white;
+    }
+  }
+}
+
+// ============================================================
+// 5. BANNER ANIMADO "TU MARCA AQUÍ"
+// ============================================================
+
+.promo-video-banner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #12003a 0%,
+    #2d0a6b 25%,
+    #1a0c5e 50%,
+    #3b0070 75%,
+    #0d1560 100%
+  );
+  background-size: 300% 300%;
+  animation: xv-gradient-shift 6s ease infinite;
+
+  // Orbes de color (fondo)
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  &__orb--1 {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, #ff2d78, transparent 70%);
+    top: -60px;
+    left: -40px;
+    animation: xv-orb-float-1 7s ease-in-out infinite;
+  }
+
+  &__orb--2 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, #7b2fff, transparent 70%);
+    bottom: -50px;
+    right: -30px;
+    animation: xv-orb-float-2 9s ease-in-out infinite;
+  }
+
+  &__orb--3 {
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, #00d4ff, transparent 70%);
+    top: 30%;
+    right: 15%;
+    opacity: 0.35;
+    animation: xv-orb-float-3 11s ease-in-out infinite;
+  }
+
+  // Barrido de luz
+  &__shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 100%
+      );
+      animation: xv-shine-sweep 3.5s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+  }
+
+  // Contenido
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: $space-6 $space-8;
+    gap: $space-3;
+  }
+
+  // Badge "DISPONIBLE"
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-sans;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #00ff88;
+    border: 1.5px solid rgba(0, 255, 136, 0.45);
+    padding: 0.2rem 0.75rem;
+    border-radius: 100px;
+    animation: xv-badge-blink 2.5s ease-in-out infinite;
+  }
+
+  &__dot {
+    width: 7px;
+    height: 7px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: xv-dot-pulse 2.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  // Titular
+  &__headline {
+    font-family: $font-serif-display;
+    font-size: $text-2xl;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    line-height: 1.15;
+    text-shadow: 0 2px 20px rgba(255, 45, 120, 0.5);
+    letter-spacing: -0.01em;
+  }
+
+  // Subtexto
+  &__sub {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.70);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  // Botón CTA
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    margin-top: $space-1;
+    padding: $space-2 $space-5;
+    background: linear-gradient(135deg, #ff2d78 0%, #ff6b35 100%);
+    color: white;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 100px;
+    animation: xv-btn-glow 2.5s ease-in-out infinite;
+    transition: transform $transition-fast, filter $transition-fast;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+  }
+}
+
+// ============================================================
+// 6. ESTADO VIDEO (embed visible)
+// ============================================================
+
+.x-video-embed {
+  max-width: 560px;
+  margin: 0 auto;
+
   .twitter-tweet {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -23,12 +510,10 @@
   font-size: $text-xs;
   color: $color-gray-600;
   margin: $space-1 0 0;
-  padding: 0;
 
   &__icon {
     width: 13px;
     height: 13px;
-    fill: currentColor;
     flex-shrink: 0;
     position: relative;
     top: 1px;
@@ -44,28 +529,18 @@
       text-decoration: underline;
     }
   }
-
-  // El nombre real (display name) se inyecta via JS; por defecto muestra @username
-  &__name {
-    font-weight: 600;
-  }
 }
 
-// --- Embed dentro del cuerpo del artículo ---
-
-.article-body .x-video-embed {
-  margin: $space-8 auto;
-}
-
-// --- Video destacado (encabezado del artículo) ---
+// ============================================================
+// 7. VIDEO EN CABECERA DE ARTÍCULO
+// ============================================================
 
 .article-video-lead {
   background: $color-bg-alt;
   padding: $space-6 0 $space-4;
   margin-bottom: $space-8;
 
-  .container--narrow & .x-video-embed,
-  & .x-video-embed {
+  .x-video-wrapper {
     margin-top: 0;
     margin-bottom: 0;
   }
@@ -76,8 +551,13 @@
   }
 }
 
+// Video dentro del cuerpo del artículo
+.article-body .x-video-wrapper {
+  margin: $space-8 auto;
+}
+
 // ============================================================
-// GALERÍA DE VIDEOS
+// 8. GALERÍA DE VIDEOS
 // ============================================================
 
 .video-gallery-page {
@@ -137,22 +617,23 @@
     box-shadow: $shadow-md;
   }
 
-  // Zona del embed
   &__embed {
     background: $color-bg-alt;
-    padding: $space-4 $space-4 0;
 
-    .x-video-embed {
+    .x-video-wrapper {
       margin: 0;
       max-width: 100%;
     }
 
+    .x-video-collapsed {
+      border-radius: 0;
+    }
+
     .x-video-source {
-      padding-bottom: $space-3;
+      padding: $space-2 $space-4 $space-3;
     }
   }
 
-  // Zona del contenido editorial
   &__content {
     padding: $space-4 $space-5 $space-5;
     border-top: 1px solid $color-border;
@@ -172,9 +653,7 @@
     text-decoration: none;
     margin-bottom: $space-2;
 
-    &:hover {
-      background: $color-navy-dark;
-    }
+    &:hover { background: $color-navy-dark; }
   }
 
   &__title {
@@ -187,10 +666,7 @@
     a {
       color: $color-near-black;
       text-decoration: none;
-
-      &:hover {
-        color: $color-navy;
-      }
+      &:hover { color: $color-navy; }
     }
   }
 
@@ -200,8 +676,6 @@
     color: $color-gray-800;
     line-height: 1.6;
     margin: 0 0 $space-3;
-
-    // Limitar a 3 líneas
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -235,15 +709,11 @@
 
     &:hover {
       color: $color-navy-light;
-
-      &::after {
-        transform: translateX(3px);
-      }
+      &::after { transform: translateX(3px); }
     }
   }
 }
 
-// Estado vacío (sin videos aún)
 .video-gallery-empty {
   text-align: center;
   padding: $space-20 $space-8;
