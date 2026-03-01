@@ -38,6 +38,12 @@ newsletter:
   title: "Mantente informado"
   description: "Recibe cada mañana las noticias más importantes directamente en tu correo."
 
+# --- Clima y ubicación (burbujas del topbar) ---
+weather:
+  city: "San Salvador"    # Nombre que se muestra en la burbuja ciudad
+  lat: 13.6929            # Latitud de la ciudad
+  lon: -89.2182           # Longitud de la ciudad
+
 # --- Google Analytics ---
 google_analytics: ""      # Tu ID de Google Analytics (G-XXXXXXXXXX)
 

@@ -9,6 +9,34 @@
             {{ 'now' | date: "%-d de %B de %Y" }}
           </time>
           <span class="topbar-edition">· {{ site.edition | default: "Edición Digital" }}</span>
+
+          <!-- ── Burbujas: hora · ciudad · clima ── -->
+          {% if site.data.settings.weather %}
+          <span class="topbar-divider" aria-hidden="true"></span>
+          <div class="topbar-bubbles">
+
+            <span class="topbar-bubble topbar-bubble--clock" aria-label="Hora local" aria-live="polite">
+              <svg class="topbar-bubble__icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="topbar-clock-val">--:--</span>
+            </span>
+
+            <span class="topbar-bubble topbar-bubble--city" aria-label="Ciudad">
+              <svg class="topbar-bubble__icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span id="topbar-city-val">{{ site.data.settings.weather.city }}</span>
+            </span>
+
+            <span class="topbar-bubble topbar-bubble--weather"
+                  id="topbar-weather"
+                  data-lat="{{ site.data.settings.weather.lat }}"
+                  data-lon="{{ site.data.settings.weather.lon }}"
+                  aria-label="Clima actual"
+                  aria-live="polite">
+              <span id="topbar-weather-icon" aria-hidden="true" style="font-size:11px;line-height:1">·</span>
+              <span id="topbar-weather-val">…</span>
+            </span>
+
+          </div>
+          {% endif %}
         </div>
         <nav class="topbar-nav" aria-label="Menú secundario">
           <ul class="topbar-nav__list">

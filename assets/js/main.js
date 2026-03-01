@@ -433,4 +433,133 @@
     });
   });
 
+
+  // ============================================================
+  // 13. TOPBAR BUBBLES — Reloj + Geolocalización automática + Clima
+  //   · Pide permiso de ubicación al navegador
+  //   · Reverse-geocoding vía Nominatim (OpenStreetMap, gratis)
+  //   · Clima vía Open-Meteo con las coordenadas reales
+  //   · Fallback: coordenadas de settings.yml si se niega el permiso
+  //   · Caché en sessionStorage (30 min) para no pedir ubicación en cada carga
+  // ============================================================
+
+  // --- Reloj en vivo ---
+  const clockEl = document.getElementById('topbar-clock-val');
+
+  function updateClock() {
+    if (!clockEl) return;
+    const now = new Date();
+    clockEl.textContent =
+      String(now.getHours()).padStart(2, '0') + ':' +
+      String(now.getMinutes()).padStart(2, '0');
+  }
+
+  if (clockEl) {
+    updateClock();
+    setInterval(updateClock, 30000);
+  }
+
+  // --- Clima + Ciudad auto-detectados ---
+  const weatherBubble = document.getElementById('topbar-weather');
+  const weatherVal    = document.getElementById('topbar-weather-val');
+  const weatherIcon   = document.getElementById('topbar-weather-icon');
+  const cityEl        = document.getElementById('topbar-city-val');
+
+  // WMO weather code → emoji
+  function wmoToIcon(code) {
+    if (code === 0)  return '☀️';
+    if (code <= 2)   return '🌤️';
+    if (code <= 3)   return '☁️';
+    if (code <= 48)  return '🌫️';
+    if (code <= 55)  return '🌦️';
+    if (code <= 67)  return '🌧️';
+    if (code <= 77)  return '❄️';
+    if (code <= 82)  return '🌦️';
+    if (code <= 99)  return '⛈️';
+    return '🌡️';
+  }
+
+  function applyWeather(temp, code) {
+    if (weatherVal)  weatherVal.textContent  = Math.round(temp) + '°';
+    if (weatherIcon) weatherIcon.textContent = wmoToIcon(code);
+    if (weatherBubble) weatherBubble.classList.add('has-data');
+  }
+
+  function applyCity(name) {
+    if (cityEl && name) cityEl.textContent = name;
+  }
+
+  if (weatherBubble && weatherVal) {
+    const fallbackLat = parseFloat(weatherBubble.dataset.lat);
+    const fallbackLon = parseFloat(weatherBubble.dataset.lon);
+    const CACHE_KEY   = 'ed-location-v2';
+    const CACHE_TTL   = 30 * 60 * 1000; // 30 minutos
+
+    // Consulta clima + ciudad en paralelo
+    function loadFromCoords(lat, lon) {
+      var weatherUrl = 'https://api.open-meteo.com/v1/forecast' +
+        '?latitude=' + lat + '&longitude=' + lon +
+        '&current=temperature_2m,weather_code&timezone=auto&forecast_days=1';
+
+      var geoUrl = 'https://nominatim.openstreetmap.org/reverse' +
+        '?lat=' + lat + '&lon=' + lon + '&format=json&accept-language=es';
+
+      Promise.all([
+        fetch(weatherUrl).then(function(r) { return r.json(); }),
+        fetch(geoUrl).then(function(r) { return r.json(); })
+      ])
+      .then(function(results) {
+        var weather = results[0];
+        var geo     = results[1];
+        var temp    = weather.current.temperature_2m;
+        var code    = weather.current.weather_code;
+        var addr    = geo.address || {};
+        var city    = addr.city || addr.town || addr.village ||
+                      addr.municipality || addr.county || '';
+
+        applyWeather(temp, code);
+        applyCity(city);
+
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+          temp: temp, code: code, city: city, ts: Date.now()
+        }));
+      })
+      .catch(function() {
+        if (weatherVal)  weatherVal.textContent  = '--°';
+        if (weatherIcon) weatherIcon.textContent = '🌡️';
+      });
+    }
+
+    // 1. Intentar caché de sesión primero
+    var fromCache = false;
+    try {
+      var cached = JSON.parse(sessionStorage.getItem(CACHE_KEY));
+      if (cached && (Date.now() - cached.ts) < CACHE_TTL) {
+        applyWeather(cached.temp, cached.code);
+        applyCity(cached.city);
+        fromCache = true;
+      }
+    } catch (_) {}
+
+    // 2. Si no hay caché, pedir geolocalización al navegador
+    if (!fromCache) {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          function(pos) {
+            // Permiso concedido → usar coordenadas reales
+            loadFromCoords(pos.coords.latitude, pos.coords.longitude);
+          },
+          function() {
+            // Permiso denegado → usar fallback de settings.yml
+            loadFromCoords(fallbackLat, fallbackLon);
+          },
+          { timeout: 6000, maximumAge: 1800000 }
+        );
+      } else {
+        // Navegador sin soporte → fallback
+        loadFromCoords(fallbackLat, fallbackLon);
+      }
+    }
+  }
+
 })();
