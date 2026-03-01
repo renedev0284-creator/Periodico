@@ -38,6 +38,64 @@ layout: default
   {% include ad-recruit.html variant="inline" %}
 </div>
 
+<!-- ===== DESTACADO OPINIÓN ===== -->
+{% assign opinion_posts = site.posts | where: "categories", "opinion" %}
+{% if opinion_posts.size > 0 %}
+{% assign latest_opinion = opinion_posts | first %}
+{% assign latest_opinions = opinion_posts | limit: 3 %}
+{% assign opinion_author = site.authors | where: "name", latest_opinion.author | first %}
+<section class="homepage-opinion" aria-label="Columna de opinión">
+  <div class="container">
+    <div class="homepage-opinion__inner">
+
+      <!-- Columna principal: el artículo más reciente -->
+      <div class="homepage-opinion__featured">
+        <p class="homepage-opinion__eyebrow">Opinión</p>
+        <h2 class="homepage-opinion__title">
+          <a href="{{ latest_opinion.url | relative_url }}">{{ latest_opinion.title }}</a>
+        </h2>
+        <p class="homepage-opinion__excerpt">{{ latest_opinion.excerpt | strip_html | truncate: 180 }}</p>
+        <div class="homepage-opinion__byline">
+          {% if opinion_author.avatar %}
+          <img src="{{ opinion_author.avatar | relative_url }}" alt="{{ opinion_author.display_name }}" class="homepage-opinion__avatar" loading="lazy">
+          {% endif %}
+          <span class="homepage-opinion__author-name">
+            {{ opinion_author.display_name | default: latest_opinion.author }}
+          </span>
+          <span class="homepage-opinion__sep" aria-hidden="true">·</span>
+          <time datetime="{{ latest_opinion.date | date_to_xmlschema }}">
+            {{ latest_opinion.date | date: "%-d %b" }}
+          </time>
+        </div>
+        <a href="{{ latest_opinion.url | relative_url }}" class="homepage-opinion__cta">
+          Leer columna
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Lista lateral: más columnas recientes -->
+      <div class="homepage-opinion__list">
+        <p class="homepage-opinion__list-label">Más columnas</p>
+        {% for post in latest_opinions %}
+        {% assign post_author = site.authors | where: "name", post.author | first %}
+        <article class="homepage-opinion__item">
+          {% if post_author.avatar %}
+          <img src="{{ post_author.avatar | relative_url }}" alt="{{ post_author.display_name }}" class="homepage-opinion__item-avatar" loading="lazy">
+          {% endif %}
+          <div class="homepage-opinion__item-body">
+            <a href="{{ post.url | relative_url }}" class="homepage-opinion__item-title">{{ post.title }}</a>
+            <span class="homepage-opinion__item-author">{{ post_author.display_name | default: post.author }}</span>
+          </div>
+        </article>
+        {% endfor %}
+        <a href="/seccion/opinion/" class="homepage-opinion__all">Ver toda la sección →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <div class="section-divider container"><span>Lo último</span></div>
 
 <!-- ===== CUERPO PRINCIPAL: NOTICIAS + SIDEBAR ===== -->

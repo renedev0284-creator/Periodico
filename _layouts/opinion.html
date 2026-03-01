@@ -1,0 +1,183 @@
+---
+layout: default
+---
+
+{% include reading-time.html content=content %}
+
+<!-- JSON-LD: OpinionNewsArticle -->
+{% assign _ld_author = site.authors | where: "name", page.author | first %}
+{% assign _ld_author_name = _ld_author.display_name | default: page.author | replace: '-', ' ' | capitalize %}
+{% assign _ld_img = page.image | default: '/assets/images/default-og.jpg' | absolute_url %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OpinionNewsArticle",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.excerpt | strip_html | truncate: 200 | jsonify }},
+  "url": "{{ page.url | absolute_url }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "image": { "@type": "ImageObject", "url": {{ _ld_img | jsonify }}, "width": 1200, "height": 630 },
+  "author": {
+    "@type": "Person",
+    "name": {{ _ld_author_name | jsonify }}{% if _ld_author %},
+    "url": "{{ _ld_author.url | absolute_url }}"{% endif %}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "url": "{{ '/' | absolute_url }}",
+    "logo": { "@type": "ImageObject", "url": "{{ '/assets/images/logo.png' | absolute_url }}", "width": 600, "height": 60 }
+  }
+}
+</script>
+
+<article class="opinion-article" itemscope itemtype="https://schema.org/OpinionNewsArticle">
+
+  <!-- Barra de progreso de lectura -->
+  {% if site.data.settings.article.show_progress_bar %}
+  <div class="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    <div class="reading-progress__bar" id="reading-progress-bar"></div>
+  </div>
+  {% endif %}
+
+  <!-- ===== CABECERA DE OPINIÓN ===== -->
+  <header class="opinion-header">
+    <div class="opinion-header__inner">
+
+      <!-- Marca superior: sección + fecha -->
+      <div class="opinion-header__top">
+        <span class="opinion-badge" aria-label="Sección Opinión">Opinión</span>
+        <span class="opinion-header__sep" aria-hidden="true">—</span>
+        <time class="opinion-header__date" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{ page.date | date: "%-d de %B de %Y" }}
+        </time>
+      </div>
+
+      <!-- Regla decorativa superior -->
+      <div class="opinion-rule opinion-rule--double" aria-hidden="true"></div>
+
+      <!-- Titular -->
+      <h1 class="opinion-title" itemprop="headline">{{ page.title }}</h1>
+
+      <!-- Subtítulo -->
+      {% if page.subtitle %}
+      <p class="opinion-subtitle" itemprop="description">{{ page.subtitle }}</p>
+      {% endif %}
+
+      <!-- Regla decorativa inferior -->
+      <div class="opinion-rule" aria-hidden="true"></div>
+
+      <!-- Byline del columnista -->
+      {% assign author_data = site.authors | where: "name", page.author | first %}
+      <div class="opinion-byline">
+        {% if author_data %}
+          {% if author_data.avatar %}
+          <img src="{{ author_data.avatar | relative_url }}"
+               alt="{{ author_data.display_name }}"
+               class="opinion-byline__avatar"
+               loading="eager">
+          {% endif %}
+          <div class="opinion-byline__info">
+            <a href="{{ author_data.url | relative_url }}" class="opinion-byline__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <span itemprop="name">{{ author_data.display_name }}</span>
+            </a>
+            {% if author_data.title %}
+            <span class="opinion-byline__role">{{ author_data.title }}</span>
+            {% endif %}
+            {% if site.data.settings.article.show_reading_time %}
+            <span class="opinion-byline__reading">{{ reading_time }} min de lectura</span>
+            {% endif %}
+          </div>
+        {% else %}
+          <span class="opinion-byline__name">{{ page.author | replace: '-', ' ' | capitalize }}</span>
+        {% endif %}
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ===== IMAGEN PRINCIPAL (full-bleed, opcional) ===== -->
+  {% if page.image %}
+  <figure class="opinion-hero-image">
+    <img src="{{ page.image | relative_url }}"
+         alt="{{ page.title }}"
+         class="opinion-hero-image__img"
+         itemprop="image"
+         loading="eager">
+    {% if page.image_caption %}
+    <figcaption class="opinion-hero-image__caption">{{ page.image_caption }}</figcaption>
+    {% endif %}
+  </figure>
+  {% endif %}
+
+  <!-- ===== CUERPO EN COLUMNAS ===== -->
+  <div class="opinion-body-wrap">
+    <div class="opinion-body" itemprop="articleBody">
+      {{ content }}
+    </div>
+
+    <!-- Compartir (pie del cuerpo) -->
+    {% if site.data.settings.article.show_share_buttons %}
+    <div class="opinion-share">
+      <span class="opinion-share__label">Comparte esta columna</span>
+      {% include social-share.html %}
+    </div>
+    {% endif %}
+
+    <!-- Tags -->
+    {% if page.tags.size > 0 and site.data.settings.article.show_tags %}
+    <div class="opinion-tags">
+      <span class="opinion-tags__label">Temas:</span>
+      {% for tag in page.tags %}
+      <a href="/etiqueta/{{ tag | slugify }}/" class="article-tag">{{ tag }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Bio extendida del columnista -->
+    {% if site.data.settings.article.show_author_bio and author_data %}
+    <div class="opinion-author-card">
+      {% if author_data.avatar %}
+      <img src="{{ author_data.avatar | relative_url }}" alt="{{ author_data.display_name }}" class="opinion-author-card__avatar" loading="lazy">
+      {% endif %}
+      <div class="opinion-author-card__content">
+        <p class="opinion-author-card__eyebrow">Sobre el columnista</p>
+        <h3 class="opinion-author-card__name">
+          <a href="{{ author_data.url | relative_url }}">{{ author_data.display_name }}</a>
+        </h3>
+        {% if author_data.title %}<p class="opinion-author-card__title">{{ author_data.title }}</p>{% endif %}
+        {% if author_data.bio %}<p class="opinion-author-card__bio">{{ author_data.bio }}</p>{% endif %}
+        <div class="opinion-author-card__links">
+          {% if author_data.twitter %}<a href="https://twitter.com/{{ author_data.twitter }}" class="author-bio__link" rel="noopener">Twitter</a>{% endif %}
+          {% if author_data.email %}<a href="mailto:{{ author_data.email }}" class="author-bio__link">Email</a>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+
+</article>
+
+<!-- ===== OTRAS COLUMNAS / ARTÍCULOS RELACIONADOS ===== -->
+{% assign opinion_posts = site.posts | where: "categories", "opinion" | where_exp: "p", "p.url != page.url" | limit: 3 %}
+{% if opinion_posts.size > 0 %}
+<section class="opinion-more" aria-label="Más columnas de opinión">
+  <div class="container">
+    <div class="opinion-more__header">
+      <h2 class="opinion-more__title">Más columnas</h2>
+      <a href="/seccion/opinion/" class="opinion-more__link">Ver todas →</a>
+    </div>
+    <div class="opinion-more__grid">
+      {% for post in opinion_posts %}
+        {% include article-card.html post=post size="small" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.has_tweets %}
+<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{% endif %}

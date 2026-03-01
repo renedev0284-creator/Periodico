@@ -1,0 +1,670 @@
+// ================================================================
+// OPINIÓN — Layout de columnas periodísticas
+// Diseño especial, diferenciado del resto del periódico
+// ================================================================
+
+$opinion-amber:      #92400e;   // Acento cálido para Opinión
+$opinion-amber-light:#d97706;
+$opinion-cream:      #fdf8f0;   // Fondo cálido para el cuerpo
+$opinion-ink:        #1a1209;   // Negro-tinta para tipografía
+
+// ----------------------------------------------------------------
+// Cabecera dramática
+// ----------------------------------------------------------------
+
+.opinion-header {
+  background: $color-navy-deeper;
+  padding: $space-16 0 $space-12;
+  text-align: center;
+  position: relative;
+
+  &__inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 $container-padding;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    margin-bottom: $space-6;
+  }
+
+  &__sep {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: $text-sm;
+  }
+
+  &__date {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.04em;
+  }
+}
+
+// Badge de sección
+.opinion-badge {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: $opinion-amber-light;
+  border: 1px solid $opinion-amber;
+  padding: 3px $space-3;
+  border-radius: 2px;
+}
+
+// Reglas decorativas al estilo periódico clásico
+.opinion-rule {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: $space-6 auto;
+  max-width: 500px;
+
+  &--double {
+    border-top: 3px double rgba(255, 255, 255, 0.2);
+  }
+}
+
+// Titular principal
+.opinion-title {
+  font-family: $font-serif-display;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  color: $color-white;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 $space-6;
+  itemprop: headline;
+}
+
+// Subtítulo / entradilla
+.opinion-subtitle {
+  font-family: $font-serif-body;
+  font-size: clamp($text-base, 2vw, $text-md);
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  margin: 0 0 $space-6;
+  font-style: italic;
+}
+
+// Byline del columnista (en la cabecera)
+.opinion-byline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-4;
+  padding-top: $space-6;
+
+  &__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $opinion-amber;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__name {
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-weight: 700;
+    color: $color-white;
+    text-decoration: none;
+
+    &:hover { color: $opinion-amber-light; }
+  }
+
+  &__role {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__reading {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+// ----------------------------------------------------------------
+// Imagen héroe (full-bleed bajo la cabecera)
+// ----------------------------------------------------------------
+
+.opinion-hero-image {
+  margin: 0;
+  max-height: 420px;
+  overflow: hidden;
+
+  &__img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__caption {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-600;
+    padding: $space-2 $container-padding;
+    font-style: italic;
+    text-align: center;
+    background: $opinion-cream;
+  }
+}
+
+// ----------------------------------------------------------------
+// Cuerpo en columnas — el corazón del diseño
+// ----------------------------------------------------------------
+
+.opinion-body-wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: $space-12 $container-padding $space-16;
+  background: $opinion-cream;
+}
+
+.opinion-body {
+  column-count: 2;
+  column-gap: 3rem;
+  column-rule: 1px solid darken($opinion-cream, 12%);
+  column-fill: balance;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+
+  // Tipografía editorial dentro de las columnas
+  font-family: $font-serif-body;
+  font-size: $text-md;
+  line-height: 1.75;
+  color: $opinion-ink;
+
+  // Párrafos
+  p {
+    margin: 0 0 $space-4;
+    orphans: 3;
+    widows: 3;
+  }
+
+  // Drop cap en el primer párrafo
+  > p:first-of-type::first-letter {
+    float: left;
+    font-family: $font-serif-display;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 5rem;
+    line-height: 0.75;
+    margin: 0.08em 0.08em -0.02em 0;
+    color: $opinion-amber;
+  }
+
+  // Títulos internos
+  h2 {
+    column-span: all;
+    font-family: $font-serif-display;
+    font-size: $text-xl;
+    font-weight: 700;
+    color: $opinion-ink;
+    margin: $space-8 0 $space-4;
+    padding-top: $space-6;
+    border-top: 2px solid $opinion-amber;
+  }
+
+  h3 {
+    font-family: $font-sans;
+    font-size: $text-base;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $opinion-amber;
+    margin: $space-6 0 $space-3;
+  }
+
+  // Imágenes: siempre full-width (abarcan ambas columnas)
+  img, figure {
+    column-span: all;
+    width: 100%;
+    margin: $space-8 0;
+
+    img { width: 100%; height: auto; display: block; }
+
+    figcaption {
+      font-family: $font-sans;
+      font-size: $text-xs;
+      color: $color-gray-600;
+      font-style: italic;
+      margin-top: $space-2;
+      text-align: center;
+    }
+  }
+
+  // Blockquote / pull quote inline
+  blockquote {
+    column-span: all;
+    margin: $space-8 0;
+    padding: $space-6 $space-8;
+    border-top: 3px solid $opinion-amber;
+    border-bottom: 1px solid lighten($opinion-amber, 30%);
+    background: darken($opinion-cream, 3%);
+
+    p {
+      font-family: $font-serif-display;
+      font-style: italic;
+      font-size: $text-xl;
+      line-height: 1.45;
+      color: $opinion-ink;
+      margin: 0;
+
+      &::before { content: '\201C'; color: $opinion-amber; font-size: 1.5em; line-height: 0; vertical-align: -0.3em; margin-right: 0.1em; }
+      &::after  { content: '\201D'; color: $opinion-amber; font-size: 1.5em; line-height: 0; vertical-align: -0.3em; margin-left: 0.1em; }
+    }
+
+    cite {
+      display: block;
+      font-family: $font-sans;
+      font-size: $text-sm;
+      font-style: normal;
+      color: $color-gray-600;
+      margin-top: $space-3;
+    }
+  }
+
+  // Links
+  a {
+    color: $opinion-amber;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    &:hover { color: $opinion-amber; opacity: 0.75; }
+  }
+
+  // Responsive: una columna en móvil
+  @media (max-width: $bp-md) {
+    column-count: 1;
+    text-align: left;
+    hyphens: none;
+  }
+}
+
+// Pull quote explícito (clase CSS para usar en HTML dentro del Markdown)
+.pull-quote {
+  column-span: all;
+  margin: $space-8 0;
+  padding: $space-5 $space-6;
+  border-top: 3px solid $opinion-amber;
+  border-bottom: 1px solid lighten($opinion-amber, 30%);
+  background: darken($opinion-cream, 3%);
+  text-align: center;
+
+  p {
+    font-family: $font-serif-display;
+    font-style: italic;
+    font-size: $text-xl;
+    color: $opinion-ink;
+    line-height: 1.45;
+    margin: 0;
+  }
+}
+
+// ----------------------------------------------------------------
+// Compartir y tags (debajo de las columnas)
+// ----------------------------------------------------------------
+
+.opinion-share {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  margin-top: $space-10;
+  padding-top: $space-6;
+  border-top: 1px solid darken($opinion-cream, 12%);
+
+  &__label {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $color-gray-800;
+    white-space: nowrap;
+  }
+}
+
+.opinion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2;
+  margin-top: $space-6;
+
+  &__label {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    font-weight: 600;
+  }
+}
+
+// ----------------------------------------------------------------
+// Tarjeta extendida del columnista (al final)
+// ----------------------------------------------------------------
+
+.opinion-author-card {
+  display: flex;
+  gap: $space-6;
+  margin-top: $space-10;
+  padding: $space-6;
+  background: $color-white;
+  border: 1px solid darken($opinion-cream, 12%);
+  border-top: 3px solid $opinion-amber;
+  border-radius: 0 0 $radius-md $radius-md;
+
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid $opinion-amber;
+  }
+
+  &__eyebrow {
+    font-family: $font-sans;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $opinion-amber;
+    font-weight: 700;
+    margin: 0 0 $space-1;
+  }
+
+  &__name {
+    font-family: $font-serif-display;
+    font-size: $text-xl;
+    font-weight: 700;
+    margin: 0 0 $space-1;
+
+    a {
+      color: $opinion-ink;
+      text-decoration: none;
+      &:hover { color: $opinion-amber; }
+    }
+  }
+
+  &__title {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    margin: 0 0 $space-3;
+  }
+
+  &__bio {
+    font-family: $font-serif-body;
+    font-size: $text-sm;
+    color: $color-gray-800;
+    line-height: 1.6;
+    margin: 0 0 $space-3;
+  }
+
+  &__links {
+    display: flex;
+    gap: $space-4;
+  }
+
+  @media (max-width: $bp-sm) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &__links { justify-content: center; }
+  }
+}
+
+// ----------------------------------------------------------------
+// "Más columnas" al final
+// ----------------------------------------------------------------
+
+.opinion-more {
+  background: $color-bg-alt;
+  padding: $space-12 0;
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: $space-8;
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: $text-2xl;
+    font-weight: 700;
+    color: $color-near-black;
+    border-left: 4px solid $opinion-amber;
+    padding-left: $space-4;
+    margin: 0;
+  }
+
+  &__link {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $opinion-amber;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-6;
+
+    @media (max-width: $bp-md) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+}
+
+// ----------------------------------------------------------------
+// Bloque de Opinión en la portada (homepage highlight)
+// ----------------------------------------------------------------
+
+.homepage-opinion {
+  background: $opinion-cream;
+  border-top: 3px solid $opinion-amber;
+  padding: $space-10 0;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: $space-10;
+    align-items: start;
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+      gap: $space-8;
+    }
+  }
+
+  // --- Columna principal: artículo destacado ---
+
+  &__featured {
+    padding-right: $space-8;
+    border-right: 1px solid darken($opinion-cream, 12%);
+
+    @media (max-width: $bp-md) {
+      padding-right: 0;
+      border-right: none;
+      border-bottom: 1px solid darken($opinion-cream, 12%);
+      padding-bottom: $space-8;
+    }
+  }
+
+  &__eyebrow {
+    font-family: $font-sans;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: $opinion-amber;
+    margin: 0 0 $space-3;
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-style: italic;
+    font-size: clamp($text-xl, 2.5vw, $text-2xl);
+    font-weight: 700;
+    line-height: 1.2;
+    color: $opinion-ink;
+    margin: 0 0 $space-4;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      &:hover { color: $opinion-amber; }
+    }
+  }
+
+  &__excerpt {
+    font-family: $font-serif-body;
+    font-size: $text-base;
+    color: lighten($opinion-ink, 20%);
+    line-height: 1.7;
+    margin: 0 0 $space-5;
+  }
+
+  &__byline {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-5;
+    flex-wrap: wrap;
+  }
+
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $opinion-amber;
+    flex-shrink: 0;
+  }
+
+  &__author-name {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $opinion-ink;
+  }
+
+  &__sep {
+    color: lighten($opinion-ink, 50%);
+    font-size: $text-sm;
+  }
+
+  time {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $opinion-amber;
+    text-decoration: none;
+    border-bottom: 1px solid $opinion-amber;
+    padding-bottom: 2px;
+    transition: opacity 0.15s;
+
+    &:hover { opacity: 0.75; }
+  }
+
+  // --- Lista lateral: más columnas ---
+
+  &__list {
+    padding-top: $space-1;
+  }
+
+  &__list-label {
+    font-family: $font-sans;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $opinion-amber;
+    margin: 0 0 $space-5;
+    padding-bottom: $space-3;
+    border-bottom: 1px solid darken($opinion-cream, 12%);
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-3;
+    padding: $space-4 0;
+    border-bottom: 1px solid darken($opinion-cream, 8%);
+
+    &:last-of-type { border-bottom: none; }
+  }
+
+  &__item-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid darken($opinion-cream, 15%);
+  }
+
+  &__item-body {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  &__item-title {
+    font-family: $font-serif-display;
+    font-size: $text-sm;
+    font-weight: 700;
+    color: $opinion-ink;
+    text-decoration: none;
+    line-height: 1.35;
+
+    &:hover { color: $opinion-amber; }
+  }
+
+  &__item-author {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-600;
+  }
+
+  &__all {
+    display: inline-block;
+    margin-top: $space-5;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $opinion-amber;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+}
