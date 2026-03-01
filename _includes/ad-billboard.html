@@ -1,0 +1,59 @@
+{% comment %}
+  Banner Billboard Premium — entre el nav y la portada del periódico.
+  Diseñado para atraer anunciantes: colores vivos, animaciones y datos de alcance.
+  Para ocultar temporalmente: comenta la línea {% include ad-billboard.html %} en home.html
+{% endcomment %}
+
+<div class="billboard-ad" role="complementary" aria-label="Espacio publicitario disponible">
+
+  <!-- Fondo animado (orbes + grid + shimmer) -->
+  <div class="billboard-ad__orb billboard-ad__orb--1" aria-hidden="true"></div>
+  <div class="billboard-ad__orb billboard-ad__orb--2" aria-hidden="true"></div>
+  <div class="billboard-ad__orb billboard-ad__orb--3" aria-hidden="true"></div>
+  <div class="billboard-ad__grid"  aria-hidden="true"></div>
+  <div class="billboard-ad__shine" aria-hidden="true"></div>
+
+  <div class="billboard-ad__inner">
+
+    <!-- Izquierda: estado + titular -->
+    <div class="billboard-ad__left">
+      <span class="billboard-ad__badge" aria-label="Espacio disponible">
+        <span class="billboard-ad__dot" aria-hidden="true"></span>
+        DISPONIBLE
+      </span>
+      <p class="billboard-ad__headline">¿Tu marca aquí?</p>
+      <p class="billboard-ad__sub-desktop">El espacio publicitario más visible del periódico.</p>
+    </div>
+
+    <!-- Centro: métricas de valor para la marca -->
+    <div class="billboard-ad__center" aria-hidden="true">
+      <div class="billboard-ad__stat">
+        <span class="billboard-ad__stat-num">TOP</span>
+        <span class="billboard-ad__stat-label">Ubicación</span>
+      </div>
+      <div class="billboard-ad__divider"></div>
+      <div class="billboard-ad__stat">
+        <span class="billboard-ad__stat-num">+10K</span>
+        <span class="billboard-ad__stat-label">Lectores únicos</span>
+      </div>
+      <div class="billboard-ad__divider"></div>
+      <div class="billboard-ad__stat">
+        <span class="billboard-ad__stat-num">100%</span>
+        <span class="billboard-ad__stat-label">Configurable</span>
+      </div>
+    </div>
+
+    <!-- Derecha: CTA -->
+    <div class="billboard-ad__right">
+      <a href="/publicidad.html" class="billboard-ad__cta">
+        Ver tarifas
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <p class="billboard-ad__note">Paquetes para todo presupuesto</p>
+    </div>
+
+  </div>
+</div>

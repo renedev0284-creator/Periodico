@@ -7,6 +7,9 @@ layout: default
 {% assign hero_post = featured_posts | first %}
 {% if hero_post == nil %}{% assign hero_post = site.posts | first %}{% endif %}
 
+<!-- ===== BILLBOARD — Espacio publicitario premium (entre nav y portada) ===== -->
+{% include ad-billboard.html %}
+
 <!-- ===== PORTADA: HERO PRINCIPAL ===== -->
 <section class="homepage-hero" aria-label="Artículo principal">
   <div class="container">

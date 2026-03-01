@@ -719,3 +719,320 @@
     animation: none;
   }
 }
+
+// ============================================================
+// BILLBOARD — Banner premium entre nav y portada
+// Colores vivos deliberadamente distintos al periódico
+// ============================================================
+
+@keyframes bb-gradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes bb-orb-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(30px, -15px) scale(1.12); }
+}
+
+@keyframes bb-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-25px, 20px) scale(0.9); }
+}
+
+@keyframes bb-orb-3 {
+  0%, 100% { transform: translate(0, 0); }
+  33%       { transform: translate(18px, -10px); }
+  66%       { transform: translate(-12px, 15px); }
+}
+
+@keyframes bb-shine {
+  0%   { transform: translateX(-80%) skewX(-15deg); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateX(180%) skewX(-15deg); opacity: 0; }
+}
+
+@keyframes bb-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 180, 0.6); }
+  50%       { opacity: 0.6; box-shadow: 0 0 0 5px rgba(0, 255, 180, 0); }
+}
+
+@keyframes bb-cta-pulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(255, 65, 120, 0.55); }
+  50%       { box-shadow: 0 4px 32px rgba(255, 65, 120, 0.95), 0 0 50px rgba(255, 160, 0, 0.3); }
+}
+
+@keyframes bb-badge-pop {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.04); }
+}
+
+.billboard-ad {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: linear-gradient(
+    125deg,
+    #050720 0%,
+    #1a0545 20%,
+    #0d1a6b 40%,
+    #1f0660 60%,
+    #0a1560 80%,
+    #050720 100%
+  );
+  background-size: 300% 300%;
+  animation: bb-gradient 8s ease infinite;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(55px);
+  }
+
+  &__orb--1 {
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, #ff2d78 0%, transparent 65%);
+    opacity: 0.45;
+    top: -120px;
+    left: -60px;
+    animation: bb-orb-1 9s ease-in-out infinite;
+  }
+
+  &__orb--2 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, #0af0ff 0%, transparent 65%);
+    opacity: 0.35;
+    bottom: -100px;
+    right: 5%;
+    animation: bb-orb-2 11s ease-in-out infinite;
+  }
+
+  &__orb--3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #ff9500 0%, transparent 65%);
+    opacity: 0.28;
+    top: -30px;
+    left: 42%;
+    animation: bb-orb-3 13s ease-in-out infinite;
+  }
+
+  &__shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 35%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.055) 50%,
+        transparent 100%
+      );
+      animation: bb-shine 5s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: 1rem $container-padding;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: $bp-lg) { gap: 1.25rem; }
+    @media (max-width: $bp-sm) {
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+  }
+
+  &__left {
+    flex-shrink: 0;
+
+    @media (max-width: $bp-sm) { flex: 1 0 100%; }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: $font-sans;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #00ffb4;
+    border: 1.5px solid rgba(0, 255, 180, 0.38);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    animation: bb-badge-pop 2.8s ease-in-out infinite;
+    white-space: nowrap;
+  }
+
+  &__dot {
+    width: 7px;
+    height: 7px;
+    background: #00ffb4;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: bb-dot 1.8s ease-in-out infinite;
+  }
+
+  &__headline {
+    font-family: $font-serif-display;
+    font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0.35rem 0 0;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 20px rgba(255, 45, 120, 0.4);
+  }
+
+  &__sub-desktop {
+    display: block;
+    font-family: $font-sans;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0.25rem 0 0;
+
+    @media (max-width: $bp-md) { display: none; }
+  }
+
+  &__center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+    @media (max-width: $bp-lg) { gap: 1rem; }
+    @media (max-width: $bp-sm) { display: none; }
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+  }
+
+  &__stat-num {
+    font-family: $font-sans;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    background: linear-gradient(135deg, #ffffff 0%, #b8c8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__stat-label {
+    font-family: $font-sans;
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.42);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+  }
+
+  &__right {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+
+    @media (max-width: $bp-sm) {
+      flex: 1 0 100%;
+      align-items: flex-start;
+    }
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65em 1.5em;
+    background: linear-gradient(135deg, #ff2d78 0%, #ff6f00 100%);
+    color: #ffffff;
+    font-family: $font-sans;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 100px;
+    white-space: nowrap;
+    animation: bb-cta-pulse 2.5s ease-in-out infinite;
+    transition: transform $transition-fast, filter $transition-fast;
+
+    svg { transition: transform $transition-fast; }
+
+    &:hover {
+      transform: scale(1.05);
+      filter: brightness(1.15);
+      svg { transform: translateX(4px); }
+    }
+  }
+
+  &__note {
+    font-family: $font-sans;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.32);
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+
+    @media (max-width: $bp-sm) { text-align: left; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .billboard-ad,
+  .billboard-ad__orb--1,
+  .billboard-ad__orb--2,
+  .billboard-ad__orb--3,
+  .billboard-ad__badge,
+  .billboard-ad__dot,
+  .billboard-ad__cta {
+    animation: none;
+  }
+  .billboard-ad__shine::after { animation: none; }
+}
