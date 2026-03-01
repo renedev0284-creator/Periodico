@@ -37,10 +37,17 @@ sections:
     slug: "opinion"
     color: "#78350f"
 
-# Menú secundario (header superior)
-secondary:
+  # Separador visual + sección especial (special: true la coloca al final con icono)
   - name: "Videos"
     url: "/videos/"
+    slug: "videos"
+    color: "#C8A951"
+    icon: "play"
+    special: true
+
+# Menú secundario (topbar superior)
+# cta: true → se renderiza como botón dorado comercial, no como enlace normal
+secondary:
   - name: "Boletín"
     url: "/newsletter/"
   - name: "Podcasts"
@@ -49,3 +56,6 @@ secondary:
     url: "/archivo/"
   - name: "Nosotros"
     url: "/nosotros/"
+  - name: "Publicidad"
+    url: "/publicidad/"
+    cta: true

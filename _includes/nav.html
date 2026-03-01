@@ -3,16 +3,18 @@
     <div class="site-nav__inner">
 
       <!-- Botón hamburguesa (móvil) -->
-      <button class="site-nav__burger" aria-label="Abrir menú de secciones" aria-expanded="false" aria-controls="nav-sections" id="nav-burger">
+      <button class="site-nav__burger" aria-label="Abrir menú de secciones" aria-expanded="false" aria-controls="mobile-nav-overlay" id="nav-burger">
         <span class="burger-line"></span>
         <span class="burger-line"></span>
         <span class="burger-line"></span>
       </button>
 
-      <!-- Lista de secciones -->
+      <!-- Lista de secciones editoriales -->
       <ul class="site-nav__list" id="nav-sections" role="list">
-        {% for section in site.data.navigation.sections %}
-        <li class="site-nav__item">
+
+        {% assign editorial_sections = site.data.navigation.sections | where_exp: "s", "s.special != true" %}
+        {% for section in editorial_sections %}
+        <li class="site-nav__item" style="--sc: {{ section.color }}">
           <a href="{{ section.url | relative_url }}"
              class="site-nav__link{% if page.url contains section.slug %} site-nav__link--active{% endif %}"
              data-section="{{ section.slug }}">
@@ -20,36 +22,95 @@
           </a>
         </li>
         {% endfor %}
+
+        <!-- Separador + secciones especiales (Videos, etc.) -->
+        {% assign special_sections = site.data.navigation.sections | where: "special", true %}
+        {% if special_sections.size > 0 %}
+        <li class="site-nav__sep" role="separator" aria-hidden="true"></li>
+        {% for section in special_sections %}
+        <li class="site-nav__item">
+          <a href="{{ section.url | relative_url }}"
+             class="site-nav__link site-nav__link--feature{% if page.url contains section.slug %} site-nav__link--active{% endif %}"
+             data-section="{{ section.slug }}">
+            {% if section.icon == "play" %}
+            <svg class="site-nav__icon" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            {% endif %}
+            {{ section.name }}
+          </a>
+        </li>
+        {% endfor %}
+        {% endif %}
+
       </ul>
 
-      <!-- Indicador de sección activa (barra de color) -->
+      <!-- Indicador de sección activa (barra de color animada) -->
       <div class="site-nav__indicator" id="nav-indicator" aria-hidden="true"></div>
     </div>
   </div>
 </nav>
 
-<!-- Menú móvil overlay -->
-<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+<!-- ===== MENÚ MÓVIL OVERLAY ===== -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true" role="dialog" aria-label="Menú de navegación">
   <div class="mobile-nav">
+
+    <!-- Cabecera del menú -->
     <div class="mobile-nav__header">
-      <span class="mobile-nav__title">Secciones</span>
-      <button class="mobile-nav__close" aria-label="Cerrar menú" id="mobile-nav-close">✕</button>
+      <a href="{{ '/' | relative_url }}" class="mobile-nav__brand">{{ site.title }}</a>
+      <button class="mobile-nav__close" aria-label="Cerrar menú" id="mobile-nav-close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
     </div>
+
+    <!-- Secciones editoriales -->
+    <p class="mobile-nav__group-label">Secciones</p>
     <ul class="mobile-nav__list">
-      {% for section in site.data.navigation.sections %}
+      {% for section in editorial_sections %}
       <li class="mobile-nav__item">
         <a href="{{ section.url | relative_url }}"
            class="mobile-nav__link"
            style="border-left-color: {{ section.color }}">
+          <span class="mobile-nav__dot" style="background: {{ section.color }}"></span>
+          {{ section.name }}
+        </a>
+      </li>
+      {% endfor %}
+
+      <!-- Videos especial -->
+      {% for section in special_sections %}
+      <li class="mobile-nav__item">
+        <a href="{{ section.url | relative_url }}" class="mobile-nav__link mobile-nav__link--feature">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           {{ section.name }}
         </a>
       </li>
       {% endfor %}
     </ul>
+
+    <!-- Links secundarios como chips -->
+    {% assign regular_secondary = site.data.navigation.secondary | where_exp: "item", "item.cta != true" %}
+    {% if regular_secondary.size > 0 %}
     <div class="mobile-nav__secondary">
-      {% for item in site.data.navigation.secondary %}
-      <a href="{{ item.url | relative_url }}" class="mobile-nav__sec-link">{{ item.name }}</a>
+      <p class="mobile-nav__group-label">Más</p>
+      <div class="mobile-nav__chips">
+        {% for item in regular_secondary %}
+        <a href="{{ item.url | relative_url }}" class="mobile-nav__chip">{{ item.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- CTA comercial -->
+    {% assign cta_items = site.data.navigation.secondary | where: "cta", true %}
+    {% if cta_items.size > 0 %}
+    <div class="mobile-nav__cta-wrap">
+      {% for cta in cta_items %}
+      <a href="{{ cta.url | relative_url }}" class="mobile-nav__cta">
+        {{ cta.name }}
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
       {% endfor %}
     </div>
+    {% endif %}
+
   </div>
 </div>
