@@ -212,6 +212,353 @@
 }
 
 // ----------------------------------------------------------------
+// Tarifas — sección de precios
+// ----------------------------------------------------------------
+
+.pub-pricing {
+  padding: $space-12 0 $space-10;
+  background: $color-white;
+
+  &__header {
+    text-align: center;
+    margin-bottom: $space-12;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-navy;
+    border-bottom: 2px solid $color-navy;
+    padding-bottom: $space-1;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-serif-display;
+    font-size: $text-3xl;
+    font-weight: 700;
+    color: $color-near-black;
+    margin: 0 0 $space-4;
+    line-height: 1.2;
+  }
+
+  &__sub {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  &__segment {
+    margin-bottom: $space-12;
+  }
+
+  &__segment-header {
+    margin-bottom: $space-8;
+  }
+
+  &__segment-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-sans;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: $space-1 $space-4;
+    border-radius: 100px;
+    margin-bottom: $space-3;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    &--paid {
+      color: $color-navy;
+      background: rgba($color-navy, 0.07);
+      border: 1px solid rgba($color-navy, 0.18);
+      &::before { background: $color-navy; }
+    }
+
+    &--organic {
+      color: darken($color-gold, 20%);
+      background: rgba($color-gold, 0.1);
+      border: 1px solid rgba($color-gold, 0.3);
+      &::before { background: $color-gold; }
+    }
+  }
+
+  &__segment-title {
+    font-family: $font-serif-display;
+    font-size: $text-xl;
+    font-weight: 700;
+    color: $color-near-black;
+    margin: 0 0 $space-3;
+  }
+
+  &__segment-desc {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    max-width: 620px;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-5;
+    align-items: start;
+
+    @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+
+  &__separator {
+    height: 1px;
+    background: $color-border;
+    margin: 0 0 $space-12;
+    position: relative;
+
+    &::after {
+      content: '✦';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: $color-white;
+      padding: 0 $space-4;
+      color: $color-gray-200;
+      font-size: 1rem;
+    }
+  }
+
+  &__note {
+    font-family: $font-sans;
+    font-size: 0.7rem;
+    color: $color-gray-400;
+    text-align: center;
+    margin: $space-6 0 0;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// --- Tarjeta de precio ---
+
+.pub-price-card {
+  background: $color-white;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-6;
+  position: relative;
+  transition: box-shadow $transition-base, transform $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-3px);
+  }
+
+  // Destacado — pautada
+  &--featured {
+    border-color: $color-navy;
+    border-width: 2px;
+    box-shadow: $shadow-md;
+    transform: translateY(-6px);
+    &:hover { transform: translateY(-9px); }
+  }
+
+  // Orgánico base
+  &--organic {
+    border-top: 3px solid rgba($color-gold, 0.5);
+  }
+
+  // Orgánico destacado
+  &--organic-featured {
+    border: 2px solid $color-gold;
+    box-shadow: 0 4px 24px rgba($color-gold, 0.15);
+    transform: translateY(-6px);
+    &:hover { transform: translateY(-9px); }
+  }
+
+  // Badge "Más popular"
+  &__badge {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $color-navy;
+    color: white;
+    font-family: $font-sans;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+
+    &--organic {
+      background: $color-gold;
+      color: $color-navy-deeper;
+    }
+  }
+
+  &__tier {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-gray-600;
+    margin-bottom: $space-4;
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.1em;
+    margin-bottom: $space-4;
+    line-height: 1;
+  }
+
+  &__currency {
+    font-family: $font-sans;
+    font-size: $text-lg;
+    font-weight: 700;
+    color: $color-near-black;
+    align-self: flex-start;
+    margin-top: 0.3em;
+  }
+
+  &__amount {
+    font-family: $font-sans;
+    font-size: 3rem;
+    font-weight: 800;
+    color: $color-near-black;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  &__period {
+    font-family: $font-sans;
+    font-size: $text-xs;
+    color: $color-gray-600;
+    align-self: flex-end;
+    margin-bottom: 0.35em;
+    margin-left: 0.2em;
+    white-space: nowrap;
+  }
+
+  &__desc {
+    font-family: $font-sans;
+    font-size: $text-sm;
+    color: $color-gray-600;
+    line-height: 1.55;
+    margin: 0 0 $space-5;
+    padding-bottom: $space-5;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $space-6;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+
+    li {
+      font-family: $font-sans;
+      font-size: $text-sm;
+      color: $color-near-black;
+      padding-left: $space-5;
+      position: relative;
+      line-height: 1.4;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        font-weight: 800;
+        font-size: 0.75rem;
+        color: $color-navy;
+      }
+    }
+  }
+
+  &--organic &__features li::before,
+  &--organic-featured &__features li::before {
+    color: darken($color-gold, 15%);
+  }
+
+  // Botones
+  &__cta {
+    display: block;
+    text-align: center;
+    padding: 0.7em $space-4;
+    font-family: $font-sans;
+    font-size: $text-sm;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: $radius-sm;
+    transition: all $transition-fast;
+
+    // Sólido navy (default para featured)
+    background: $color-navy;
+    color: white;
+
+    &:hover {
+      background: $color-navy-deeper;
+      transform: translateY(-1px);
+    }
+
+    &--outline {
+      background: transparent;
+      color: $color-navy;
+      border: 1.5px solid $color-navy;
+
+      &:hover {
+        background: rgba($color-navy, 0.05);
+        transform: translateY(-1px);
+      }
+    }
+
+    // Variante orgánico sólido
+    &--organic {
+      background: $color-gold;
+      color: $color-navy-deeper;
+      border: none;
+
+      &:hover { background: $color-gold-dark; }
+
+      &.pub-price-card__cta--outline {
+        background: transparent;
+        color: darken($color-gold, 20%);
+        border: 1.5px solid $color-gold;
+
+        &:hover { background: rgba($color-gold, 0.08); }
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------
 // Garantías (franja de confianza)
 // ----------------------------------------------------------------
 
