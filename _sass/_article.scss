@@ -202,6 +202,11 @@
   }
 }
 
+.article-main {
+  min-width: 0;
+  align-self: start;
+}
+
 .article-body {
   min-width: 0; // Evitar overflow en grids
 }

@@ -153,9 +153,56 @@ layout: default
   <div class="container">
     <div class="article-layout">
 
-      <!-- Cuerpo principal -->
-      <div class="article-body" itemprop="articleBody">
-        {{ content }}
+      <div class="article-main">
+        <!-- Cuerpo principal -->
+        <div class="article-body" itemprop="articleBody">
+          {{ content }}
+        </div>
+
+        <!-- ===== PIE DEL ARTÍCULO ===== -->
+        <footer class="article-footer">
+          <div class="container container--narrow">
+
+            <!-- Tags -->
+            {% if page.tags.size > 0 and site.data.settings.article.show_tags %}
+            <div class="article-tags">
+              <span class="article-tags__label">Temas:</span>
+              {% for tag in page.tags %}
+              <a href="/etiqueta/{{ tag | slugify }}/" class="article-tag">{{ tag }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Compartir (pie) -->
+            {% if site.data.settings.article.show_share_buttons %}
+            <div class="article-share-footer">
+              <p class="article-share-footer__label">¿Te resultó útil? Compártelo:</p>
+              {% include social-share.html %}
+            </div>
+            {% endif %}
+
+            <!-- Bio del autor -->
+            {% if site.data.settings.article.show_author_bio and author_data %}
+            <div class="author-bio">
+              {% if author_data.avatar %}
+              <img src="{{ author_data.avatar | relative_url }}" alt="{{ author_data.display_name }}" class="author-bio__avatar" loading="lazy">
+              {% endif %}
+              <div class="author-bio__content">
+                <h3 class="author-bio__name">
+                  <a href="{{ author_data.url | relative_url }}">{{ author_data.display_name }}</a>
+                </h3>
+                {% if author_data.title %}<p class="author-bio__title">{{ author_data.title }}</p>{% endif %}
+                {% if author_data.bio %}<p class="author-bio__text">{{ author_data.bio }}</p>{% endif %}
+                <div class="author-bio__links">
+                  {% if author_data.twitter %}<a href="https://twitter.com/{{ author_data.twitter }}" class="author-bio__link" rel="noopener">Twitter</a>{% endif %}
+                  {% if author_data.email %}<a href="mailto:{{ author_data.email }}" class="author-bio__link">Email</a>{% endif %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+        </footer>
       </div>
 
       <!-- Sidebar del artículo -->
@@ -165,51 +212,6 @@ layout: default
 
     </div>
   </div>
-
-  <!-- ===== PIE DEL ARTÍCULO ===== -->
-  <footer class="article-footer">
-    <div class="container container--narrow">
-
-      <!-- Tags -->
-      {% if page.tags.size > 0 and site.data.settings.article.show_tags %}
-      <div class="article-tags">
-        <span class="article-tags__label">Temas:</span>
-        {% for tag in page.tags %}
-        <a href="/etiqueta/{{ tag | slugify }}/" class="article-tag">{{ tag }}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      <!-- Compartir (pie) -->
-      {% if site.data.settings.article.show_share_buttons %}
-      <div class="article-share-footer">
-        <p class="article-share-footer__label">¿Te resultó útil? Compártelo:</p>
-        {% include social-share.html %}
-      </div>
-      {% endif %}
-
-      <!-- Bio del autor -->
-      {% if site.data.settings.article.show_author_bio and author_data %}
-      <div class="author-bio">
-        {% if author_data.avatar %}
-        <img src="{{ author_data.avatar | relative_url }}" alt="{{ author_data.display_name }}" class="author-bio__avatar" loading="lazy">
-        {% endif %}
-        <div class="author-bio__content">
-          <h3 class="author-bio__name">
-            <a href="{{ author_data.url | relative_url }}">{{ author_data.display_name }}</a>
-          </h3>
-          {% if author_data.title %}<p class="author-bio__title">{{ author_data.title }}</p>{% endif %}
-          {% if author_data.bio %}<p class="author-bio__text">{{ author_data.bio }}</p>{% endif %}
-          <div class="author-bio__links">
-            {% if author_data.twitter %}<a href="https://twitter.com/{{ author_data.twitter }}" class="author-bio__link" rel="noopener">Twitter</a>{% endif %}
-            {% if author_data.email %}<a href="mailto:{{ author_data.email }}" class="author-bio__link">Email</a>{% endif %}
-          </div>
-        </div>
-      </div>
-      {% endif %}
-
-    </div>
-  </footer>
 
 </article>
 
@@ -226,4 +228,3 @@ layout: default
 {% if page.has_tweets or page.video_url %}
 <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endif %}
-
